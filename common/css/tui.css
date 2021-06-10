@@ -1,0 +1,102 @@
+.tui{
+	
+}
+/* 自定义flex布局 基础样式 */
+.tui .row{
+	flex-direction: row;
+}
+.tui .column{
+	flex-direction: column;
+}
+.tui .between{
+	justify-content: space-between;
+}
+.tui .center{
+	text-align: center;
+	justify-content: center;
+	align-self: center;
+	align-items:center;
+}
+
+.tui .flex {
+	width: 100%;
+	display: flex;
+	/* flex-direction: row; */
+	box-sizing: border-box;
+	/* background: #fff; */
+}
+.tui .input{
+	flex: 1;
+}
+.tui .padding{
+	padding: 15rpx;
+}
+.tui .tip{
+	position:absolute;
+	background: #FF3030;
+	color: #fff;
+}
+.tui  .border{
+	border: 1rpx solid #ededed;
+}
+.tui .button{
+	padding:6rpx 10rpx;
+	line-height: 1em;
+	/* padding-bottom: 1rpx; */
+	border-radius:5rpx ;
+}
+/* 自定义 html标签基础样式 */
+.tui label{
+	padding-left:20rpx ;
+	padding-right: 20rpx;
+}
+.tui nav{
+	position: fixed;
+}
+/* 字体样式 */
+.tui .weight{
+	font-weight: bold;
+}
+/* 自定义flex布局 元素功能组合样式 */
+
+.tui .list{
+	padding: 15rpx;
+	background: #fff;
+}
+
+.tui .item {
+	flex: 1;
+/* 	display: flex;
+	flex-direction: row; */
+}
+
+.tui-from{
+	
+}
+
+
+/* .uni-row {
+	flex-direction: row;
+}
+.uni-column {
+	flex-direction: column;
+}
+.uni-link{
+	color:#576B95;
+	font-size:26upx;
+}
+.uni-center{
+	text-align:center;
+}
+.uni-inline-item{
+	display: flex;
+	flex-direction: row;
+	align-items:center;
+}
+.uni-inline-item text{
+	margin-right: 20upx;
+}
+.uni-inline-item text:last-child{
+	margin-right: 0upx;
+	margin-left: 20upx;
+} */
