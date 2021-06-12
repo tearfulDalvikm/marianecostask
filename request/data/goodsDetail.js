@@ -33,13 +33,29 @@ var goodsDetail={
 						version:[//规格-型号-版本
 							{
 								name:'大盘',
+								image:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544204280787&di=64dadf9649f7b6f0f135159cabbe2ae7&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F32fa828ba61ea8d3dd7dc6399c0a304e251f58ab.jpg',
+								stock:'5',
 								price:'128'
 							},{
 								name:'小盘',
-								price:'98'
+								price:'98',
+								image:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544204280784&di=ae01f30678d452e5a52cf2ca7a3fa53b&imgtype=0&src=http%3A%2F%2Fimg3.redocn.com%2Ftupian%2F20141122%2Fxiaochaoyangroumeishi_3486181.jpg',
+								stock:'5',
 							},{
 								name:'最大最大的大盘',
-								price:'198'
+								price:'198',
+								image:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544204280787&di=cfd84df82c675e88976d5cb83049e30d&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Fe824b899a9014c08cbe37399017b02087bf4f436.jpg',
+								stock:'5',
+							},{
+								name:'麻辣口味',
+								price:'168',
+								image:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544204280696&di=08cc7bcba6c722cf8f63846a472f93c7&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Ffd039245d688d43f1c278dc8761ed21b0ef43b79.jpg',
+								stock:'5',
+							},{
+								name:'鱿鱼酱汁',
+								price:'158',
+								image:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544204280780&di=ee7c103c75035a690eaf59e3c2a7d1b4&imgtype=0&src=http%3A%2F%2Fpic15.nipic.com%2F20110805%2F2235429_002350120145_2.jpg',
+								stock:'5',
 							}
 						]
 						 

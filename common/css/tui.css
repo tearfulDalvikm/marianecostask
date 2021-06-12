@@ -1,5 +1,14 @@
 .tui{
-	
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: 100vw;
+}
+.tui .flex {
+	width: 100%;
+	display: flex;
+	box-sizing: border-box;
 }
 /* 自定义flex布局 基础样式 */
 .tui .row{
@@ -11,19 +20,23 @@
 .tui .between{
 	justify-content: space-between;
 }
+.tui .around{
+	justify-content: space-around;
+}
 .tui .center{
 	text-align: center;
 	justify-content: center;
 	align-self: center;
 	align-items:center;
 }
-
-.tui .flex {
-	width: 100%;
-	display: flex;
-	/* flex-direction: row; */
-	box-sizing: border-box;
-	/* background: #fff; */
+.tui .relative{
+	position:relative
+}
+.tui .absolute{
+	position:absolute
+}
+.tui .fixed{
+	position:fixed
 }
 .tui .input{
 	flex: 1;
@@ -33,8 +46,18 @@
 }
 .tui .tip{
 	position:absolute;
+	padding: 1rpx 6rpx;
 	background: #FF3030;
 	color: #fff;
+}
+.tui .tag{
+	border-radius: 5rpx;
+	margin: 0 5rpx;
+	padding: 0 6rpx;
+	/* padding-bottom: 1rpx; */
+	background: #ededed;
+	font-size:0.7em;
+	color: #555;
 }
 .tui  .border{
 	border: 1rpx solid #ededed;
@@ -45,6 +68,15 @@
 	/* padding-bottom: 1rpx; */
 	border-radius:5rpx ;
 }
+.tui .bottom-nav{
+	border-top: 1rpx solid #ededed;
+	align-items: center;
+	height: 90rpx;
+	bottom:0;
+	background: #FFFFFF;
+	width: 100%;
+	z-index: 999;
+}
 /* 自定义 html标签基础样式 */
 .tui label{
 	padding-left:20rpx ;
@@ -52,10 +84,83 @@
 }
 .tui nav{
 	position: fixed;
+	background: #F9F9F9;
+}
+.tui icon{
+	color: #999;
+	padding: 0;
+	margin: 0;
+	font-size:1em ;
+}
+/* 字体色 */
+/* .tui [color] { 
+	color: #666;
+	} */
+.tui icon[color~=hong],.color-hong { 
+	color: #09BB07;
+	}
+.tui icon[color~=lv], .color-lv{ 
+	color: #09BB07;
+}
+.tui icon[color~=lan], .color-lan{ 
+	color: #09BB07;
+}
+.tui icon[color~=ju], .color-ju{ 
+	color: #FF8C00;
+}
+.tui icon[color~=bai], .color-bai{ 
+	color: #fff;
+}
+/* 背景色 */
+
+.tui [bg~=hong], .bg-hong{ 
+	background: rgb(255,50,50);
+	color: #fff;
+	}
+.tui [bg~=lv], .bg-lv{ 
+	background: #09BB07;
+}
+
+.tui [bg~=lan], .bg-lan { 
+	background: #09BB07;
+}
+.tui [bg~=ju], .bg-ju { 
+	background: #FF8C00;
+	color: #fff;
+}
+.tui [bg~=bai], .bg-bai{ 
+	background:#FFFFFF;
+	color: #333;
+}
+
+
+/* 触发样式 */
+.tui .hover:hover{
+	opacity: 0.9;
+	padding: 10upx;
+	background:#FF8C00;
+}
+.tui .mask{
+	box-sizing: border-box;
+	z-index:1;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	top: 0;
+	overflow: auto;
+	background:rgba(0,0,0,0.8);
 }
 /* 字体样式 */
 .tui .weight{
 	font-weight: bold;
+}
+.tui .nowrap{
+	overflow: hidden;/*超出部分隐藏*/
+	white-space: nowrap;/*不换行*/
+	text-overflow:ellipsis;/*超出部分文字以...显示*/
 }
 /* 自定义flex布局 元素功能组合样式 */
 

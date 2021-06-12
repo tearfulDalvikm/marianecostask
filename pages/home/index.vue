@@ -2,21 +2,14 @@
 <template>
 	<view>
 		<!-- <page-head :title="title"></page-head> -->
-		<view class="page-body">
+		<view class="page-body tui">
 			<header></header>
 			<scroll-view v-if="bodyShow" class="main-content" @scrolltoupper="scrolltoupper" style="flex: 1;" :lower-threshold="100"  @scroll="scroll"  @scrolltolower="scrolltolower" scroll-y>
 				
 				<view v-if="bigAdData.length>0" style="height: 300upx;width: 100vw;">
 					<big-ad  ref="bigAd"  :bigAd="bigAdData" :autoplay="bigAdAutoplay"></big-ad>
 				</view>
-					
-		<!-- 			    <view class="search">
-								<view class="search-text" @tap="tijiao(2)" @onceAgain="tijiao(2)">
-									<icon  class="weui-icon-search_in-box search-icon"   @tap="search('searchInput')" :color="[searchInput?'#1AAD19':'']" type="search" size="14"></icon>
-									<input type="text" v-model="searchInput"  placeholder="搜索" />
-									<i v-if="searchInput" class="iconfont icon-guanbijiantou" @tap="clean('searchInput')"></i>
-								</view>
-						</view> -->
+
 				<view class="uni-flex-item" >
 					<index-shop-list   ref="productList" :productList="productListData"></index-shop-list>
 				</view>
@@ -265,14 +258,7 @@ footer{
 	right: 0;
 	position:fixed;
 	bottom: 0;
-
 	height: 110upx;
-	/* font-size:1em ; */
-	background:red;
-	bottom: 0;
-	/* overflow:hidden; */
-	/* background:#fff; */
-	/* box-shadow:0px 1px 15px #ccc; */
 }
 
 </style>

@@ -1,17 +1,20 @@
 <template>
-<view class="main">
+<view class="main tui">
     <view class="header">
         <image :src="thumb" class="thumb"></image>
         <text class="nickname">{{nickname}}</text>
         <text class="about">关于我们</text>
     </view>
-		<view v-if="addrShow" class="uni-card ">
-			<navigator v-if="address.name" class="orders-address uni-flex column" url="../user/address" >
-				<view class="uni-flex between">
-						<view class="orders-address-name">收货人: {{address.name}}</view>
-						<view class="orders-address-phone">电话: {{address.phone}}</view>
+		<view v-if="addrShow" class="uni-card  flex">
+			<navigator v-if="address.name" class="flex column" url="../user/address" >
+				<view class="flex between uni-list">
+						<view class="uni-list-cell-navigate uni-navigate-right">
+								<view class="item">收货人: {{address.name}}</view>
+								<view class="item">电话: {{address.phone}}</view>
+						</view>
+						<view class="uni-list-cell-navigate item">{{address.detail}}</view>
 				</view>
-				<view class="orders-address-detail uni-flex item">{{address.detail}}</view>
+				
 			</navigator>
 			<view v-else class="uni-list">
 				<navigator  url="../user/address">

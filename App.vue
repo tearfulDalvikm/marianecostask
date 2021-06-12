@@ -24,6 +24,5 @@
 		background-color:#F4F5F6;
 		height: 100%;
 		font-size:28upx;
-		line-height: 1.8em;
 	}
 </style>

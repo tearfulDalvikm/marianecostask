@@ -1,15 +1,15 @@
 <template>
-	<view  class="bottom-nav">
+	<view  class="tui flex center bottom-nav">
 		<view  class="uni-flex-item" v-for="(item,idx) in bottomNav" :key="idx" @tap="index=idx,(item.fn)(item)"  :class="index==idx?'uni-badge-primary uni-badge-inverted':''">
 
-			<view class="uni-flex-item uni-column">
-				<view class="nav-icon uni-flex-item">
+			<view class="item column">
+				<view class="nav-icon item">
 					<view class="nav-msg" >
 						<view class="uni-badge uni-badge-danger" v-if="item.msg">{{item.msg}}</view>
 					</view>
-					<i class="uni-flex-item iconfont" :class="item.ico"></i>
+					<i class="item iconfont" :class="item.ico"></i>
 				</view>
-				<view class="uni-flex-item nav-title">
+				<view class="item nav-title">
 						{{item.name}}
 				</view>
 			</view>
@@ -77,19 +77,16 @@
 </script>
 
 <style>
-.bottom-nav view{
-	line-height: 1em;
-}
-.bottom-nav{
+.bottom-nav {
 	border-top: 1upx solid hsl(180,0%,90%);
+	font-size:1.2em ;
+	bottom: 0;
 	height: 100%;
-	background:hsl(180,0%,95%);
-	display: flex;
-	align-items:center;
-	flex-direction: row;
-	text-align: center;
-	
-	/* line-height:1upx; */
+	box-sizing: border-box;
+	padding: 10rpx 0;
+}
+.bottom-nav view{
+	line-height: 1.3em;
 }
 
 .bottom-nav .nav-msg .uni-badge{
@@ -101,7 +98,6 @@
 }
 
 .bottom-nav .nav-title{
-	/* line-height: 0.6em; */
 	font-size:0.8em ;
 }
 .bottom-nav .nav-icon{

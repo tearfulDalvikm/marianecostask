@@ -1,45 +1,48 @@
 <template>
-	<view class="uni-page-body">
+	<view class="uni-page-body tui">
 		<view class="">
-			<view class="tui-flex column uni-card"  v-for="(item,index) in address" :key="index">
-				<view  class="tui-flex padding border">
-					<view class="tui-flex-item ">
+			<view class="flex column uni-card "  v-for="(item,index) in address" :key="index">
+				<view  class="flex padding ">
+					<view class="item ">
 						<label class="">姓名</label>
 					{{item.name}}</view>
-					<view class="tui-flex-item">
+					<view class="item">
 					<label class="">电话</label>
 					{{item.phone}}</view>
 					<icon v-if="item.selected" type="success" color="#32CD32" :data-index="index"  class="cart-pro-select" @tap="selectList(index)"/>
 					<icon v-else type="circle" class="cart-pro-select" :data-index="index" @tap="selectList(index)"/>
 				</view>
-				<view class="tui-flex padding border">
+				<view class="flex padding border">
 					<label class="">地址</label>
-					<view class="tui-flex-item">{{item.detail}}</view>
+					<view class="item">{{item.detail}}</view>
 						
 					<icon type="clear" @tap="delet(index)" size="15"></icon> 
 				</view>
 				
 			</view>
 		</view>
-		<view v-if="hasAddress" class="tui-flex column">
+		<view v-if="hasAddress" class="flex column">
 			<view class=" center padding">输入新地址</view>
-			<view class="tui-flex column uni-card">
-				<view class="tui-flex padding border">
-					<view class="tui-flex ">
-					<label class="">收货人</label>
-					<input class="tui-input border" type="text"  v-model="name" />
+			<view class="flex column uni-card">
+				<view class="flex padding ">
+					<view class="flex ">
+					<label class="">姓名</label>
+					<input class="input border" type="text"  v-model="name" />
 					</view>
-					<view class="tui-flex">
+					<view class="flex">
 						<label class="">电话</label>
-						<input class="tui-input border" type="text"   v-model="phone"  />
+						<input class="input border" type="text"   v-model="phone"  />
 					</view>
 				</view>
-				<view class="tui-flex border padding">
+				<view class="flex border padding">
 					<label class="">地址</label>
-					<input class="tui-input border" type="text"  v-model="detail"  />
+					<input class="input border" type="text"  v-model="detail"  />
 				</view>
 			</view>
-			<button class="uni-card center" @tap="add()" type="primary">确认添加</button>
+			<view class="item">
+				<button class="" @tap="add()" type="primary">确认添加</button>
+			</view>
+			
 
 		</view>
 
@@ -51,7 +54,7 @@
 			<text>确认</text>
 		</button>
 	</view>
-	<view v-else>
+	<view v-else >
 
 		<button  @tap="hasAddress=!hasAddress" >
 			<text>取消</text>

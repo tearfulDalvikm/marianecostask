@@ -1,16 +1,10 @@
 
 <template>
-				<view class="uni-product-list" v-if="productList.length">
-					<view class="uni-product-item" hover-class="uni-list-cell-hover" v-for="(product,index) in productList"  :key="index">
+				<view class="uni-product-list tui" v-if="productList.length">
+					<view class="uni-product-item item" hover-class="uni-list-cell-hover" v-for="(product,index) in productList"  :key="index">
 						<view class="image-view" @tap="goTo(product)">
-							<text class="button tui-tip" style="left: 0;">{{product.tip}}</text>
-<!-- 							<view  v-if="!product.show && index>showImageNum" :data-index="index" class="uni-product-image  lazy" style="display: flex;justify-content:center ;flex-direction:column">
-								<uni-load-more   :loadingType="product.show?false:true" :contentText="contentText"></uni-load-more>
-							</view>
-								
-							<view v-else>
-								<image  class="uni-product-image"  mode="aspectFill" :src="product.image" />
-							</view> -->
+							<text class="button tip" style="right: 0;">{{product.tip}}</text>
+
 						<view  v-if="!product.show && index>showImageNum" :data-index="index" class="uni-product-image  lazy" style="display: flex;justify-content:center ;flex-direction:column">
 							图片加载中...
 						</view>
@@ -19,21 +13,21 @@
 							<image  class="uni-product-image"  mode="aspectFill" :src="product.image" />
 						</view>
 						</view>
-						<view class="uni-flex">
-							<view class="weight center uni-flex-item">
-							{{product.title}}
+						<view class="uni-flex-item relative">
+							<view class="weight center uni-flex-item nowrap">
+							{{product.title}}餐饮
 							</view>
-							<!-- 距离{{juli(index)}} -->
-							<view class="" style="font-size: 0.6em;width: 100rpx;color:red">
+							
+							<view class="tip absolute" style="font-size: 0.6em;background-color:#fff;color:red;top:-10rpx;right: 0;">
 							{{product.juli>1000? ((product.juli)/1000)+"千米":product.juli+'米'}}
 							</view>
 						</view>
-						<view class="uni-flex">
+
+
+<!-- 						<view class="uni-flex">
+							简介:
 							<text>{{product.synopsis}}</text>
-							<!-- <text class="uni-product-price-favour">{{product.price}}</text> -->
-							<!-- <text class="uni-product-price-original">{{product.newprice}}</text> -->
-							
-						</view>
+						</view> -->
 					</view>
 				</view>
 </template>
@@ -142,16 +136,14 @@ export default {
 		box-sizing: border-box;
 		position: relative;
 	}
-	.uni-product-juli{
+/* 	.uni-product-juli{
 		color: #B42F2D;
 		position:absolute;
 		right: 10upx;
-	}
+	} */
 	.uni-product-title{
 		position: relative;
 		box-sizing: border-box;
-		/* padding: 0 15upx; */
-		text-align: left;
 		width: 100%;
 	}
 	.uni-product-price{
@@ -179,7 +171,6 @@ export default {
 	flex: 1;
 	text-align: center;
 	flex-direction:column;
-	/* 一行多列只需修改最小尺寸即可 */
 	min-width: 40%;
 	box-sizing: border-box;
 }

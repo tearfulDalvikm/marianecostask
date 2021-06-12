@@ -1,5 +1,5 @@
 <template>
-	<view class="main">
+	<view class="main tui">
 		<view class="uni-card" v-for="(orders,index) in orderData" :key="index">
 			<view class="orders-list" style="justify-content: space-between;">
 				<view class="">单号:{{orders.sn}}</view>

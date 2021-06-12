@@ -1,17 +1,16 @@
 <template>
-	<view class="uni-numbox center">
-		<icon class="iconfont icon-biaodankongjianshanchu" :class="{'uni-numbox-disabled': disableSubtract}"  @click="_calcValue('subtract')"></icon>
-		<view class="" style="width: 50rpx;text-align: center;">{{inputValue}}</view>
-		<icon class="iconfont icon-jia-shixin"    :class="{'uni-numbox-disabled': disableAdd}" @click="_calcValue('add')"></icon>
-	</view>
+
+		<view class="tui flex uni-numbox" style="align-items: center;">
+			<icon class="iconfont icon-biaodankongjianshanchu" color="ju" :class="{'uni-numbox-disabled': disableSubtract}"  @click="_calcValue('subtract')"></icon>
+			<view class="center" style="width: 50rpx;">{{inputValue}}</view>
+			<icon class="iconfont icon-jia-shixin"   color="ju" :class="{'uni-numbox-disabled': disableAdd}" @click="_calcValue('add')"></icon>
+		</view>
 </template>
 <script>
-	import uniIcon from '../icon/icon.vue';
+	// import uniIcon from '../icon/icon.vue';
 	export default {
 		name: 'uni-number-box',
-		components: {
-			uniIcon
-		},
+
 		props: {
 			other:{},
 			item:{},
@@ -106,42 +105,10 @@
 		font-size:1em ;
 		height: 70upx;
 	}
-icon{
-	color:#FF8C00;
-}
-/* 	.uni-numbox-minus,
-	.uni-numbox-plus {
-		margin: 0;
-		background-color: #f9f9f9;
-		width: 80upx;
-		height: 100%;
-		line-height: 70upx;
-		text-align: center;
-		color: #555555;
-	} */
-
-/* 	.uni-numbox-minus {
-		border: 2upx solid #cccccc;
-		border-right: none;
-		border-top-left-radius: 6upx;
-		border-bottom-left-radius: 6upx;
+	.uni-numbox icon{
+		color:#fff;
 	}
 
-	.uni-numbox-plus {
-		border: 2upx solid #cccccc;
-		border-left: none;
-		border-top-right-radius: 6upx;
-		border-bottom-right-radius: 6upx;
-	}
-
-	.uni-numbox-value {
-		border: 2upx solid #cccccc;
-		background-color: #ffffff;
-		width: 80upx;
-		height: 100%;
-		text-align: center;
-	}
- */
 	.uni-numbox-disabled {
 		color: #c0c0c0;
 	}

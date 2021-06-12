@@ -1,68 +1,86 @@
 <template>
-<view class="main">
-   <view class="goods-box">
-        <image :src="goods.image" mode="aspectFill" class="goods-thumb"></image>
-        
-        <view  @tap="gotoCart" >
-            <view class="carts-icon " :class="scaleCart?'on':''">
+<view class="main tui">
+	<drawer-bottom  ref="drawerBottom"  :drawerBottomShow="drawerBottomShow" :goods="goods" v-on:change="goodsUpdate"></drawer-bottom>
 
-                <text class="carts-icon-num background" v-if="totalNum>0">{{totalNum}}</text>
-								<i  class="iconfont icon-gouwuche" ></i>
-            </view>
-        </view>
+	<view class="" style="margin-bottom: 120rpx;">
+			 <view class="uni-card flex center column">
+						<image :src="goods.image" mode="aspectFill" class="goods-thumb"></image>
+							<view class="goods-title">{{goods.title}}</view>
 
-        <view class="goods-operation background">
-			<picker @change="bindPickerChange" :range-key="'name'" :data-data="goods.version" :value="vIndex" :range="goods.version">
-			  <view class="picker">
-					{{goods.version[vIndex].name}}
-			  </view>
-			</picker>
-						
-			<view class="goods-operation-left" >
-					<!-- <text>数量</text> -->
-					<i class="goods-operation-cut iconfont icon-biaodankongjianshanchu" :style="num<=1?'opacity:0.5;':'opacity:1;'" @tap="cutCount"></i>
-					<text class="goods-operation-num">{{num}}</text>
-					<i class="goods-operation-add iconfont icon-jia-shixin" :style="num>=goods.stock?'opacity:0.5;':'opacity:1;'" @tap="addCount"></i>
 				</view>
 
+				<view class="uni-card flex center">
+					<view class="goods-price">
+						<text style="color:red;">￥ {{goods.price}}</text>
+					</view>
+				</view>
+				<view v-if="goods.stock" class="uni-card flex center">
+					<text class="">库存:{{goods.stock}}</text>
 
-            <view class="goods-operation-right" @tap="addToCart"><text>加入购物车</text><i   class="iconfont icon-gouwuche" ></i></view>
-           
-        </view>
-        <icon v-if="show"  class="to-carts-icon iconfont icon-gouwuche"></icon>
-        <view class="goods-stock">库存:{{goods.stock}}</view>
-        <view class="goods-title">{{goods.title}}</view>
-        <view class="goods-price"><text style="color:red;">￥ {{goods.price}}</text></view>
-    </view>
-    <view class="goods-tab">
-		<view class="goods-tab-nav">
-				<view :class="curIndex === 0 ?'on color border':'opacity'" @tap="bindTap(0)" :data-index="0">商品详情</view>
-				<view :class="curIndex === 1 ?'on color border':'opacity'" @tap="bindTap(1)" :data-index="1">产品参数</view>
-				<!-- <view class="goods-tab-nav " :class="curIndex === 2 ?'on':''" @tap="bindTap(2)" :data-index="2">售后保障</view> -->
+				</view>
+				<view class="uni-card flex column" >
+						<view class="goods-tab-nav">
+								<view :class="curIndex === 0 ?'on color border':'opacity'" @tap="bindTap(0)" :data-index="0">商品详情</view>
+								<view v-if="goods.attribute" :class="curIndex === 1 ?'on color border':'opacity'" @tap="bindTap(1)" :data-index="1">产品参数</view>
+						</view>
+						<view class="goods-content border">
+						<view  v-if="curIndex === 1" v-for="(attr,aIndex) in goods.attribute" :key="aIndex">
+							<text class="border">{{attr.name}}</text><text class="border" style="">{{attr.text}}</text>
+						</view>
+						<view  v-if="curIndex === 0">
+							<text>
+								{{goods.detail}}
+							</text>
+						</view>
+					<!-- </view> -->
+						</view> 
+				</view>
 		</view>
-        <view class="goods-content border">
-            <!-- <view class="goods-content-box" > -->
-				<view  v-if="curIndex === 1" v-for="(attr,aIndex) in goods.attribute" :key="aIndex">
-					<text class="border">{{attr.name}}</text><text class="border" style="">{{attr.text}}</text>
-				</view>
-				<view  v-if="curIndex === 0">
-					<text>
-						{{goods.detail}}
-					</text>
-				</view>
-			<!-- </view> -->
-        </view> 
-    </view>
+						<nav class="bottom-nav flex  " style="bottom:0;z-index: 99;">
+								<view class="item flex center" style="justify-content: space-around;">
+									<view class="icon flex column" style="flex-direction: column;" @tap="goPage('shop')">
+										<icon class="iconfont icon-dianpu" style="font-size: 1.4em;line-height: 0.6em;"></icon>
+										<text style="font-size:0.8em ;">店铺</text>
+									</view>
+									<view class="icon flex column" @tap="goPage('chat')">
+										<icon class="iconfont icon-kefu" style="font-size: 1.4em;line-height: 0.6em;"></icon>
+										<text style="font-size:0.8em ;">客服</text>
+									</view>
+									<view class="icon flex column" @tap="goPage('order')">
+										<icon class="iconfont icon-dingdanjihe" style="font-size: 1.4em;line-height: 0.6em;"></icon>
+										<text style="font-size:0.8em ;">订单</text>
+									</view>
+<!-- 									<view class="icon flex column" @tap="goPage('wode')">
+										<icon class="iconfont icon-wode" style="font-size: 1.4em;line-height: 0.6em;"></icon>
+										<text style="font-size:0.8em ;">我的</text>
+									</view> -->
+									<!-- 导航微信 -->
+								</view>
+<!-- 								<view class="flex item  row" style="background: #F9F9F9;text-align: left;padding-left: 20rpx;">
+
+									<view class="flex" style="text-align: left;padding-left: 30rpx;flex-wrap: nowrap;">合计:<text style="color: red;">￥{{totalPrice}}</text></view>
+								
+								</view> -->
+
+								<button type="warn" @tap="xuanZhe()" >下单</button>
+						</nav>
 </view>
 </template>
 
 <script>
 	// import mpvuePicker from '../../components/template/picker/mpvuePicker.vue';
+	// import numberBox from '../../components/template/box/number.vue'
 	import ajax from "../../request/ajax.js"
 	import Storage from "../../common/utils/Storage.js"
+	import drawerBottom from '../../components/template/drawer/bottom.vue'
 	export default {
+		components: {
+			// numberBox,
+			drawerBottom
+		},
 		data() {
 			return {
+				drawerBottomShow:false,
 				timeOut:'',
 				timeOut2:'',
 				selected:'',
@@ -73,6 +91,7 @@
 						  title: '新鲜梨花带雨',
 						  price: 0.01,
 						  stock: 12,
+							number:0,
 						  detail: '这里是梨花带雨详情。',
 							synopsis:"简介，这里是梨花带雨详情",
 						  parameter: '125g/个',
@@ -80,76 +99,149 @@
 						},
 						num: 1,
 						totalNum: 0,
+						totalPrice:0,
 						curIndex: 0,
-						show: false,
 						scaleCart: false
 				
 			};
 		},
 		methods:{
-			// 下拉表单
-				bindPickerChange (e) {
-					var vIndex=e.detail.value;
-					this.vIndex =vIndex;
-					this.goods.price=e.target.dataset.data[vIndex].price || this.goods.price;
-				  console.log(e)
-				},
-			// 增加数量
-			  addCount() {
-				  if(this.num>=this.goods.stock){
-					  uni.showToast({
-						title: '库存不足',
-						icon:'none',
-						duration: 2000
-					});
-				  }else{
-					  this.num++;
-				  }
-			  },
-			  // 减少数量
-				cutCount() {	
-					if(this.num>1){
-						this.num--;
-					}
-			  },
-			  addToCart() {
-				const self = this;
-				const num = this.num;
-				let total = this.totalNum;
+							xuanZhe(){
+								if(typeof this.goods.version ==='object' && this.goods.version[0]){
+									this.$refs.drawerBottom.drawerBottomShow=true;
+								}else{
+									this.tongJi()
+									this.goPage('cart')
+								}
+							},
+							tongJi(){
+								var cart={};
+								cart[this.goods.id]=this.goods;
+								Storage.set('cart',cart,100)
+							},
+							goodsUpdate(item){
+								this.goods=item;
+								this.tongJi()
+								console.log(item)
+								this.goPage('cart')
+							},
+							goPage(e){
+								var url='';
+								switch (e){
+									case "cart":
 
-					this.show=true;
-					this.scaleCart = true;
-					clearTimeout(self.timeOut2);
-				  this.timeOut2=setTimeout( function() {
-					self.totalNum= num + total;
-					self.show=false;
-					self.scaleCart= false;
-				  }, 100)
-					console.log(this.timeOut2)
-			  },
+// 												var goods=this.goods;
+// 												var cart={};
+// 												// cart[this.goods.id]=this.goods;
+// 												for(let i=0;i<goods.length;i++){
+// 													if(goods[i].selected){
+// 														cart[goods[i].id]=goods[i];
+// 													}
+// 												}
+												// Storage.set('cart',cart,1000);
+												url="/pages/goods/"+e+"?id=2";
+										break;
+										case "wode":
+										url="/pages/user/"+e+"?id=2";
+										break;
+										case "chat":
+										url="/pages/chat/"+e+"?id=2";
+										break;
+										case "order":
+										url="/pages/pay/"+e+"?id=2";
+										break;
+										
+									default:
+										url="/pages/goods/"+e+"?id=2";
+										break;
+								}
+			
+								
+								uni.navigateTo({
+									url: url,
+									success: res => {
+										
+									},
+									fail: () => {},
+									complete: () => {}
+								});
+						},gotoCart(){
+							var cart={};
+							cart[this.goods.id]=this.goods;
+							Storage.set('cart',cart,100)
+							uni.navigateTo({
+								url: "/pages/goods/cart?id=2",
+								success: res => {
+									
+								},
+								fail: () => {},
+								complete: () => {}
+							});
+					},
+// 			numberUpdate(value,item){
+// 				console.log(value)
+// 				var goods=this.goods;
+// 				item.number=value;
+// 				if(goods.number && goods.price){
+// 					this.totalPrice=goods.number*goods.price;
+// 					this.goods=item;
+// 				}
+// 			},
+// 			// 下拉表单
+// 				bindPickerChange (e) {
+// 					var vIndex=e.detail.value;
+// 					this.vIndex =vIndex;
+// 					this.goods.price=e.target.dataset.data[vIndex].price || this.goods.price;
+// 				  console.log(e)
+// 				},
+// 			// 增加数量
+// 			  addCount() {
+// 				  if(this.num>=this.goods.stock){
+// 					  uni.showToast({
+// 						title: '库存不足',
+// 						icon:'none',
+// 						duration: 2000
+// 					});
+// 				  }else{
+// 					  this.num++;
+// 				  }
+// 			  },
+// 			  // 减少数量
+// 				cutCount() {	
+// 					if(this.num>1){
+// 						this.num--;
+// 					}
+// 			  },
+// 			  addToCart() {
+// 				const self = this;
+// 				const num = this.num;
+// 				let total = this.totalNum;
+// 
+// 					this.show=true;
+// 					this.scaleCart = true;
+// 					clearTimeout(self.timeOut2);
+// 				  this.timeOut2=setTimeout( function() {
+// 					self.totalNum= num + total;
+// 					self.show=false;
+// 					self.scaleCart= false;
+// 				  }, 100)
+// 					console.log(this.timeOut2)
+// 			  },
 
 			  bindTap(index) {
 				  // console.log(index)
 				this.curIndex=index
 
-			  },gotoCart(){
-					var cart={};
-					cart[this.goods.id]=this.goods;
-					Storage.set('cart',cart,100)
-				  uni.navigateTo({
-				  	url: "/pages/goods/cart?id=2",
-				  	success: res => {
-							
-						},
-				  	fail: () => {},
-				  	complete: () => {}
-				  });
-			}
+			  }
 		},onLoad(e){
 			
 			ajax.get('goodsDetail',(res)=>{
-				this.goods=res.data.data
-				console.log(res.data.data)
+				
+				var goods=res.data.data ||{};
+						goods.number=1;
+						goods.versionName='未选择';
+				this.goods=goods;
+				// console.log(res.data.data)
 			})
 			console.log(e)
 		}
@@ -157,90 +249,14 @@
 </script>
 
 <style>
-view,text{
-	border-color:#bcaa8a;
-}
-picker{
-	border-bottom: 1upx solid #ededed;
-	flex:1;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-}
 
-.picker{
 
-}
-.opacity{
-opacity: .6;	
-}
-.color{
-	color: #bcaa8a;
-}
-.background{
-	background:#bcaa8a;
-}
-.border{
-	/* border-color:#bcaa8a;*/
-	border-width:1upx;
-	border-style:solid;
-	/* border-bottom: 30upx solid #ededed; */
-}
-.goods-box{
-    position: relative;
-    padding: 40upx 45upx;
-    text-align: center;
-    color: #454552;
-    border-bottom: 30upx solid #ededed;
-}
 .goods-box .goods-thumb{
+
 	border-radius: 20upx;
-    width: 300upx;
-    height: 300upx;
-    margin: 35upx 0 125upx;
 }
 
-.to-carts-icon{
-    position: absolute;
-    right: 70upx;
-    top: 70upx;
-    width: 10upx;
-    height: 10upx;
-    border-radius: 50%;
-    opacity: .6;
-    -webkit-animation: to_cart .3s ease-out;
-    animation: to_cart .3s ease-out;
-}
 
-@keyframes to_cart {
-    0%{
-        right:100upx;
-        top:300upx;
-        transform: scale(4);
-    }
-}
-.carts-icon{
-    position: absolute;
-    right: 40upx;
-    top: 40upx;
-    width: 75upx;
-    height: 75upx;
-}
-.carts-icon i{
-	font-size: 2em;
-}
-
-.carts-icon-num{
-
-    position: absolute;
-    right: -15upx;
-		width: 40upx;
-    height: 40upx;
-    line-height: 40upx;
-    border-radius: 50%;
-    color: #fff;
-    font-size: 24upx;
-}
 .goods-box .goods-operation{
 	
 	padding: 10upx 30upx;

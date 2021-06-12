@@ -1,11 +1,11 @@
 <template>
-	<view class="main">
+	<view class="main tui">
 	    <view v-if="hasList">
 	        <view class="cart-box">
-	            <view class="cart-list" v-for="(item,key) in  cartData" :key="key" style="position: relative;">
+	            <view class="list cart-list" v-for="(item,key) in  cartData" :key="key" style="position: relative;">
 								<view class="cart-left">
 									
-										<view class="center">
+										<view class="">
 											<icon v-if="item.selected" type="success" color="#32CD32" :data-index="key"  class="cart-pro-select" @tap="selectList(key)"/>
 											<icon v-else type="circle" class="cart-pro-select" :data-index="key" @tap="selectList(key)"/>
 											<view class=" iconfont icon-shanchu center" style="font-size: 1.5em;color: #999;" @tap="deleteList(key)" :data-index="key"></view>
@@ -29,7 +29,7 @@
 												<view class="uni-flex-item" style="font-size:1.5em ;">
 													<number-box :min="1" :max="item.stock" :item="item" :value="item.number" :other="{index:key}" v-on:change="numberUpdate" ></number-box>
 												</view>
-												<picker class=""  @change="bindPickerChange" :range-key="'name'" :data-index="key" :data-data="item.version" :value="item.versionName" :range="item.version">
+												<picker class="item"   @change="bindPickerChange" :range-key="'name'" :data-index="key" :data-data="item.version" :value="item.versionName" :range="item.version">
 													<view v-if="item.version" class="picker" style="text-align: right;">
 														{{item.versionName}}<icon class="iconfont icon-dianziqianmingx" style="color: #B42F2D;"></icon>
 													</view>
@@ -37,36 +37,28 @@
 
 											</view>
 
-<!-- 											<view class="cart-count-box uni-flex">
-													<icon class="center" type="clear" @tap="deleteList(key)" :data-index="key" size="15"></icon> 
-											</view> -->
 											
 									</view>
-									
-
-									<!-- <view class="cart-tip" style="color:;bottom: 0;"> -->
-										<!-- <view class="cart-pro-price" style="color: red;">
-											￥{{item.price}}
-										</view> -->
-										
-									<!-- </view> -->
 
 							</view>
 	        </view>
 	
-	        <view class="cart-footer">
-	            <icon v-if="selectAllStatus" type="success_circle" color="#fff" class="total-select" @tap="selectAll(key)"/>
-	            <icon v-else type="circle" color="#fff" class="total-select" @tap="selectAll(key)"/>
-	            <view class="order-icon iconfont icon-jiesuan" @tap="goPage('order')" style="font-size: 2em;">
-	            </view>
-	            <text>全选</text>
-	            <text class="cart-toatl-price">￥{{totalPrice}}</text>
-	        </view>
+
 	    </view>
       
 	    <view v-else>
 	        <view class="cart-no-data">购物车是空的哦~</view>
 	    </view>
+				        <nav class="bottom-nav flex " style="font-size: 1.4em">
+			 <!-- type="success" color="#32CD32" :data-index="key"  class="cart-pro-select" -->
+				            <view class="flex item  row" style="background: #F9F9F9;z-index: 99;text-align: left;padding-left: 20rpx;">
+											<icon v-if="selectAllStatus" class="" color="#32CD32" type="success" @tap="selectAll(key)" style="font-size: 1.2em;"></icon>
+											<icon v-else class="" type="circle" @tap="selectAll(key)" style="font-size: 1.2em;"></icon>
+											<view  style="padding:0 20rpx;">全选</view>
+											<view class="item" style="text-align: right;padding-right: 30rpx;">合计:<text style="color: red;">￥{{totalPrice}}</text></view>
+										</view>
+										<button type="warn" @tap="goPage('order')" >确认下单</button>
+				        </nav>
 	</view>
 </template>
 
@@ -241,15 +233,12 @@
 			   * 购物车全选事件
 			   */
 			  selectAll(e) {
-						// let selectAllStatus = this.selectAllStatus;
-						// selectAllStatus = !selectAllStatus;
+						this.selectAllStatus=!this.selectAllStatus;
 						let cartData = this.cartData;
-
 						for (let index in cartData) {
-					
-							cartData[index].selected =!cartData[index].selected || false;
+							cartData[index].selected =this.selectAllStatus;
 						}
-						// this.selectAllStatus=!this.selectAllStatus;
+						
 							this.cartData= cartData;
 							this.getTotalPrice();
 			  },
@@ -309,7 +298,7 @@
 }
 
 .cart-right .picker{
-	/* width: 200rpx; */
+
 	border-bottom: 1rpx solid #e9e9e9;
 }
 .cart-list .cart-pro-select{
@@ -337,32 +326,11 @@
   font-size: 2em;
 }
 
-.cart-footer{
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 90rpx;
-    line-height: 90rpx;
-    padding:0 100rpx 0 80rpx;
-    box-sizing: border-box;
-    background: #AB956D;
-    color: #fff;
-}
+
 .total-select{
     position: absolute;
     left: 20rpx;
-    top: 25rpx;
     width: 45rpx;
-}
-.order-icon{
-    position: absolute;
-    right: 40rpx;
-    width: 45rpx;
-}
-.cart-toatl-price{
-    float: right;
-    width: 120rpx;
 }
 
 .cart-no-data{

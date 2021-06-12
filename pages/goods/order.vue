@@ -1,60 +1,75 @@
 <template>
 	<view class="main tui">
-		<view class="uni-card">
-			<view v-for="(item,key) in orders" :key="key" class="orders-list">
-				<view style="flex: 1;">
-					<text class="orders-title">{{item.title}}</text>
-					<text class="orders-version" v-if="item.versionName">{{item.versionName}}</text>
+		<view class="uni-card" style="margin-bottom: 120rpx;">
+				<view class="uni-card">
+					<view v-for="(item,key) in orders" :key="key" class="orders-list">
+						<view style="flex: 1;">
+							<text class="orders-title">{{item.title}}</text>
+							<text class="orders-version" v-if="item.versionName">{{item.versionName}}</text>
+						</view>
+						<!-- <image class="orders-thumb" :src="item.image"></image> -->
+						<view class="orders-right" style="flex-direction: row;width: 150rpx;">
+							<view>￥{{item.price}}</view>
+							<view style="width: 100rpx;">x{{item.number}}</view>
+						</view>
+					</view>
+					<view class="orders-list">
+						<view class="">备注</view>
+						<input class="border" placeholder="给商家留言,可填写注意事项,特殊要求等" :focus="focus" />
+					</view>
 				</view>
-				<!-- <image class="orders-thumb" :src="item.image"></image> -->
-				<view class="orders-right" style="flex-direction: row;width: 150rpx;">
-					<view>￥{{item.price}}</view>
-					<view style="width: 100rpx;">x{{item.number}}</view>
+				<view class="uni-card">
+					<view v-if="addrShow" class="uni-card">
+						<button  @tap="goPage('address')" v-if="address.name" class="uni-card flex padding relative column" style="padding:20rpx 30rpx">
+							<view class="flex item" style="text-align: left;">
+								<text class="item">收货人: {{address.name}}</text>
+								<text class="item">电话: {{address.phone}}</text>
+							</view>
+
+							<view class="item" style="text-align: left;">
+							{{address.detail}}
+							</view>
+							<view class="absolute flex " style=" font-size:1.3em ; align-items: center;justify-content: flex-end; right: 20rpx;top:0;bottom:0;height: 95%;">
+								<icon class="iconfont icon-jinrujiantouxiao1" style="color:#999;"></icon>
+							</view>
+							
+						</button>
+						<view v-else class="center">
+							<button  @tap="goPage('address')"  class="uni-card flex padding relative column" style="padding:20rpx 30rpx">
+								
+							<view class="item">
+								添加您的地址
+							</view>
+							<view class="absolute flex " style=" font-size:1em ; align-items: center;justify-content: flex-end; right: 20rpx;top:0;bottom:0;height: 95%;">
+								<icon class="iconfont icon-jinrujiantouxiao1" style="color:#999;"></icon>
+							</view>
+							</button>
+
+						</view>
+						<button class=" center" @tap="refreshAddress()">刷新地址<uni-icon type="refresh center" size="20"></uni-icon></button>
+					</view>
+					<view v-else class="orders-list">
+						<view class="uni-flex ">
+							<view class="">人数</view>
+							<input  class="border" v-model="number" :focus="focus" />
+							<view class="">人</view>
+						</view>
+						<view class="uni-flex ">
+							<view class="">桌号</view>
+							<input  class="border" v-model="tableNumbers" :focus="focus" /><view class="">号</view>
+						</view>
+					</view>
 				</view>
-			</view>
-			<view class="orders-list">
-				<view class="">备注</view>
-				<input class="border" placeholder="给商家留言,可填写注意事项,特殊要求等" :focus="focus" />
-			</view>
+					<button type="" class="flex center" @tap="addrShow=!addrShow">
+						<text class="item center" type="arrowright" v-if="!addrShow">送餐</text>
+						<text class="item center" type="arrowright" v-else >店内就餐</text>
+							<uni-icon class="item center" style="" type="loop" size="20"></uni-icon>
+					</button>
 		</view>
-		<view class="uni-card">
-			<view v-if="addrShow" class="uni-card">
-				<navigator v-if="address.name" class="orders-address" url="../user/address" >
-					<text class="orders-address-name">收货人: {{address.name}}</text>
-					<text class="orders-address-phone">电话: {{address.phone}}</text>
-					<view class="orders-address-detail">{{address.detail}}</view>
-				</navigator>
-				<view v-else class="center">
-					
-					<navigator  url="../user/address">
-					<view class="orders-no-address">添加您的地址</view>
-					</navigator>
-				</view>
-				<button class=" center" @tap="refreshAddress()">刷新地址<uni-icon type="refresh center" size="20"></uni-icon></button>
-			</view>
-			<view v-else class="orders-list">
-				<view class="uni-flex ">
-					<view class="">人数</view>
-					<input  class="border" v-model="number" :focus="focus" />
-					<view class="">人</view>
-				</view>
-				<view class="uni-flex ">
-					<view class="">桌号</view>
-					<input  class="border" v-model="tableNumbers" :focus="focus" /><view class="">号</view>
-				</view>
-			</view>
-		</view>
-			<button type="" class="flex center" @tap="addrShow=!addrShow">
-				<text class="item center" type="arrowright" v-if="!addrShow">送餐</text>
-				<text class="item center" type="arrowright" v-else >店内就餐</text>
-				<!-- <text class="tui-flex-item" style="width: 50rpx;"> -->
-					<uni-icon class="item center" style="" type="loop" size="20"></uni-icon>
-				<!-- </text> -->
-			</button>
-		<view class="orders-footer flex">
-			<view class="orders-footer-total" >付款合计：￥{{total}}</view>
-			<button class="orders-footer-btn" @tap="toPay">确认付款</button>
-		</view>
+		<nav class="bottom-nav flex " style="background: #F9F9F9;z-index: 99;text-align: left;padding-left: 30rpx;">
+			<view class="item flex " style="font-size: 1.2em;" >支付金额：<text style="color:red">￥{{total}}</text></view>
+			<button type="warn" @tap="toPay" >立即支付</button>
+		</nav>
 	</view>
 </template>
 
@@ -106,15 +121,20 @@
 		methods: {
 			
 			ceshi() {
+				// uni-app暂时不支持worker
 				// 				worker.onMessage(function (res) {
 				// 				  console.log(res)
 				// 				})
-				// 				
 				// 				worker.postMessage({
 				// 				  msg: 'hello worker'
 				// 				})
-				// 				
 				// 				worker.terminate()
+			},
+			goPage(){
+				uni.navigateTo({
+					url:"../user/address"
+				}) 
+				
 			},
 			/**
 			 * 计算总价
@@ -284,12 +304,6 @@
 		right: 15rpx;
 		position: absolute;
 	}
-
-	/* .orders-right .orders-pro-price{
-	display: flex;
-	justify-content: space-between;
-	flex-direction: row;
-} */
 	.orders-right view {
 		align-self: flex-end;
 		text-align: right;
@@ -300,11 +314,7 @@
 	}
 
 	.orders-footer {
-		position: fixed;
-		
 		bottom: 0;
-		left: 0;
-		width: 100%;
 		height: 95rpx;
 		line-height: 95rpx;
 		border-top: 1rpx solid #ededed;
