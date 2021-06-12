@@ -101,7 +101,7 @@ export default {
 					timeOut=setTimeout(() => {
 						// 异步处理 防止数据未显示出来
 						this.$set(this.productList, index,data)
-					}, 50)
+					}, 100)
 				}
 			},
 

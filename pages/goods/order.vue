@@ -190,6 +190,9 @@
 </script>
 
 <style>
+	page{
+		overflow-y:scroll;
+	}
 /* 	.section {
 		border-top: 1rpx solid #ededed;
 		border-bottom: 1rpx solid #EDEDED;

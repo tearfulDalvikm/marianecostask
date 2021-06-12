@@ -117,8 +117,6 @@
 			scroll(e){
 				// console.log(e.detail.scrollTop)
 				var Top=e.detail.scrollTop;
-// 				console.log(Top)
-// 				console.log(scrollTop)
 				// 控制顶部大屏广告在屏幕中触发自动滚动生效的所在位置
 				if(Top>10 && this.bigAdAutoplay){
 					// console.log(this.bigAdAutoplay+'关闭自动滚动')

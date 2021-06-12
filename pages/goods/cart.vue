@@ -1,7 +1,9 @@
 <template>
 	<view class="main tui">
-	    <view v-if="hasList">
-	        <view class="cart-box">
+	    <view v-if="hasList" >
+	        <!-- <view class="cart-box"> -->
+					<scroll-view scroll-y class=" flex center column" style="" :style="{height:contentHeight + 'px'}">
+
 	            <view class="list cart-list" v-for="(item,key) in  cartData" :key="key" style="position: relative;">
 								<view class="cart-left">
 									
@@ -17,7 +19,7 @@
 								</view>
 								<view class="cart-right ">
 											<view class="uni-flex"> 
-											<view class="cart-pro-name uni-flex-item">
+											<view class="cart-pro-name uni-flex-item" style="">
 												{{item.title}} 
 											</view>
 											<view class="cart-pro-price" style="color: red;">
@@ -41,8 +43,8 @@
 									</view>
 
 							</view>
-	        </view>
-	
+	        <!-- </view> -->
+					</scroll-view>
 
 	    </view>
       
@@ -50,7 +52,6 @@
 	        <view class="cart-no-data">购物车是空的哦~</view>
 	    </view>
 				        <nav class="bottom-nav flex " style="font-size: 1.4em">
-			 <!-- type="success" color="#32CD32" :data-index="key"  class="cart-pro-select" -->
 				            <view class="flex item  row" style="background: #F9F9F9;z-index: 99;text-align: left;padding-left: 20rpx;">
 											<icon v-if="selectAllStatus" class="" color="#32CD32" type="success" @tap="selectAll(key)" style="font-size: 1.2em;"></icon>
 											<icon v-else class="" type="circle" @tap="selectAll(key)" style="font-size: 1.2em;"></icon>
@@ -73,6 +74,8 @@
     },
 		data() {
 			return {
+				contentHeight:0,
+				winHeight:0,
 				change:0,
         totalNumber:0, //购物车总数量
 				cartData:[],               // 购物车商品列表
@@ -84,6 +87,11 @@
 			};
 		},
     onLoad(e) {
+			let winHeight = uni.getSystemInfoSync().windowHeight;
+			//创建节点选择器 获取底部导航高度 
+				this.contentHeight=(winHeight-uni.upx2px(100));
+				this.winHeight = winHeight;
+
       console.log("onload")
       console.log(e)
 			var cartData =Storage.get('cart') //读取购物车缓存数据
@@ -294,6 +302,7 @@
 .cart-right .cart-pro-name{
 	font-size: 1.2em;
 	color: #000;
+	text-align: left;
  font-weight:bold;
 }
 

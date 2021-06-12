@@ -250,7 +250,9 @@
 
 <style>
 
-
+page{
+	overflow-y: scroll;
+}
 .goods-box .goods-thumb{
 
 	border-radius: 20upx;

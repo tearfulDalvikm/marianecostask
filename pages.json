@@ -57,8 +57,17 @@
 		"backgroundColor": "#F8F8F8"
 	},
 	"condition" : { //模式配置，仅开发期间生效
-		"current": 1, //当前激活的模式(list 的索引项)
+		"current": 0, //当前激活的模式(list 的索引项)
 		"list": [
+			{
+			"path": "pages/home/index",
+			"name": "首页", //模式名称
+			"query": "id=1&name=挺好&num=10" //启动参数，在页面的onLoad函数里面得到
+			},{
+			"path": "pages/goods/shop",
+			"name": "店铺页", //模式名称
+			"query": "id=1&name=挺好&num=10" //启动参数，在页面的onLoad函数里面得到
+			},
 			{
 			"path": "pages/goods/detail",
 			"name": "商品详情", //模式名称
@@ -75,10 +84,6 @@
 			},{
 			"path": "pages/user/address",
 			"name": "地址信息", //模式名称
-			"query": "id=1&name=挺好&num=10" //启动参数，在页面的onLoad函数里面得到
-			},{
-			"path": "pages/goods/shop",
-			"name": "店铺页", //模式名称
 			"query": "id=1&name=挺好&num=10" //启动参数，在页面的onLoad函数里面得到
 			},{
 			"path": "pages/pay/order",

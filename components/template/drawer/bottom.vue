@@ -1,48 +1,48 @@
 <template>
 	<view class="tui"  >
-			<view  :style="drawerBottomShow?'top:0':'top:100vh'" class="flex  fixed column bottom-nav center tui-drawer" style="">
-				<view  class="toubu">
+			<view  :style="drawerBottomShow?'top:0':'top:100vh'" class="flex  fixed column bottom-nav center tui-drawer" style="padding-bottom: 100rpx;">
+				<view  v-if="isShow" class="toubu">
 					<view class="toubu-list flex">
 						<view  class="left relative">
-							<!-- <view  class="img absolute"> -->
-								<image class="img absolute" :src="goods.version[botIdx].image" mode="aspectFill"></image>
-							<!-- </view> -->
+
+							<!-- <image v-if="goods.version" class="img absolute" :src="goods.version[botIdx].image" mode="aspectFill"></image> -->
+								<image class="img absolute" :src="image" mode="aspectFill"></image>
+
 						</view>
 						<view  class="right item flex column line-height6 relative">
-							<icon class="absolute  iconfont icon-guanbishixin" @tap="onShow()" style="right: 20rpx;top: 0;color: rgb(255,50,50);font-size:2em ;"></icon>
+							<icon class="absolute  iconfont icon-guanbishixin" @tap="onClose()" style="right: 20rpx;top: 0;color: rgb(255,50,50);font-size:2em ;"></icon>
 							<view  class="title">
 								<text></text><text style="color: red;">￥{{goods.price}}</text>
 							</view>
-							<view  class="text" >
+							<view  class="text"  v-if="goods.version">
 								已选：<text class="uni-badge bg-ju" >{{goods.versionName}}</text>
 							</view>
 							<view class="item number-box" style="font-size:1.5em ;" >
-								<number-box :min="1" :max="goods.stock"  :value="goods.number"   v-on:change="numberUpdate" ></number-box>
+								<number-box :min="1" :max="goods.stock"  :value="number"   v-on:change="numberUpdate" ></number-box>
 							</view>
 						</view>
 					</view>
 				</view>
-				<view  class="list flex " style="flex-wrap: wrap;justify-content: space-between;" >
+				<view v-if="isShow && goods.version"  class="list flex " style="flex-wrap: wrap;justify-content: space-between;" >
 
-					<text style="line-height: 1.6;height: 1.6em;" class="button tag"  :style="key==botIdx?'opacity:0.5;':'opacity:1;'" v-for="(item,key) in goods.version "  :key="key" @tap="selection(key,item)">{{item.name}}</text>
+					<text   style="line-height: 1.6;height: 1.6em;" class="button tag"  :style="key==botIdx?'opacity:0.5;':'opacity:1;'" v-for="(item,key) in goods.version "  :key="key" @tap="selection(key,item)">{{item.name}}</text>
 
 
 				</view>
-				<button class="" @tap="onShow();commit()" type="primary" style="width:100%">确认</button>
+				<button class="" @tap="commit()" type="primary" style="width:100%">确认</button>
 	
 			</view>	
 	</view>
 </template>
 
 <script>
-	import numberBox from '../box/number.vue'
-
+	import numberBox from '../box/number.vue';
+	var timeOut=0;
 	export default {
 		components: {
 			numberBox
 		},
 		props:{
-			drawerBottomShow:false,
 			goods:{
 					id: 1,
 					image: 'https://img-cdn-qiniu.dcloud.net.cn/uploads/example/product3.jpg',
@@ -58,31 +58,88 @@
 		},
 		data(){
 			return{
+// 				goods:{
+// 					id: 1,
+// 					image: 'https://img-cdn-qiniu.dcloud.net.cn/uploads/example/product3.jpg',
+// 					title: '新鲜梨花带雨',
+// 					price: 0.01,
+// 					stock: 12,
+// 					number:0,
+// 					versionName:'未选择',
+// 					versionIdx:'',
+// 					synopsis:"简介，这里是梨花带雨详情",
+// 					version:[{name:'大份',price:18,stock:6,image:''}]
+// 				},
 				number:0,
+				image:0,
 				botIdx:0,
-				// drawerBottomShow:false,
+				isShow:false,
+				drawerBottomShow:false
 			};
-		},methods:{
+		},watch: {
+				drawerBottomShow(val){
+					// console.log(val)
+					if(val){
+						var goods = Object.assign({}, this.goods);//深度拷贝源数据防止联动改变值
+						// var version=[];
+// 						if(goods.version && typeof goods.version =='object'){
+// 							version=goods;
+// 						}
+// 						for(let i =0;i<version.length;i++){
+// 	
+// 								version[i].image=version[i].image|| goods.image;
+// 								version[i].price=version[i].price|| goods.price;
+// 								version[i].stock=version[i].stock|| goods.stock;
+// 						}
+
+						this.image=goods.image;
+						this.number=goods.number;
+						this.goods=goods; 
+						this.isShow=true;
+						// console.log(goods)
+
+					}else{
+						this.isShow=false;
+					}
+				}
+			},methods:{
 			commit(){
-				console.log(this.number)
-				this.goods.number=this.number;
-				this.$emit('change',this.goods);
+				var self =this;
+				this.onClose();
+// 				timeOut=setTimeout(function() {
+// 					clearTimeout(timeOut)
+					var goods = Object.assign({}, self.goods);//深度拷贝源数据防止联动改变值
+					goods.number=self.number;
+					self.$emit('change',goods);
+				// }, 1000);
 				
 			},
 			selection(idx,item){
+				// console.log(item)
+				// this.drawerBottomShow=true;
+				var item = Object.assign({}, item);//深度拷贝源数据防止联动改变值
+
 				this.botIdx=idx;
-				var goods=this.goods;
-					goods.number=1;
-					goods.price=item.price ||goods.price;
-					goods.versionName=item.name || '未选择';
-					// goods.image=item.image || goods.image;
-					goods.stock=item.stock || goods.stock;
-				this.goods=goods;
+
+				var goods = Object.assign({}, this.goods);//深度拷贝源数据防止联动改变值
+				// console.log(goods)
+
+						goods.number=1;
+						goods.price=item.price ||goods.price;
+						goods.versionName=item.name || '未选择';
+// 						console.log('image'+item.image)
+// 						console.log(goods)
+						this.image=item.image || goods.image;
+						goods.stock=item.stock || goods.stock;
+						this.goods=goods;
 			},
 			onShow(){
 				
-				this.drawerBottomShow=!this.drawerBottomShow;
+				this.drawerBottomShow=true;
 				// console.log(this.show)
+			},
+			onClose(){
+				this.drawerBottomShow=false;
 			},
 			numberUpdate(value){
 				this.number=value
@@ -95,7 +152,6 @@
 // 				}
 			}
 		},mounted() {
-			
 		}
 	}
 </script>

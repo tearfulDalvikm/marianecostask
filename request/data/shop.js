@@ -10,13 +10,13 @@ var items =[{
 		"versionName":"鱼肉",
 		"version":[
 			{
-				"name":"鱼肉",
+				"name":"鱼肉点心",
 				"price":"38"
 			},{
-				"name":"猪肉",
+				"name":"猪肉点心",
 				"price":"28"
 			},{
-				"name":"牛肉",
+				"name":"牛肉点心",
 				"price":"58"
 			},{
 				"name":"套餐五份-58元",
@@ -34,13 +34,13 @@ var items =[{
 		"categoryId":"1",
 		"version":[
 			{
-				"name":"鱼肉",
+				"name":"鱼肉面包",
 				"price":"38"
 			},{
-				"name":"猪肉",
+				"name":"猪肉面包",
 				"price":"28"
 			},{
-				"name":"牛肉",
+				"name":"牛肉面包",
 				"price":"58"
 			}
 		] ,
@@ -54,6 +54,18 @@ var items =[{
 		"stock":"13",
 		"price":"93",
 		"newprice":"69",
+		"version":[
+			{
+				"name":"鱼肉排面",
+				"price":"38"
+			},{
+				"name":"猪肉排面",
+				"price":"28"
+			},{
+				"name":"牛肉排面",
+				"price":"58"
+			}
+		] ,
 		"tip":"自营"
 	},{
 	  "id":"4",
@@ -63,6 +75,18 @@ var items =[{
 		"stock":"13",
 		"price":"223",
 		"newprice":"169",
+		"version":[
+			{
+				"name":"自助鱼肉",
+				"price":"38"
+			},{
+				"name":"自助猪肉",
+				"price":"28"
+			},{
+				"name":"自助牛肉",
+				"price":"58"
+			}
+		] ,
 		"tip":"自营"
 	},{
 	  "id":"5",
@@ -72,6 +96,18 @@ var items =[{
 		"stock":"19",
 		"price":"93",
 		"newprice":"68",
+		"version":[
+			{
+				"name":"特质鱼肉",
+				"price":"38"
+			},{
+				"name":"特质猪肉",
+				"price":"28"
+			},{
+				"name":"特质牛肉",
+				"price":"58"
+			}
+		] ,
 		"tip":"自营"
 	},{
 	  "id":"6",
@@ -81,6 +117,18 @@ var items =[{
 		"stock":"133",
 		"price":"66",
 		"newprice":"58",
+		"version":[
+			{
+				"name":"韩国鱼肉",
+				"price":"38"
+			},{
+				"name":"韩国猪肉",
+				"price":"28"
+			},{
+				"name":"韩国牛肉",
+				"price":"58"
+			}
+		] ,
 		"tip":"自营"
 	},{
 	  "id":"7",
@@ -90,6 +138,18 @@ var items =[{
 		"stock":"13",
 		"price":"88",
 		"newprice":"58",
+		"version":[
+			{
+				"name":"清淡鱼肉",
+				"price":"38"
+			},{
+				"name":"清淡猪肉",
+				"price":"28"
+			},{
+				"name":"清淡牛肉",
+				"price":"58"
+			}
+		] ,
 		"tip":"自营"
 	},{
 	  "id":"8",
@@ -99,6 +159,18 @@ var items =[{
 		"stock":"13",
 		"price":"56",
 		"newprice":"48",
+		"version":[
+			{
+				"name":"鱼肉菜卷",
+				"price":"38"
+			},{
+				"name":"猪肉菜卷",
+				"price":"28"
+			},{
+				"name":"牛肉菜卷",
+				"price":"58"
+			}
+		] ,
 		"tip":"自营"
 	},{
 	  "id":"9",
@@ -108,6 +180,18 @@ var items =[{
 		"stock":"23",
 		"price":"59",
 		"newprice":"48",
+		"version":[
+			{
+				"name":"酱汁鱼肉",
+				"price":"38"
+			},{
+				"name":"酱汁猪肉",
+				"price":"28"
+			},{
+				"name":"酱汁牛肉",
+				"price":"58"
+			}
+		] ,
 		"tip":"自营"
 	},{
 	  "id":"10",
@@ -117,6 +201,18 @@ var items =[{
 		"stock":"13",
 		"price":"66",
 		"newprice":"99",
+		"version":[
+			{
+				"name":"甜点鱼肉",
+				"price":"38"
+			},{
+				"name":"甜点猪肉",
+				"price":"28"
+			},{
+				"name":"甜点牛肉",
+				"price":"58"
+			}
+		] ,
 		"tip":"自营"
 	},{
 	  "id":"11",
@@ -126,6 +222,18 @@ var items =[{
 		"stock":"28",
 		"price":"96",
 		"newprice":"78",
+		"version":[
+			{
+				"name":"鱼肉七彩拌面",
+				"price":"38"
+			},{
+				"name":"猪肉七彩拌面",
+				"price":"28"
+			},{
+				"name":"牛肉七彩拌面",
+				"price":"58"
+			}
+		] ,
 		"tip":"自营"
 	},{
 	  "id":"12",
@@ -135,6 +243,18 @@ var items =[{
 		"stock":"30",
 		"price":"128",
 		"newprice":"99",
+		"version":[
+			{
+				"name":"鱼肉南极鲜虾",
+				"price":"38"
+			},{
+				"name":"猪肉南极鲜虾",
+				"price":"28"
+			},{
+				"name":"牛肉南极鲜虾",
+				"price":"58"
+			}
+		] ,
 		"tip":"自营"
 	}
 ]

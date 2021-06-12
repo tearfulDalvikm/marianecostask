@@ -24,5 +24,9 @@
 		background-color:#F4F5F6;
 		height: 100%;
 		font-size:28upx;
+		overflow:hidden;
+	}
+	.page{
+		overflow:hidden;
 	}
 </style>
