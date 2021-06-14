@@ -1,20 +1,26 @@
 <template>
 	<view class="main tui">
-		<view class="uni-card" style="margin-bottom: 120rpx;">
+		<scroll-view class="uni-card" style="margin-bottom: 120rpx;height:100vh;" scroll-y  >
 				<view class="uni-card">
-					<view v-for="(item,key) in orders" :key="key" class="orders-list">
-						<view style="flex: 1;">
-							<text class="orders-title">{{item.title}}</text>
-							<text class="orders-version" v-if="item.versionName">{{item.versionName}}</text>
+					<view v-for="(item,key) in orders" :key="key" class="orders-list column">
+
+						<view class="item flex">
+							<view style="flex: 1;">
+								<text class="orders-title">{{item.title}}</text>
+								<text class="orders-version" v-if="item.versionName">{{item.versionName}}</text>
+							</view>
+							<!-- <image class="orders-thumb" :src="item.image"></image> -->
+							<view class="orders-right" style="flex-direction: row;width: 150rpx;">
+								<view>￥{{item.price}}</view>
+								<view style="width: 100rpx;">x{{item.number}}</view>
+							</view>
 						</view>
-						<!-- <image class="orders-thumb" :src="item.image"></image> -->
-						<view class="orders-right" style="flex-direction: row;width: 150rpx;">
-							<view>￥{{item.price}}</view>
-							<view style="width: 100rpx;">x{{item.number}}</view>
+						<view v-if="item.note" class="item" style="width: 100%;font-size:0.6em;opacity:0.5;height: 1em;line-height: 1em;">
+							备注:{{item.note}}
 						</view>
 					</view>
 					<view class="orders-list">
-						<view class="">备注</view>
+						<view class="">订单备注</view>
 						<input class="border" placeholder="给商家留言,可填写注意事项,特殊要求等" :focus="focus" />
 					</view>
 				</view>
@@ -65,7 +71,7 @@
 						<text class="item center" type="arrowright" v-else >店内就餐</text>
 							<uni-icon class="item center" style="" type="loop" size="20"></uni-icon>
 					</button>
-		</view>
+		</scroll-view>
 		<nav class="bottom-nav flex " style="background: #F9F9F9;z-index: 99;text-align: left;padding-left: 30rpx;">
 			<view class="item flex " style="font-size: 1.2em;" >支付金额：<text style="color:red">￥{{total}}</text></view>
 			<button type="warn" @tap="toPay" >立即支付</button>

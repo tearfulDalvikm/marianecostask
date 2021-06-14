@@ -1,6 +1,9 @@
 <template>
 
 	<view class="uni-page-body tui">
+<!-- 		<view class="item">
+			营业时间
+		</view> -->
 		<!-- <view class="header"> -->
 <!-- 			<view class="input-view">
 				<uni-icon type="search" size="22" color="#666666"></uni-icon>
@@ -23,25 +26,25 @@
 			<nav class="uni-flex bottom-nav" style="">
 
 				<view class="uni-flex-item uni-flex center" style="justify-content: space-around;">
-<!-- 					<view class="icon center" @tap="showRightDrawer">
-						<icon class="iconfont icon-945caidan_jiyao" style="font-size: 1.4em;line-height: 0.6em;"></icon>
-						<text style="font-size:0.8em ;">菜单</text>
-					</view> -->
-					<view class="icon center" @tap="goPage('chat')">
+					<view class="icon center item flex" @tap="goPage('about')">
+						<icon class="iconfont icon-xuzhixianxiao" style="font-size: 1.4em;line-height: 0.6em;"></icon>
+						<text style="font-size:0.8em ;">店家</text>
+					</view>
+					<view class="icon center item flex" @tap="goPage('chat')">
 						<icon class="iconfont icon-kefu" style="font-size: 1.4em;line-height: 0.6em;"></icon>
 						<text style="font-size:0.8em ;">客服</text>
 					</view>
-					<view class="icon center" @tap="goPage('order')">
+					<view class="icon center item flex" @tap="goPage('order')">
 						<icon class="iconfont icon-dingdanjihe" style="font-size: 1.4em;line-height: 0.6em;"></icon>
 						<text style="font-size:0.8em ;">订单</text>
 					</view>
-					<view class="icon center" @tap="goPage('wode')">
+					<view class="icon center item flex" @tap="goPage('wode')">
 						<icon class="iconfont icon-wode" style="font-size: 1.4em;line-height: 0.6em;"></icon>
 						<text style="font-size:0.8em ;">我的</text>
 					</view>
 					<!-- 导航微信 -->
 				</view>
-				<button type="warn" @tap="goPage('cart')">去下单</button>
+				<button type="warn" @tap="goPage('cart')">下单</button>
 				<!-- <uni-nav-bar left-icon="back" left-text="返回" right-text="菜单" title="标题"></uni-nav-bar> -->
 			</nav>
 
@@ -76,14 +79,14 @@
 													<text style="text-decoration:line-through;font-size:0.8em ;">¥{{item.newprice}}</text>
 												</view>
 												
-												<view v-if="item.version" class="flex color-ju"  >
+												<view v-if="item.version" class="flex color-ju"  @tap="versionTap">
 
 														<view  class="colorj iconfont icon-jia-shixin">
 														</view>
-													<view v-if="item.version"  class="item"  style="white-space: nowrap;box-sizing: border-box;overflow-y:hidden;overflow-x:scroll;width: 100rpx; ">
+													<view v-if="item.version"  class="item"  style="white-space: nowrap;box-sizing: border-box;overflow-y:hidden;overflow-x:auto;width: 100rpx; ">
 														
 														<text class="uni-badge"  style="" :style="item.versionName==vn.name?'color:red':''" v-for="(vn,vIdx) in item.version" :key="vIdx" >
-															{{vn.name}}
+															{{vn.name}}:¥{{vn.price}}
 														</text>
 													</view>
 												</view>
@@ -204,6 +207,12 @@
 // 					}
 // 				});
 		},methods:{
+			versionTap(){
+				uni.showModal({
+					title:"请在下单后进行选择",
+					// content:"请在下单后进行选择"
+				})
+			},
 			goodsUpdate(e){
 				// console.log(e)
 				console.log('goodsUpdate')

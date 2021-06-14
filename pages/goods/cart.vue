@@ -38,9 +38,11 @@
 												</picker>
 
 											</view>
-
+											<view class="item" style="background:#EEE9E9;">
+												<input type="text" value="" @blur="KeyInput" :data-key="key" placeholder="请在这里输入商品备注" focus/>
+											</view>
+								</view>
 											
-									</view>
 
 							</view>
 	        <!-- </view> -->
@@ -138,6 +140,12 @@
 			}
 		},
 		methods:{
+			KeyInput(e){
+				var cartData=this.cartData;
+				var key=e.target.dataset.key;
+				cartData[key].note=e.detail.value;
+				console.log(cartData[key])
+			},
 			goPage(pg,item){
 				var id="";
 				if(pg==='order'){
@@ -152,6 +160,7 @@
 							good.shop_id=cartData[key].shop_id;
 							good.number=cartData[key].number;
 							good.image=cartData[key].image;
+							good.note=cartData[key].note;
 							good.price=cartData[key].price;
 							good.title=cartData[key].title;
 							good.versionName=cartData[key].versionName;
