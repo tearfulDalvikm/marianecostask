@@ -83,11 +83,7 @@
 
 														<view  class="colorj iconfont icon-jia-shixin">
 														</view>
-													<view v-if="item.version"  class="item"  style="white-space: nowrap;box-sizing: border-box;overflow-y:hidden;overflow-x:auto;width: 100rpx; ">
-														
-														<text class="uni-badge"  style="" :style="item.versionName==vn.name?'color:red':''" v-for="(vn,vIdx) in item.version" :key="vIdx" >
-															{{vn.name}}:¥{{vn.price}}
-														</text>
+													<view v-if="item.version"  class="item"  style="white-space: nowrap;box-sizing: border-box;overflow-y:hidden;overflow-x:auto;width: 100rpx; "><text class="uni-badge"  style="" :style="item.versionName==vn.name?'color:red':''" v-for="(vn,vIdx) in item.version" :key="vIdx" >{{vn.name}}:¥{{vn.price}}</text>
 													</view>
 												</view>
 
@@ -283,7 +279,7 @@
 							url="/pages/chat/"+e+"?id=2";
 							break;
 							case "order":
-							url="/pages/pay/"+e+"?id=2";
+							url="/pages/order/list?id=2";
 							break;
 						default:
 							url="/pages/goods/"+e+"?id=2";

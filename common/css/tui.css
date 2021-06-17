@@ -50,6 +50,15 @@
 	background: #FF3030;
 	color: #fff;
 }
+.tui .bagde{
+	border-radius: 50%;
+	/* margin: 0 5rpx; */
+	padding: 0 8rpx;
+	padding-top: 1rpx;
+	background: #ededed;
+	font-size:0.7em;
+	color: #555;
+}
 .tui .tag{
 	border-radius: 5rpx;
 	margin: 0 5rpx;

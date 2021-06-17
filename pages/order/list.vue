@@ -1,9 +1,9 @@
 <template>
 	<view class="main tui">
-		<scroll-view   style="height:100vh;" scroll-y  >
+		<scroll-view   style="height:100vh;padding: 0 15rpx;box-sizing: border-box;" scroll-y >
 				<view class="uni-card" v-for="(orders,index) in orderData" :key="index">
 					<view class="orders-list" style="justify-content: space-between;">
-						<view class="">单号:{{orders.sn}}</view>
+						<view class="" @tap="goPage('orderDetail')" style="color: #007AFF;">单号:{{orders.sn}}</view>
 						<view class="" style="color: red;">￥{{orders.sum}}</view>
 					</view>
 					<view v-for="(item,key) in orders.data" :key="key" class="orders-list">
@@ -11,7 +11,6 @@
 							<text class="orders-title">{{item.title}}</text>
 							<text class="orders-version" v-if="item.versionName">{{item.versionName}}</text>
 						</view>
-						<!-- <image class="orders-thumb" :src="item.image"></image> -->
 						<view class="orders-right" style="flex-direction: row;width: 150rpx;">
 							<view>￥{{item.price}}</view>
 							<view style="width: 100rpx;">x{{item.number}}</view>
@@ -22,55 +21,16 @@
 						<view class="">
 							实付<text    style="color: red;">￥{{orders.pay}}</text>
 							</view>
-						<!-- <view class="" style="color: red;">￥{{orders.sum}}</view> -->
 					</view>
 					<view v-else class="orders-list"  style="justify-content: space-between;">
 						<view class="">未付款</view>
 						<view class=""><text  class="button" style="background: #FF3030;color: #fff;" @tap="toPay(orders)">立即付款</text></view>
-						<!-- <view class="" style="color: red;">￥{{orders.sum}}</view> -->
+
 					</view>
-		<!-- 			<view class="orders-list">
-						<view class="">备注</view>
-						<input class="border" placeholder="给商家留言,可填写注意事项,特殊要求等" :focus="focus" />
-					</view> -->
+
 				</view>
 		</scroll-view>
-<!-- 		<view class="uni-card">
-			<view v-if="addrShow" class="uni-card">
-				<navigator v-if="address.name" class="orders-address" url="../user/address" >
-					<text class="orders-address-name">收货人: {{address.name}}</text>
-					<text class="orders-address-phone">电话: {{address.phone}}</text>
-					<view class="orders-address-detail">{{address.detail}}</view>
-				</navigator>
-				<view v-else class="center">
-					
-					<navigator  url="../user/address">
-					<view class="orders-no-address">添加您的地址</view>
-					</navigator>
-				</view>
-				<button class=" center" @tap="refreshAddress()">刷新地址<uni-icon type="refresh center" size="20"></uni-icon></button>
-			</view>
-			<view v-else class="orders-list">
-				<view class="uni-flex ">
-					<view class="">人数</view>
-					<input  class="border" v-model="number" :focus="focus" />
-					<view class="">人</view>
-				</view>
-				<view class="uni-flex ">
-					<view class="">桌号</view>
-					<input  class="border" v-model="tableNumbers" :focus="focus" /><view class="">号</view>
-				</view>
-			</view>
-		</view> -->
-<!-- 			<button type="" class="tui-flex center" @tap="addrShow=!addrShow">
-				<text class="tui-flex-item center" type="arrowright" v-if="!addrShow">送餐</text>
-				<text class="tui-flex-item center" type="arrowright" v-else >店内就餐</text>
-					<uni-icon class="tui-flex-item center" style="" type="loop" size="20"></uni-icon>
-			</button> -->
-<!-- 		<view class="orders-footer tui-flex">
-			<view class="orders-footer-total" >付款合计：￥{{total}}</view>
-			<button class="orders-footer-btn" @tap="toPay">确认付款</button>
-		</view> -->
+
 	</view>
 </template>
 
@@ -119,7 +79,12 @@
 			console.log(orderData)
 		},
 		methods: {
-			
+			goPage(e){
+				var  url ='../order/detail';
+				uni.navigateTo({
+					url: url
+				});
+			},
 			ceshi() {
 				// 				worker.onMessage(function (res) {
 				// 				  console.log(res)

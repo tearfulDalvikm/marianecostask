@@ -40,14 +40,14 @@
 						msg:0,
 						name:'订单',
 						ico:'icon-dingdanjihe',
-						url:'/pages/pay/order'
+						url:'/pages/order/list'
 					},
 					{
 						fn:this.tijiao,
 						msg:230,
 						name:'消息',
 						ico:'icon-xiaoxi',
-						url:'/pages/chat/chat'
+						url:'/pages/chat/list'
 					},
 					{
 						fn:this.tijiao,
@@ -67,7 +67,7 @@
 		},methods:{
 			tijiao(item){
 				console.log('tijiao')
-				console.log(item)
+				// console.log(item)
 				uni.navigateTo({
 					url: item.url
 				});
@@ -94,15 +94,18 @@
 	text-align: center;
 	position: absolute;
 	padding:1upx 8upx;
-	font-size:0.8em;
+	font-size:0.6em;
 }
 
-.bottom-nav .nav-title{
-	font-size:0.8em ;
+.bottom-nav   .nav-title{
+	font-size:0.7em ;
+}
+.bottom-nav .nav-icon .iconfont{
+	font-size: 1.5em;
 }
 .bottom-nav .nav-icon{
 	min-height: 1em;
-	line-height: 1.2em;
-	font-size: 1.8em;
+	line-height: 1em;
+	font-size: 1em;
 }
 </style>

@@ -231,6 +231,8 @@
 		
 	}
 	.page-body{
+		padding: 0;
+		margin: 0;
 		justify-content:space-between;
 		flex-direction: column;
 		align-content: ;
@@ -240,7 +242,7 @@
 	}
 	header{
 
-}
+	}
 
 .main-content{
 	margin-bottom: 110upx;
@@ -252,11 +254,12 @@
 }
 
 footer{
+	background: #007AFF;
 	left: 0;
 	right: 0;
 	position:fixed;
 	bottom: 0;
-	height: 110upx;
+
 }
 
 </style>
