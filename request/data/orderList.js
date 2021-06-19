@@ -1,5 +1,7 @@
 export default[{
 	"sn":"11200321322",
+	"shopName":"华发烧烤城",
+	"shop_id":"1",
 	"sum":"645",
 	"status":"1",
 	"pay":"645",
@@ -31,6 +33,8 @@ export default[{
 	
 	},{
 		"sn":"11200321323",
+		"shopName":"弘扬餐饮",
+		"shop_id":"2",
 		"sum":"545",
 		"status":"0",
 		"pay":"545",
@@ -59,6 +63,8 @@ export default[{
 		}}
 	},{
 	"sn":"11200321324",
+	"shopName":"大汉海鲜",
+	"shop_id":"3",
 	"sum":"245",
 	"status":"1",
 	"pay":"245",

@@ -6,6 +6,10 @@ export default{
 	"status":"1",
 	"shop_id":"1",
 	"shopName":"大龙烧烤店",
+	"payType":"微信支付",
+	"createTime":"1566666666",
+	"payTime":"1566666666",
+	"connectTime":"1566666666",
 	"note":"晚上9点在做",
 	"data":{
 		"2_1":{

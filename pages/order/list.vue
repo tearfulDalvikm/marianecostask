@@ -1,31 +1,38 @@
 <template>
 	<view class="main tui">
 		<scroll-view   style="height:100vh;padding: 0 15rpx;box-sizing: border-box;" scroll-y >
-				<view class="uni-card" v-for="(orders,index) in orderData" :key="index">
+				<view class="uni-card" v-for="(orders,index) in orderList" :key="index">
 					<view class="orders-list" style="justify-content: space-between;">
-						<view class="" @tap="goPage('orderDetail')" style="color: #007AFF;">单号:{{orders.sn}}</view>
-						<view class="" style="color: red;">￥{{orders.sum}}</view>
-					</view>
-					<view v-for="(item,key) in orders.data" :key="key" class="orders-list">
-						<view style="flex: 1;">
-							<text class="orders-title">{{item.title}}</text>
-							<text class="orders-version" v-if="item.versionName">{{item.versionName}}</text>
-						</view>
-						<view class="orders-right" style="flex-direction: row;width: 150rpx;">
-							<view>￥{{item.price}}</view>
-							<view style="width: 100rpx;">x{{item.number}}</view>
+						<view class="" @tap="goPage('shop',orders.shop_id)" style="">{{orders.shopName}} ></view>
+						<view  style="color: red;">
+							<text v-if="orders.status!='0'">已付款</text>
+							<text v-else class="">未付款</text>
 						</view>
 					</view>
-					<view class="orders-list"  v-if="orders.status!='0'" style="justify-content: space-between;">
-						<view class="">已付款</view>
-						<view class="">
-							实付<text    style="color: red;">￥{{orders.pay}}</text>
+					<view style="background: #F9F9F9;"  @tap="goPage('orderDetail',orders)">
+						<view v-for="(item,key) in orders.data" :key="key" class="orders-list">
+							<view style="flex: 1;">
+								<text class="orders-title">{{item.title}}</text>
+								<text class="orders-version" v-if="item.versionName">{{item.versionName}}</text>
 							</view>
+							<view class="orders-right" style="flex-direction: row;width: 150rpx;">
+								<view>￥{{item.price}}</view>
+								<view style="width: 100rpx;">x{{item.number}}</view>
+							</view>
+						</view>
 					</view>
-					<view v-else class="orders-list"  style="justify-content: space-between;">
-						<view class="">未付款</view>
-						<view class=""><text  class="button" style="background: #FF3030;color: #fff;" @tap="toPay(orders)">立即付款</text></view>
-
+					<view class="orders-list flex" style="justify-content:flex-end;text-align:left">
+						<text  style="">实付：￥{{orders.pay}}</text>
+					</view>
+					<view class="orders-list flex" style="justify-content:flex-end;align-self: flex-end;">
+						<view v-if="orders.status!='0'" >
+							<text  class="button border" style="margin-left:10upx;" @tap="deleteOrder(orders)" >删除订单</text>
+							<text  class="button border" style="margin-left:10upx;" @tap="refund(orders)" >申请退款</text>
+						</view>
+						<view v-else >
+							<text  class="button border" style="margin: 0 10upx;" @tap="cancelOrder(orders)" >取消订单</text>
+							<text  class="button" style="background: #FF3030;color: #fff;" @tap="toPay(orders)" >去支付</text>
+						</view>
 					</view>
 
 				</view>
@@ -36,7 +43,8 @@
 
 <script>
 	import Storage from "../../common/utils/Storage.js";
-	import orderData from "../../request/data/payOrder.js";
+	import ajax from "../../request/ajax.js";
+	// import orderData from "../../request/data/payOrder.js";
 	import uniIcon from "../../components/template/icon/icon.vue";
 	// const worker = wx.createWorker('workers/request/index.js') // 文件名指定 worker 的入口文件路径，绝对路径
 
@@ -51,7 +59,7 @@
 				address: {},
 				hasAddress: false,
 				total: 0,
-				orderData: [{
+				orderList: [{
 						id: 1,
 						title: '新鲜芹菜 半斤',
 						num: 4,
@@ -71,16 +79,50 @@
 			console.log("onload")
 			console.log(e)
 			// var orderData =Storage.get('payOrder') //读取购物车缓存数据
-
-			this.orderData =orderData //读取订单数据
+			// 请求服务器
+			var self = this;
+			ajax.get('orderList',(res)=>{
+				
+				var orderList=res.data.data ||{};
+				self.orderList=orderList;
+				console.log(res.data.data)
+			})
+			// this.orderData =orderData //读取订单数据
 
 			// this.orders = orderData; //读取模拟数据
-			console.log(this.total)
-			console.log(orderData)
+			// console.log(this.total)
+			// console.log(orderData)
 		},
 		methods: {
-			goPage(e){
+			cancelOrder(){
+				// 取消订单
+				uni.showModal({
+					title:"确认取消订单？",
+					content:"订单一旦取消,获得的相关优惠将会全部取消。"
+				})
+			},
+			refund(e){
+				// 申请退款
+				uni.showModal({
+					title:"申请退款"
+				})
+			},
+			deleteOrder(e){
+				// 删除订单
+				uni.showModal({
+					title:"确认删除订单？",
+					content:"删除之后订单无法恢复,无法处理您的售后问题,请您慎重考虑。"
+				})
+			},
+			goPage(e,data){
 				var  url ='../order/detail';
+				switch (e){
+					case "shop":
+					url='../goods/shop?id='+data;
+						break;
+					default:
+						break;
+				}
 				uni.navigateTo({
 					url: url
 				});
@@ -159,7 +201,7 @@
  */
 	.orders-list view {
 
-		padding: 0 20rpx;
+		/* padding: 0 20rpx; */
 	}
 
 	.orders-list input {

@@ -103,11 +103,11 @@
 				"path": "pages/goods/cart", //启动页面，必选
 				"query": "id=1&name=挺好&num=10" //启动参数，在页面的onLoad函数里面得到
 			},
-// 			{
-// 				"path": "pages/goods/order",
-// 				"name": "订单", //模式名称
-// 				"query": "id=1&name=挺好&num=10" //启动参数，在页面的onLoad函数里面得到
-// 			},
+			{
+				"path": "pages/goods/order",
+				"name": "订单补充", //模式名称
+				"query": "id=1&name=挺好&num=10" //启动参数，在页面的onLoad函数里面得到
+			},
 			{
 				"path": "pages/user/address",
 				"name": "地址信息", //模式名称

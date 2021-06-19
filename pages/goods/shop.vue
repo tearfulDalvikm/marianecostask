@@ -1,27 +1,6 @@
 <template>
 
 	<view class="uni-page-body tui">
-<!-- 		<view class="item">
-			营业时间
-		</view> -->
-		<!-- <view class="header"> -->
-<!-- 			<view class="input-view">
-				<uni-icon type="search" size="22" color="#666666"></uni-icon>
-				<input confirm-type="search" @confirm="confirm" class="input" type="text" placeholder="输入搜索关键词" />
-			</view> -->
-			
-			<!-- #ifdef MP-WEIXIN -->
-<!-- 			<view class="icon" @tap="showRightDrawer">
-				<uni-icon type="bars" color="#666666" size="22"></uni-icon>
-			</view>
-			<view class="nav-badge">
-			<text v-if="totalCart>0" class="uni-badge uni-badge-warning">{{totalCart}}</text>
-			</view> -->
-			<!-- #endif -->
-		<!-- </view> -->
-		<!-- <view class="" v-if="detailShow"> -->
-			<!-- <drawer-bottom  ref="drawerBottom"   :goods="detail"  v-on:change="goodsUpdate"></drawer-bottom> -->
-
 
 			<nav class="uni-flex bottom-nav" style="">
 
@@ -48,7 +27,7 @@
 				<!-- <uni-nav-bar left-icon="back" left-text="返回" right-text="菜单" title="标题"></uni-nav-bar> -->
 			</nav>
 
-		<view v-if="isShow" class="page-body flex row" style="margin-bottom: 100rpx;">
+		<view v-if="isShow" class="page-body flex row" :style="{height:contentHeight + 'px'}">
 
 					<scroll-view scroll-y class=" flex center column" style="width: 180rpx; " :style="{height:contentHeight + 'px'}">
 							<view class="item border cebian-list"   @click="categoryClickMain(null,{id:null})"  :class="categoryActive==null?'active':''">
@@ -100,36 +79,26 @@
 <script>
 
 		import Storage from "../../common/utils/Storage.js";
-		import uniDrawer from '../../components/template/drawer/drawer.vue';
-
-		import shop from"../../request/data/shop.js";
-
+		// import uniDrawer from '../../components/template/drawer/drawer.vue';
+		import ajax from "../../request/ajax.js"
 		var timeOut='';
 		export default {
 			components: {
-
-				uniDrawer,
+				// uniDrawer,
 				// uniIcon,
 			},
 			data() {
 				return {
-					title: 'grid',
-					lists: {},
-					touchmove: false,
-					touchmoveIndex: -1,
-					itemHeight: 0,
+
 					winHeight: 0,
-					scrollViewId: "A",
-					titleHeight: 0,
 					contentHeight:0,
 					
-					rightDrawerVisible: false,
+
 					categoryActive:0,
 					categoryId:null,
 					index:0,
 					isShow:true,
-					detailShow:false,
-					detailIndex:0,
+
 					goods:{
 					id: 1,
 					image: 'https://img-cdn-qiniu.dcloud.net.cn/uploads/example/product3.jpg',
@@ -146,42 +115,26 @@
 					selectGood:{},
 					totalCart:0,//购物车商品总数量
 					shopCart:{},		
-				        category: [
-									{
-										name:'果味',
-										id:'1',
-									},
-									{
-										name:'蔬菜',
-										id:'2',
-									},
-									{
-										name:'炒货',
-										id:'3'},
-									{
-										name:'点心',
-										id:'4'},
-									{
-										name:'粗茶',
-										id:'5',
-									},
-									{
-										name:'淡饭',
-										id:'6',
-										},{
-										name:'果味',
-										id:'7',
-									},
-									{
-										name:'蔬菜',
-										id:'8',
-									},
-									{
-										name:'炒货',
-										id:'9',
-									},
-									
-								],
+					category: [
+								{
+									name:'果味',
+									id:'1',
+								},
+								{
+									name:'蔬菜',
+									id:'2',
+								},
+								{
+									name:'炒货',
+									id:'3'},
+								{
+									name:'点心',
+									id:'4'},
+								{
+									name:'粗茶',
+									id:'5',
+								}
+							],
 		
 			};
 		},mounted:function () {
@@ -190,24 +143,24 @@
 			//创建节点选择器 获取底部导航高度 
 				this.contentHeight=(winHeight-uni.upx2px(100));
 				this.winHeight = winHeight;
-				// console.log(shop)
-				this.categoryList=shop;
-			// self.detail =res.data
+
 			// 请求服务器
-// 			var self = this;
-// 				uni.request({
-// 					url:'http://www.gdfengshuo.com/api/wx/cate-detail.txt',
-// 					success(res){
-// 						console.log(res.data)
-// 						self.detail =res.data
-// 					}
-// 				});
+			var self = this;
+			ajax.get('shop',(res)=>{
+				
+				var shops=res.data.data ||{};
+				self.categoryList=shops.goods;
+				self.category=shops.category;
+				// console.log(res.data.data)
+			})
+
 		},methods:{
 			versionTap(){
 				uni.showModal({
-					title:"请在下单后进行选择",
-					// content:"请在下单后进行选择"
+					title:"提示",
+					content:"请在下单后进行选择"
 				})
+				
 			},
 			goodsUpdate(e){
 				// console.log(e)
@@ -220,43 +173,7 @@
 				
 				this.$set(this.categoryList,this.detailIndex,this.detail)
 			},
-// 			selectVersion(index,vIndex) {
-// 
-// 					var categoryList = this.categoryList;
-// 					var version=categoryList[index].version;
-// 					for(let i=0;i<version.length;i++){
-// 						if(i!=vIndex){
-// 							version[i].selected = false;
-// 						}else{
-// 							version[i].selected = true;
-// 							categoryList[index].versionIndex=i;
-// 							categoryList[index].versionName=version[i].name || categoryList[index].title;
-// 							categoryList[index].price=version[i].price ||categoryList[index].price;
-// 							categoryList[index].image=version[i].image ||categoryList[index].image;
-// 						}
-// 					}
-// 					this.$set(this.categoryList,index,categoryList[index])
-// 			},
-// 			tapDetail(item,idx,selected){
-// 				// console.log('selected'+selected);
-// // 
-// 				// if(this.detailShow && this.detailIndex==idx){
-// 					if(selected){
-// 						// console.log('真的selected'+selected);
-// 						this.selectList(idx)
-// // 					this.detailShow=false;
-// 				}else{
-// 					this.selectList(idx)
-// 					// console.log('假的selected'+selected);
-// 					// this.detailIndex=idx;
-// 					// this.detail=item;
-// 					// this.$refs.drawerBottom.drawerBottomShow=true;
-// 					// this.detailShow=true;
-// 				}
-// 				
-// 
-// 				// console.log(item)
-// 			},
+
 				goPage(e){
 					var url='';
 					switch (e){
@@ -330,20 +247,18 @@
 											item.selected = !selected;
 			
 									this.$set(this.category,cateIdx,category[cateIdx]);
-
 									this.$set(this.categoryList,index,item)
 
 			},
-			confirm() {
-				uni.showToast({
-					title: '搜索'
-				})
-			},//侧边菜单完
-			// 
-			setNumber(e){
-				console.log(e)
-			},
-
+// 			confirm() {
+// 				uni.showToast({
+// 					title: '搜索'
+// 				})
+// 			},//侧边菜单完
+// 			// 
+// 			setNumber(e){
+// 				console.log(e)
+// 			},
 			categoryClickMain(idx,item){
 				this.categoryId=item.id;
 				this.categoryActive=idx;

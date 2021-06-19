@@ -1,6 +1,6 @@
 <template>
-	<view class="main tui">
-		<scroll-view class="uni-card" style="margin-bottom: 120rpx;height:100vh;" scroll-y  >
+	<view class="main tui"  >
+		<scroll-view class=""  :style="{height:contentHeight + 'px'}" style="padding:0 15rpx;box-sizing:border-box;" scroll-y  >
 				<view class="uni-card">
 					<view v-for="(item,key) in orders" :key="key" class="orders-list column">
 
@@ -24,9 +24,17 @@
 						<input class="border" placeholder="给商家留言,可填写注意事项,特殊要求等" :focus="focus" />
 					</view>
 				</view>
+				<view class="flex center" style="">
+					<view class="" style="padding: 0 30upx;"  >
+						<text class="item center" style="color: #1482D1;" @tap="switchTab(0)" v-if="!addrShow">外卖送餐</text>
+						<text class="item center bt-a"  style="color: #1482D1;" @tap="switchTab(1)" v-else >店内就餐</text>
+					</view>
+					<view class="" v-if="addrShow" style="color: #1482D1;" @tap="refreshAddress()">刷新地址</view>
+
+				</view>
 				<view class="uni-card">
-					<view v-if="addrShow" class="uni-card">
-						<button  @tap="goPage('address')" v-if="address.name" class="uni-card flex padding relative column" style="padding:20rpx 30rpx">
+					<view v-if="addrShow" class="">
+						<button  @tap="goPage('address')" v-if="address.name" class="flex padding relative column" style="padding:20rpx 30rpx">
 							<view class="flex item" style="text-align: left;">
 								<text class="item">收货人: {{address.name}}</text>
 								<text class="item">电话: {{address.phone}}</text>
@@ -40,19 +48,20 @@
 							</view>
 							
 						</button>
+						
 						<view v-else class="center">
-							<button  @tap="goPage('address')"  class="uni-card flex padding relative column" style="padding:20rpx 30rpx">
+							<button  @tap="goPage('address')"  class="flex padding relative column" style="padding:20rpx 30rpx">
 								
 							<view class="item">
 								添加您的地址
 							</view>
 							<view class="absolute flex " style=" font-size:1em ; align-items: center;justify-content: flex-end; right: 20rpx;top:0;bottom:0;height: 95%;">
-								<icon class="iconfont icon-jinrujiantouxiao1" style="color:#999;"></icon>
+								 <icon class="iconfont icon-jinrujiantouxiao1" style="color:#999;"></icon>
 							</view>
 							</button>
 
 						</view>
-						<button class=" center" @tap="refreshAddress()">刷新地址<uni-icon type="refresh center" size="20"></uni-icon></button>
+
 					</view>
 					<view v-else class="orders-list">
 						<view class="uni-flex ">
@@ -66,29 +75,25 @@
 						</view>
 					</view>
 				</view>
-					<button type="" class="flex center" @tap="addrShow=!addrShow">
-						<text class="item center" type="arrowright" v-if="!addrShow">送餐</text>
-						<text class="item center" type="arrowright" v-else >店内就餐</text>
-							<uni-icon class="item center" style="" type="loop" size="20"></uni-icon>
-					</button>
+
 		</scroll-view>
 		<nav class="bottom-nav flex " style="background: #F9F9F9;z-index: 99;text-align: left;padding-left: 30rpx;">
 			<view class="item flex " style="font-size: 1.2em;" >支付金额：<text style="color:red">￥{{total}}</text></view>
-			<button type="warn" @tap="toPay" >立即支付</button>
+			<button type="warn" @tap="toPay" >去付款</button>
 		</nav>
 	</view>
 </template>
 
 <script>
 	import Storage from "../../common/utils/Storage.js";
-	import orderData from "../../request/data/order.js";
+	// import ajax from "../../request/ajax.js";
 	import uniIcon from "../../components/template/icon/icon.vue";
-	// const worker = wx.createWorker('workers/request/index.js') // 文件名指定 worker 的入口文件路径，绝对路径
-
 	export default {
 		 components: {uniIcon},
 		data() {
 			return {
+				winHeight:0,
+				contentHeight:0,
 				tableNumbers:'',//桌号
 				number:'',//人数
 				addrShow:false,
@@ -116,16 +121,61 @@
 		onLoad(e) {
 			console.log("onload")
 			console.log(e)
+			let winHeight = uni.getSystemInfoSync().windowHeight;
+			//创建节点选择器 获取底部导航高度 
+				this.contentHeight=(winHeight-uni.upx2px(140));
+				this.winHeight = winHeight;
 			var orderData =Storage.get('order') //读取购物车缓存数据
 
-			// this.orders =orderData //读取订单数据
 
-			this.orders = orderData; //读取模拟数据
-			console.log(this.total)
-			console.log(orderData)
+// 			// 请求服务器
+// 			var self = this;
+// 			ajax.get('orders',(res)=>{
+// 				
+// 				var orders=res.data.data ||{};
+// 				self.orders=orders;
+// 				// console.log(res.data.data)
+// 			})
+			this.orders = orderData; //读数据
+			// console.log(this.total)
+			// console.log(self.orders)
 		},
 		methods: {
-			
+			switchTab(e){
+				if(e==0){
+					this.addrShow=true;
+					this.refreshAddress()
+				}else if(e==1){
+					this.addrShow=false;
+				}
+				
+			},refreshAddress(){
+				var self=this;
+				var address=Storage.get('address');
+				// console.log(address)
+				if(address && typeof address==='object'){
+					for(let i=0;i<address.length;i++){
+						if(address[i].selected){
+							this.address=address[i];
+							console.log(this.address)
+						}
+					}
+				}else{
+					uni.showModal({
+							title:"添加默认地址？",
+							content:"请先添加默认地址,然后刷新地址",
+							success: function (res) {
+									if (res.confirm) {
+										self.goPage()
+										console.log('用户点击确定');
+									} else if (res.cancel) {
+										console.log('用户点击取消');
+									}
+								}
+					})
+				}
+			},
+
 			ceshi() {
 				// uni-app暂时不支持worker
 				// 				worker.onMessage(function (res) {
@@ -164,48 +214,25 @@
 						})
 					}
 				})
-			},refreshAddress(){
-				var address=Storage.get('address');
-				// console.log(address)
-				if(address && typeof address==='object'){
-					for(let i=0;i<address.length;i++){
-						if(address[i].selected){
-							this.address=address[i];
-							console.log(this.address)
-						}
-					}
-				}
 			}
 		},
 		mounted: function() {
 			this.getTotalPrice();
 			// el渲染完成触发
-			this.$nextTick(function() {
-				// const self = this;
-				this.refreshAddress()
-// 				uni.getStorage({
-// 					key: 'address',
-// 					success(res) {
-// 						self.address = res.data;
-// 						self.hasAddress = true
-// 					}
-// 				})
-			})
+// 			this.$nextTick(function() {
+// 				// const self = this;
+// 				// this.refreshAddress()
+// 
+// 			})
 		}
 	}
 </script>
 
 <style>
 	page{
-		overflow-y:scroll;
+		/* overflow-y:scroll; */
 	}
-/* 	.section {
-		border-top: 1rpx solid #ededed;
-		border-bottom: 1rpx solid #EDEDED;
-		display: flex;
-		justify-content: center;
-	}
- */
+
 	.orders-list view {
 
 		padding: 0 20rpx;

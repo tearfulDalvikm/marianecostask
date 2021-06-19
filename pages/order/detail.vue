@@ -2,17 +2,17 @@
 <view class="main tui">
 	<!-- <drawer-bottom  ref="drawerBottom"  :drawerBottomShow="drawerBottomShow" :goods="goods" v-on:change="goodsUpdate"></drawer-bottom> -->
 
-	<scroll-view class="scrollList" scroll-y   :style="{height:contentHeight + 'px'}" style="margin-bottom: 120rpx;padding: 0 15rpx;box-sizing: border-box;">
-		<view class="flex center column" style="">
-			<view class="icon flex center" style="margin: 20rpx 0;color: #000000;font-weight:bold" @tap="goPage('shop')">
-				<!-- <icon class="iconfont icon-dianpu" style="font-size: 1em;line-height: 1em;"></icon> -->
-				<text  class="iconfont icon-dianpu" style="font-size:1.2em ;padding-top: 40rpx;">{{orderDetail.shopName}}</text>
+	<scroll-view class="scrollList" scroll-y   :style="{height:contentHeight + 'px'}" style="padding: 0 15rpx;box-sizing: border-box;">
+<!-- 		<view class="flex center column" style="">
+			<view class="icon flex center" style="padding: 0rpx 0;color: #000000;font-weight:bold;background: ;" @tap="goPage('shop')">
+				<text  class="" style="font-size:1.4em ;background:#1482D1 ;color: #fff;padding: 20rpx;width: 100%;">{{orderDetail.shopName}}</text>
 			</view>
-			<!-- <view class="icon flex center" style="" @tap="goPage('shop')"> -->
-			<button type="warn" class="iconfont icon-kefu" style="font-size:1em ;padding: 8rpx;line-height: 1em;"  @tap="goPage('kefu')" >客服</button>
-				<!-- <text  class="iconfont icon-kefu" style="font-size:1em ;padding: 20rpx;background: #A55350;" @tap="goPage('shop')">客服</text> -->
-			<!-- </view> -->
-		</view>
+			<view class="" style="padding: 20rpx;">
+				<button type="" class="iconfont icon-kefu" style="font-size:1em ;padding: 8rpx;line-height: 1em;"  @tap="goPage('kefu')" >客服</button>
+			</view>
+			
+
+		</view> -->
 
 			 <view class="uni-card flex center column">
 <!-- 						<image :src="goods.image" mode="aspectFill" class="goods-thumb"></image>
@@ -21,59 +21,81 @@
 				</view>
 				<view class="uni-card"  >
 					<view class="orders-list" style="justify-content: space-between;">
-						<view class=""  >单号:{{orderDetail.sn}}</view>
-						<view class="" style="color: red;">￥{{orderDetail.sum}}</view>
-					</view>
-					<view v-for="(item,key) in orderDetail.data" :key="key" class="orders-list column">
-
-						<view class="item flex">
-							<view style="flex: 1;">
-								<text class="orders-title">{{item.title}}</text>
-								<text class="orders-version" v-if="item.versionName">{{item.versionName}}</text>
-							</view>
-							<view class="orders-right" style="flex-direction: row;width: 150rpx;">
-								<view>￥{{item.price}}</view>
-								<view style="width: 100rpx;">x{{item.number}}</view>
-							</view>
-						</view>
-						<view class="item flex" v-if="item.note">
-							<view style="flex: 1;font-size: 0.8em;">
-								<text class="orders-title">备注：</text>
-								<text class="" >{{item.note}}</text>
-							</view>
-<!-- 							<view class="orders-right" style="flex-direction: row;width: 150rpx;">
-								<view>￥{{item.price}}</view>
-								<view style="width: 100rpx;">x{{item.number}}</view>
-							</view> -->
+						<view class="" style="font-weight:bold;" @tap="goPage('shop',orderDetail.shop_id)" >{{orderDetail.shopName}} ></view>
+						<!-- <view class=""  >单号:{{orderDetail.sn}}</view> -->
+						<view  style="color: red;">
+							<text v-if="orderDetail.status!='0'">已付款</text>
+							<text v-else class="">未付款</text>
 						</view>
 					</view>
+					<view style="background: #F9F9F9;"  @tap="goPage('orderDetail',orderDetail)">
+						<view v-for="(item,key) in orderDetail.data" :key="key" class="orders-list column">
 
-					<view class="orders-list "  v-if="orderDetail.status!='0'" style="justify-content: space-between;">
-						<view  >已付款</view>
-						<view >
-							<text>实付：</text><text style="color: red;">￥{{orderDetail.pay}}</text> <text class="bagde" style="" v-if="orderDetail.sum>orderDetail.pay"> 已优惠：￥{{orderDetail.sum-orderDetail.pay}}</text>
+							<view class="item flex">
+								<view style="flex: 1;">
+									<text class="orders-title">{{item.title}}</text>
+									<text class="orders-version" v-if="item.versionName">{{item.versionName}}</text>
+								</view>
+								<view class="orders-right" style="flex-direction: row;width: 150rpx;">
+									<view>￥{{item.price}}</view>
+									<view style="width: 100rpx;">x{{item.number}}</view>
+								</view>
+							</view>
+							<view class="item flex" v-if="item.note">
+								<view style="flex: 1;font-size: 0.8em;">
+									<text class="orders-title">备注：</text>
+									<text class="" >{{item.note}}</text>
+								</view>
+							</view>
 						</view>
-<!-- 						<view class="">
-							实付：<text style="color: red;">￥{{orderDetail.pay}}</text>已优惠：<text style="color: red;">￥{{orderDetail.sum-orderDetail.pay}}</text>
-						</view> -->
 					</view>
-					<view v-else class="orders-list"  style="justify-content: space-between;">
-						<view class="">未付款</view>
-						<view class=""><text  class="button" style="background: #FF3030;color: #fff;" @tap="toPay(orderDetail)">立即付款</text></view>
 
+					<view class="orders-list flex" style="justify-content:flex-end;text-align:left">
+						<text class="bagde" style="" v-if="orderDetail.sum>orderDetail.pay"> 已优惠：￥{{orderDetail.sum-orderDetail.pay}}</text>
+						<text  style="">实付：￥{{orderDetail.pay}}</text>
 					</view>
-					<view v-if="orderDetail.note" class="orders-list"  style="justify-content: space-between;color:;">
-						
+<!-- 					<view class="orders-list flex" style="justify-content:flex-end;align-self: flex-end;">
+						<view v-if="orderDetail.status!='0'" >
+							<text  class="button border" style="margin-left:10upx;" @tap="deleteOrder(orderDetail)" >删除订单</text>
+							<text  class="button border" style="margin-left:10upx;" @tap="refund(orderDetail)" >申请退款</text>
+						</view>
+						<view v-else >
+							<text  class="button border" style="margin: 0 10upx;" @tap="cancelOrder(orderDetail)" >取消订单</text>
+							<text  class="button" style="background: #FF3030;color: #fff;" @tap="toPay(orderDetail)" >去支付</text>
+						</view>
+					</view> -->
+					<view   v-if="orderDetail.note" class="orders-list"  style="background: #F9F9F9;justify-content: space-between;color:;">		
 						<view class="">备注: {{orderDetail.note}}</view>
 					</view>
 				</view>
-<!-- 				<view class="uni-card flex center" >
-					<view class="icon flex center" style="" @tap="goPage('shop')">
-						<text  class="iconfont icon-kefu" style="font-size:1.2em ;padding: 20rpx;">客服</text>
+				<view class="flex center column" style="">
+					<view class="icon flex center" style="">
+						<text  class="" @tap="goPage('kefu')" style="font-size:1.2em ;background:#1482D1 ;color: #fff;padding: 20rpx;width: 100%;">联系卖家</text>
 					</view>
-				</view> -->
+
+				</view>
+				<view class="uni-card flex column padding"  >
+					<text>订单编号：{{orderDetail.sn}}</text>
+					<text>支付方式：{{orderDetail.payType}}</text>
+					<text>下单时间：{{orderDetail.createTime}}</text>
+					<text>付款时间：{{orderDetail.payTime}}</text>
+					<text>接单时间：{{orderDetail.connectTime}}</text>
+				</view>
+
 
 		</scroll-view>
+		<nav class="bottom-nav flex  " style="bottom:0;z-index: 99;">
+			<view class="orders-list flex" style="justify-content:flex-end;align-self: flex-end;">
+				<view v-if="orderDetail.status!='0'" >
+					<text  class="button border" style="margin-left:10upx;" @tap="deleteOrder(orderDetail)" >删除订单</text>
+					<text  class="button border" style="margin-left:10upx;" @tap="refund(orderDetail)" >申请退款</text>
+				</view>
+				<view v-else >
+					<text  class="button border" style="margin: 0 10upx;" @tap="cancelOrder(orderDetail)" >取消订单</text>
+					<text  class="button" style="background: #FF3030;color: #fff;" @tap="toPay(orderDetail)" >去支付</text>
+				</view>
+			</view>
+		</nav>
 <!-- 						<nav class="bottom-nav flex  " style="bottom:0;z-index: 99;">
 								<view class="item flex center" style="justify-content: space-around;">
 									<view class="icon flex column" style="flex-direction: column;" @tap="goPage('shop')">
@@ -156,29 +178,30 @@
 			};
 		},
 		methods:{
-// 							xuanZhe(){
-// 								if(typeof this.goods.version ==='object' && this.goods.version[0]){
-// 									this.$refs.drawerBottom.drawerBottomShow=true;
-// 								}else{
-// 									this.tongJi()
-// 									this.goPage('cart')
-// 								}
-// 							},
-// 							tongJi(){
-// 								var cart={};
-// 								cart[this.goods.id]=this.goods;
-// 								Storage.set('cart',cart,100)
-// 							},
-// 							goodsUpdate(item){
-// 								this.goods=item;
-// 								this.tongJi()
-// 								console.log(item)
-// 								this.goPage('cart')
-// 							},
-							goPage(e){
-								var url='';
-								switch (e){
-									case "cart":
+			cancelOrder(){
+				// 取消订单
+				uni.showModal({
+					title:"确认取消订单？",
+					content:"订单一旦取消,获得的相关优惠将会全部取消。"
+				})
+			},
+			refund(e){
+				// 申请退款
+				uni.showModal({
+					title:"申请退款"
+				})
+			},
+			deleteOrder(e){
+				// 删除订单
+				uni.showModal({
+					title:"确认删除订单？",
+					content:"删除之后订单无法恢复,无法处理您的售后问题,请您慎重考虑。"
+				})
+			},
+				goPage(e){
+					var url='';
+					switch (e){
+						case "cart":
 
 // 												var goods=this.goods;
 // 												var cart={};
@@ -188,37 +211,37 @@
 // 														cart[goods[i].id]=goods[i];
 // 													}
 // 												}
-												// Storage.set('cart',cart,1000);
-												url="/pages/goods/"+e+"?id=2";
-										break;
-										case "wode":
-										url="/pages/user/"+e+"?id=2";
-										break;
-										case "kefu":
-										url="/pages/chat/chat?id=2";
-										break;
+									// Storage.set('cart',cart,1000);
+									url="/pages/goods/"+e+"?id=2";
+							break;
+							case "wode":
+							url="/pages/user/"+e+"?id=2";
+							break;
+							case "kefu":
+							url="/pages/chat/chat?id=2";
+							break;
 // 										case "chat":
 // 										url="/pages/chat/"+e+"?id=2";
 // 										break;
-										case "order":
-										url="/pages/pay/"+e+"?id=2";
-										break;
-										
-									default:
-										url="/pages/goods/"+e+"?id=2";
-										break;
-								}
-			
-								
-								uni.navigateTo({
-									url: url,
-									success: res => {
-										
-									},
-									fail: () => {},
-									complete: () => {}
-								});
-						}
+							case "order":
+							url="/pages/pay/"+e+"?id=2";
+							break;
+							
+						default:
+							url="/pages/goods/"+e+"?id=2";
+							break;
+					}
+
+					
+					uni.navigateTo({
+						url: url,
+						success: res => {
+							
+						},
+						fail: () => {},
+						complete: () => {}
+					});
+			}
 		},onLoad(e){
 				let winHeight = uni.getSystemInfoSync().windowHeight;
 			//创建节点选择器 获取底部导航高度 

@@ -1,4 +1,38 @@
-var items =[{
+var category= [
+	{
+		name:'果味',
+		id:'1',
+	},
+	{
+		name:'蔬菜',
+		id:'2',
+	},
+	{
+		name:'炒货',
+		id:'3'},
+	{
+		name:'点心',
+		id:'4'},
+	{
+		name:'粗茶',
+		id:'5',
+	},
+	{
+		name:'淡饭',
+		id:'6',
+		},{
+		name:'果味',
+		id:'7',
+	},
+	{
+		name:'蔬菜',
+		id:'8',
+	},
+	{
+		name:'炒货',
+		id:'9',
+	}]
+var goods =[{
 		"id":"1",
 		"title":"点心",
 		"image":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544799000&di=1610b5317bb15dbb6a36e4d57cf4eb3f&imgtype=jpg&er=1&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Fc995d143ad4bd1138854651451afa40f4bfb057f.jpg",
@@ -258,4 +292,4 @@ var items =[{
 		"tip":"自营"
 	}
 ]
-export default items
+export default {goods:goods,category:category}
