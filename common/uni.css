@@ -787,15 +787,15 @@ radio-group label, checkbox-group label{
 	background-color: #c8c7cc;
 }
 .margin{
-	margin: 20rpx;
+	margin: 20upx;
 }
 .margin-height{
-	margin-bottom: 20rpx;
-	margin-top: 20rpx;
+	margin-bottom: 20upx;
+	margin-top: 20upx;
 }
 .margin-width{
-	margin-left: 20rpx;
-	margin-right: 20rpx;
+	margin-left: 20upx;
+	margin-right: 20upx;
 }
 .uni-input-group:after {
 	position: absolute;
@@ -819,9 +819,9 @@ radio-group label, checkbox-group label{
 
 .uni-input-group .uni-input-row:after {
 	position: absolute;
-	right: 0;
+	right: 0upx;
 	bottom: 0;
-	left: 30upx;
+	left: 20upx;
 	height: 2upx;
 	content: '';
 	transform: scaleY(.5);
@@ -901,8 +901,8 @@ radio-group label, checkbox-group label{
 .uni-steps .current .step-title{color:#00B26A;}
 
 /* comment */
-.uni-comment{padding:5rpx 0; display: flex; flex-grow:1; flex-direction: column;}
-.uni-comment-list{flex-wrap:nowrap; padding:10rpx 0; margin:10rpx 0; width:100%; display: flex;}
+.uni-comment{padding:5upx 0; display: flex; flex-grow:1; flex-direction: column;}
+.uni-comment-list{flex-wrap:nowrap; padding:10upx 0; margin:10upx 0; width:100%; display: flex;}
 .uni-comment-face{width:70upx; height:70upx; border-radius:100%; margin-right:20upx; flex-shrink:0; overflow:hidden;}
 .uni-comment-face image{width:100%; border-radius:100%;}
 .uni-comment-body{width:100%;}
@@ -910,11 +910,11 @@ radio-group label, checkbox-group label{
 .uni-comment-top text{color:#0A98D5; font-size:24upx;}
 .uni-comment-date{line-height:38upx; flex-direction:row; justify-content:space-between; display:flex !important; flex-grow:1;}
 .uni-comment-date view{color:#666666; font-size:24upx; line-height:38upx;}
-.uni-comment-content{line-height:1.6em; font-size:28upx; padding:8rpx 0;}
-.uni-comment-replay-btn{background:#FFF; font-size:24upx; line-height:28upx; padding:5rpx 20upx; border-radius:30upx; color:#333 !important; margin:0 10upx;}
+.uni-comment-content{line-height:1.6em; font-size:28upx; padding:8upx 0;}
+.uni-comment-replay-btn{background:#FFF; font-size:24upx; line-height:28upx; padding:5upx 20upx; border-radius:30upx; color:#333 !important; margin:0 10upx;}
 
 /* swiper msg */
-.uni-swiper-msg{width:100%; padding:12rpx 0; flex-wrap:nowrap; display:flex;}
+.uni-swiper-msg{width:100%; padding:12upx 0; flex-wrap:nowrap; display:flex;}
 .uni-swiper-msg-icon{width:50upx; margin-right:20upx;}
 .uni-swiper-msg-icon image{width:100%; flex-shrink:0;}
 .uni-swiper-msg swiper{width:100%; height:50upx;}

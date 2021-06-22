@@ -25,7 +25,7 @@ var ceshifun=(Obj)=>{
 		}
 		return true;
 	}
-	console.log('测试请求函数，位置request/ajax.js-11行ceshifun(),正式使用请删除')
+	// console.log('测试请求函数，位置request/ajax.js-11行ceshifun(),正式使用请删除')
 
 	return false;
 }

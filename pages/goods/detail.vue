@@ -1,31 +1,29 @@
 <template>
-<view class="main tui">
-	<drawer-bottom  ref="drawerBottom"  :drawerBottomShow="drawerBottomShow" :goods="goods" v-on:change="goodsUpdate"></drawer-bottom>
-
-	<scroll-view class="scrollList" scroll-y   :style="{height:contentHeight + 'px'}" style="margin-bottom: 120rpx;">
-			 <view class="uni-card flex center column">
+<view class="page-body tui">
+	<scroll-view class="scrollList" scroll-y   :style="{height:contentHeight + 'px'}" style="margin-top: 0;">
+				<view class="uni-card tui-flex tui-center tui-column">
 						<image :src="goods.image" mode="aspectFill" class="goods-thumb"></image>
 							<view class="goods-title">{{goods.title}}</view>
 
 				</view>
 
-				<view class="uni-card flex center">
+				<view class="uni-card tui-flex tui-center">
 					<view class="goods-price">
 						<text style="color:red;">￥ {{goods.price}}</text>
 					</view>
 				</view>
-				<view v-if="goods.stock" class="uni-card flex center">
+				<view v-if="goods.stock" class="uni-card tui-flex tui-center">
 					<text class="">库存:{{goods.stock}}</text>
 
 				</view>
-				<view class="uni-card flex column" >
+				<view class="uni-card tui-flex tui-column" >
 						<view class="goods-tab-nav">
-								<view :class="curIndex === 0 ?'on color border':'opacity'" @tap="bindTap(0)" :data-index="0">商品详情</view>
-								<view v-if="goods.attribute" :class="curIndex === 1 ?'on color border':'opacity'" @tap="bindTap(1)" :data-index="1">产品参数</view>
+								<view :class="curIndex === 0 ?'on tui-color tui-border':'opacity'" @tap="bindTap(0)" :data-index="0">商品详情</view>
+								<view v-if="goods.attribute" :class="curIndex === 1 ?'on tui-color tui-border':'opacity'" @tap="bindTap(1)" :data-index="1">产品参数</view>
 						</view>
-						<view class="goods-content border">
+						<view class="goods-content tui-border">
 						<view  v-if="curIndex === 1" v-for="(attr,aIndex) in goods.attribute" :key="aIndex">
-							<text class="border">{{attr.name}}</text><text class="border" style="">{{attr.text}}</text>
+							<text class="tui-border">{{attr.name}}</text><text class="border" style="">{{attr.text}}</text>
 						</view>
 						<view  v-if="curIndex === 0">
 							<text>
@@ -36,34 +34,24 @@
 						</view> 
 				</view>
 		</scroll-view>
-						<nav class="bottom-nav flex  " style="bottom:0;z-index: 99;">
-								<view class="item flex center" style="justify-content: space-around;">
-									<view class="icon flex column" style="flex-direction: column;" @tap="goPage('shop')">
-										<icon class="iconfont icon-dianpu" style="font-size: 1.4em;line-height: 0.6em;"></icon>
-										<text style="font-size:0.8em ;">店铺</text>
-									</view>
-									<view class="icon flex column" @tap="goPage('chat')">
-										<icon class="iconfont icon-kefu" style="font-size: 1.4em;line-height: 0.6em;"></icon>
-										<text style="font-size:0.8em ;">客服</text>
-									</view>
-									<view class="icon flex column" @tap="goPage('order')">
-										<icon class="iconfont icon-dingdanjihe" style="font-size: 1.4em;line-height: 0.6em;"></icon>
-										<text style="font-size:0.8em ;">订单</text>
-									</view>
-<!-- 									<view class="icon flex column" @tap="goPage('wode')">
-										<icon class="iconfont icon-wode" style="font-size: 1.4em;line-height: 0.6em;"></icon>
-										<text style="font-size:0.8em ;">我的</text>
-									</view> -->
-									<!-- 导航微信 -->
-								</view>
-<!-- 								<view class="flex item  row" style="background: #F9F9F9;text-align: left;padding-left: 20rpx;">
-
-									<view class="flex" style="text-align: left;padding-left: 30rpx;flex-wrap: nowrap;">合计:<text style="color: red;">￥{{totalPrice}}</text></view>
-								
-								</view> -->
-
-								<button type="warn" @tap="xuanZhe()" >下单</button>
-						</nav>
+		<drawer-bottom  ref="drawerBottom"  :drawerBottomShow="drawerBottomShow" :goods="goods" v-on:change="goodsUpdate"></drawer-bottom>
+		<nav class="tui-bottom-nav tui-flex" style="bottom:0;z-index: 99;">
+				<view class="tui-item tui-flex tui-center" style="justify-content: space-around;">
+					<icon class="iconfont icon-dianpu tui-flex tui-column" style="font-size: 1.4em;line-height: 0.8em;" @tap="goPage('shop')">
+						<text style="font-size:0.6em ;">店家</text>
+					</icon>
+					<icon class="iconfont icon-kefu tui-flex tui-column" style="font-size: 1.4em;line-height: 0.8em;"  @tap="goPage('chat')">
+						<text style="font-size:0.6em ;">客服</text>
+					</icon>
+					<icon class="iconfont icon-dingdanjihe tui-flex tui-column" style="font-size: 1.4em;line-height: 0.8em;" @tap="goPage('order')">
+						<text style="font-size:0.6em ;">订单</text>
+					</icon>
+					<icon class="iconfont icon-wode tui-flex tui-column" style="font-size: 1.4em;line-height: 0.8em;" @tap="goPage('wode')">
+						<text style="font-size:0.6em ;">我的</text>
+					</icon>
+				</view>
+				<button type="warn" @tap="xuanZhe()" size="mini" style="line-height:100upx;padding: 0 15upx;">下单</button>
+		</nav>
 </view>
 </template>
 
@@ -82,7 +70,6 @@
 			return {
 				winHeight:0,
 				contentHeight:100,
-				winHeight:0,
 				drawerBottomShow:false,
 				timeOut:'',
 				timeOut2:'',

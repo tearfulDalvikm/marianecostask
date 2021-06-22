@@ -1,5 +1,5 @@
 <template>
-	<view class="m-item" :id="'message'+id" style="padding:0 15rpx;">
+	<view class="m-item" :id="'message'+id" style="padding:0 15upx;">
 			<view class="uni-card" >
 				<view class="uni-card-header uni-card-media">
 					<!-- <image class="uni-card-media-logo" src="https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/uni@2x.png"></image> -->

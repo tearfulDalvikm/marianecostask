@@ -4,13 +4,6 @@
 					<view class="uni-product-item" hover-class="uni-list-cell-hover" v-for="(product,index) in productList"  :key="index">
 						<view class="image-view" @tap="goTo(product)">
 
-<!-- 							<view  v-if="!product.show && index>showImageNum" :data-index="index" class="uni-product-image  lazy" style="display: flex;justify-content:center ;flex-direction:column">
-								<uni-load-more   :loadingType="product.show?false:true" :contentText="contentText"></uni-load-more>
-							</view>
-								
-							<view v-else>
-								<image  class="uni-product-image"  mode="aspectFill" :src="product.image" />
-							</view> -->
 						<view  v-if="!product.show && index>showImageNum" :data-index="index" class="uni-product-image  lazy" style="display: flex;justify-content:center ;flex-direction:column">
 							图片加载中...
 						</view>

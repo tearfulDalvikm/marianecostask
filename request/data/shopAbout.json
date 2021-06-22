@@ -1,0 +1,13 @@
+	
+{
+	"code":200,
+	"message":"ok",
+	"data":{
+						"name":"王家小店",
+						"id": "1",
+						"image": "https://img-cdn-qiniu.dcloud.net.cn/uploads/example/product3.jpg",
+						"address": "北京市东城区王府井门口",
+						"detail": "这里是梨花带雨详情。",
+						"synopsis":"简介，这里是梨花带雨详情"
+	}
+}

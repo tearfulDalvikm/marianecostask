@@ -1,22 +1,22 @@
 <template>
-	<view class="page tui">
+	<view class="tui">
 		<page-head :title="title"></page-head>
 		<view class="uni-list">
 			<view class="uni-list-cell" hover-class="uni-list-cell-hover" v-for="(value,key) in list" :key="key">
-				<view class=" uni-media-list flex" @tap="goPage(value)">
+				<view class=" uni-media-list tui-flex" @tap="goPage(value)">
 					<view class="uni-media-list-logo " style="position: relative;">
-						<view v-if="value.msg" class="bagde" style="position: absolute;right:-15rpx;top:-15rpx"> <text v-if="value.msg<10">{{value.msg}}</text><text v-else>…</text></view>
+						<view v-if="value.msg" class="tui-bagde" style=""> <text v-if="value.msg<10">{{value.msg}}</text><text v-else>…</text></view>
 						<image v-if="showImg" :src="value.img"></image>
 					</view>
-					<view class="uni-media-list-body item" style="flex: 1;">
+					<view class="uni-media-list-body tui-item" style="flex: 1;">
 						<view class="uni-media-list-text-top">
 							<text>{{value.title}}</text>
 						</view>
 						<view class="uni-media-list-text-bottom uni-ellipsis">{{value.content}}</view>
 					</view>
-					<view class="flex column" style="width: 90rpx;">
-						<text class="item " style=" font-size: 0.7em;opacity: 0.5;">晚上07:20</text>
-						<text class="item"></text>
+					<view class="tui-flex tui-column" style="width: 90upx;">
+						<text class="tui-item " style=" font-size: 0.7em;opacity: 0.5;">晚上07:20</text>
+						<text class="tui-item"></text>
 					</view>
 				</view>
 			</view>
@@ -88,9 +88,12 @@
 </script>
 
 <style>
-.tui .bagde{
+.tui .tui-bagde{
 	background: #FF4040;
 	color: #fff;
+	position: absolute;
+	right:-15upx;
+	top:-15upx
 }
 .title {
 	padding: 20upx;

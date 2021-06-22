@@ -1,16 +1,16 @@
 <template>
-	<view>
+	<view class="page-body tui">
 		<scroll-view scroll-y :style="{height: winHeight+'px'}">
 
 		<view class="header" v-bind:class="{'status':isH5Plus}">
-			<view class="userinfo">
-				<view class="face"><image :src="userinfo.face"></image></view>
+			<view class="userinfo" @tap="toPage('info')">
+				<view class="face"><image :src="userinfo.headimg"></image></view>
 				<view class="info">
-					<view class="username">{{userinfo.username}}</view>
+					<view class="username">{{userinfo.nickName}}</view>
 					<view class="integral">积分:{{userinfo.integral}}</view>
 				</view>
 			</view>
-			<view class="setting"><image src="../../static/HM-PersonalCenter/setting.png"></image></view>
+			<view class="setting" @tap="toPage('info')"><image src="../../static/HM-PersonalCenter/setting.png"></image></view>
 		</view>
 <!-- 		<view class="orders">
 			<view class="box">
@@ -20,18 +20,26 @@
 				</view>
 			</view>
 		</view> -->
-		<view class="list" v-for="(list,list_i) in severList" :key="list">
-			<view class="li" v-for="(li,li_i) in list" @tap="toPage(list_i,li_i)" v-bind:class="{'noborder':li_i==list.length-1}"  hover-class="hover"  hover-stay-time="50"  :key="li.name" >
+		<view class="list" v-for="(list,list_i) in severList" :key="list_i">
+			<view class="li" v-for="(li,li_i) in list" @tap="toPage(li.url)" v-bind:class="{'noborder':li_i==list.length-1}"  hover-class="hover"  hover-stay-time="50"  :key="li.name" >
 				<view class="icon"><image :src="'../../static/HM-PersonalCenter/sever/'+li.icon"></image></view>
 				<view class="text">{{li.name}}</view>
 				<image class="to" src="../../static/HM-PersonalCenter/to.png"></image>
 			</view>
 		</view>
-
+		<!-- <view class="list"   hover-class="hover"  hover-stay-time="50" > -->
+			<button class="" style="" size="default" v-if="hasLogin" @tap="toPage('logout')">
+				退出登陆
+			</button>
+			<button class="" size="default"  v-else  @tap="toPage('login')" >
+				登陆
+			</button>
+		<!-- </view> -->
 		</scroll-view>
 	</view>
 </template>
 <script>
+	import Storage from "../../common/utils/Storage.js";
 	export default {
 		data() {
 			return {
@@ -39,7 +47,11 @@
 				//#ifdef APP-PLUS
 				isH5Plus:true,
 				//#endif
-				userinfo:{},
+				userinfo:{
+					headimg:'../../static/HM-PersonalCenter/face.jpeg',
+					nickName:"未登录",
+					integral:"1435",
+					},
 				orderTypeLise:[
 					//name-标题 icon-图标 badge-角标
 					{name:'待付款',icon:'l1.png',badge:1},
@@ -50,7 +62,7 @@
 				],
 				severList:[
 					[
-						{name:'我的收藏',icon:'point.png'},
+						{name:'我的收藏',icon:'point.png',url:'../goods/collect'},
 // 						{name:'优惠券',icon:'quan.png'},
 // 						{name:'红包',icon:'momey.png'},
 // 						{name:'任务',icon:'renw.png'},
@@ -60,20 +72,67 @@
 // 						{name:'抽奖',icon:'choujiang.png'},
 						{name:'收货地址',icon:'addr.png',url:'../user/address'},
 						// {name:'银行卡',icon:'bank.png'},
-						{name:'安全中心',icon:'security.png'},
-						{name:'在线客服',icon:'kefu.png'}
+						{name:'安全中心',icon:'security.png',url:'../user/security'},
+						{name:'在线客服',icon:'kefu.png',url:'../chat/chat'}
 					]
 				],
 			};
+		},computed:{
+			hasLogin(){
+				return this.$store.getters.login;
+			}
 		},
-		onLoad() {
+		onShow(){
+			var store=this.$store.state;
+			// var hasLogin=store.hasLogin;
+			// console.log(this.$store)
 			let winHeight = uni.getSystemInfoSync().windowHeight;
 			this.winHeight= winHeight;
-			//加载
-			this.init();
+			var that=this;
+			// var isLogin=this.$store.dispatch('isLogin')
+			function st(){
+				return  that.$store.dispatch('isLogin')
+			}
+			st().then(function(data){
+				if(data){
+					console.log("镇的")
+				}else{
+					console.log(data+"假的")
+				}
+					
+				});
+// 			if(!hasLogin){
+// 				uni.showModal({
+// 					title:"您还未登陆,立即登陆?",
+// 					content:"请登陆后进行访问",
+// 					success(e){
+// 						if(e.confirm){
+// 						//登陆
+// 						uni.navigateTo({
+// 							url:'../login/login'
+// 						})	
+// 						}else{
+// 							console.log("放弃登陆")
+// 						}
+// 						console.log(e)
+// 					}
+// 				})
+// 			}else{
+// 				
+// 			}
+		},onLoad() {
+
+// 			//加载
+// 			this.init();
 		},
 		methods: {
 			init(){
+				// 默认头像
+				this.userinfo={
+					headimg:'../../static/HM-PersonalCenter/face.jpeg',
+					nickName:"未命名",
+					integral:"1435"
+				}	
 				var self=this;
 				/**
 				 * 获取用户信息
@@ -82,28 +141,36 @@
 				  success: function(res){
 					  console.log(res.userInfo)
 					  self.userinfo={
-					  	face:res.userInfo.avatarUrl,
-					  	username:res.userInfo.nickName,
+					  	headimg:res.userInfo.avatarUrl,
+					  	nickName:res.userInfo.nickName,
 					  	integral:"1435"
 					  }	
 				  }
 				})
-// 				this.userinfo={
-// 					face:'../../static/HM-PersonalCenter/face.jpeg',
-// 					username:"VIP会员10240",
-// 					integral:"1435"
-// 				}		
+	
 			},
 			//用户点击订单类型
 			toOrderType(index){
 				uni.showToast({title: this.orderTypeLise[index].name});
 			},
 			//用户点击列表项
-			toPage(list_i,li_i){
+			toPage(url){
+				console.log(url)
+				switch (url){
+					case "login":
+					url="../login/login";
+						break;
+					case "logout":
+					this.$store.commit('logout');
+					return false;
+					url="../login/logout";
+						break;
+					default:
+						break;
+				}
 				uni.navigateTo({
-					url:this.severList[list_i][li_i].url
+					url:url
 				})
-				// uni.showToast({title: this.severList[list_i][li_i].name});
 			}
 		}
 	}

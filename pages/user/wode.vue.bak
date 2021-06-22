@@ -150,20 +150,20 @@
 <style>
 .header{
     position: relative;
-    height: 160rpx;
-    line-height: 100rpx;
-    padding:30rpx 30rpx 30rpx 150rpx;
+    height: 160upx;
+    line-height: 100upx;
+    padding:30upx 30upx 30upx 150upx;
     box-sizing: border-box;
     background: #AB956D;
-    font-size: 28rpx;
+    font-size: 28upx;
     color: #fff;
 }
 .header .thumb{
     position: absolute;
-    left: 30rpx;
-    top: 30rpx;
-    width: 100rpx;
-    height: 100rpx;
+    left: 30upx;
+    top: 30upx;
+    width: 100upx;
+    height: 100upx;
     border-radius: 50%;
 }
 .header .about{

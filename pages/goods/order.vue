@@ -1,61 +1,61 @@
 <template>
-	<view class="main tui"  >
-		<scroll-view class=""  :style="{height:contentHeight + 'px'}" style="padding:0 15rpx;box-sizing:border-box;" scroll-y  >
+	<view class="page-body tui"  >
+		<scroll-view class=""  :style="{height:contentHeight + 'px'}" style="padding:0 15upx;box-sizing:border-box;" scroll-y  >
 				<view class="uni-card">
 					<view v-for="(item,key) in orders" :key="key" class="orders-list column">
 
-						<view class="item flex">
+						<view class="tui-item tui-flex">
 							<view style="flex: 1;">
 								<text class="orders-title">{{item.title}}</text>
 								<text class="orders-version" v-if="item.versionName">{{item.versionName}}</text>
 							</view>
 							<!-- <image class="orders-thumb" :src="item.image"></image> -->
-							<view class="orders-right" style="flex-direction: row;width: 150rpx;">
+							<view class="orders-right" style="flex-direction: row;width: 150upx;">
 								<view>￥{{item.price}}</view>
-								<view style="width: 100rpx;">x{{item.number}}</view>
+								<view style="width: 100upx;">x{{item.number}}</view>
 							</view>
 						</view>
-						<view v-if="item.note" class="item" style="width: 100%;font-size:0.6em;opacity:0.5;height: 1em;line-height: 1em;">
+						<view v-if="item.note" class="tui-item" style="width: 100%;font-size:0.6em;opacity:0.5;height: 1em;line-height: 1em;">
 							备注:{{item.note}}
 						</view>
 					</view>
 					<view class="orders-list">
 						<view class="">订单备注</view>
-						<input class="border" placeholder="给商家留言,可填写注意事项,特殊要求等" :focus="focus" />
+						<input class="tui-border" placeholder="给商家留言,可填写注意事项,特殊要求等" :focus="focus" />
 					</view>
 				</view>
-				<view class="flex center" style="">
+				<view class="tui-flex tui-center" style="">
 					<view class="" style="padding: 0 30upx;"  >
-						<text class="item center" style="color: #1482D1;" @tap="switchTab(0)" v-if="!addrShow">外卖送餐</text>
-						<text class="item center bt-a"  style="color: #1482D1;" @tap="switchTab(1)" v-else >店内就餐</text>
+						<text class="tui-item tui-center" style="color: #1482D1;" @tap="switchTab(0)" v-if="!addrShow">外卖送餐</text>
+						<text class="tui-item tui-center tui-bt-a"  style="color: #1482D1;" @tap="switchTab(1)" v-else >店内就餐</text>
 					</view>
 					<view class="" v-if="addrShow" style="color: #1482D1;" @tap="refreshAddress()">刷新地址</view>
 
 				</view>
 				<view class="uni-card">
 					<view v-if="addrShow" class="">
-						<button  @tap="goPage('address')" v-if="address.name" class="flex padding relative column" style="padding:20rpx 30rpx">
-							<view class="flex item" style="text-align: left;">
-								<text class="item">收货人: {{address.name}}</text>
-								<text class="item">电话: {{address.phone}}</text>
+						<button  @tap="goPage('address')" v-if="address.name" class="tui-flex tui-padding tui-relative tui-column" style="padding:20upx 30upx">
+							<view class="tui-flex tui-item" style="text-align: left;">
+								<text class="tui-item">收货人: {{address.name}}</text>
+								<text class="tui-item">电话: {{address.phone}}</text>
 							</view>
 
-							<view class="item" style="text-align: left;">
-							{{address.detail}}
+							<view class="tui-item" style="text-align: left;">
+							{{address.address}}
 							</view>
-							<view class="absolute flex " style=" font-size:1.3em ; align-items: center;justify-content: flex-end; right: 20rpx;top:0;bottom:0;height: 95%;">
+							<view class="tui-absolute tui-flex " style=" font-size:1.3em ; align-items: center;justify-content: flex-end; right: 20upx;top:0;bottom:0;height: 95%;">
 								<icon class="iconfont icon-jinrujiantouxiao1" style="color:#999;"></icon>
 							</view>
 							
 						</button>
 						
-						<view v-else class="center">
-							<button  @tap="goPage('address')"  class="flex padding relative column" style="padding:20rpx 30rpx">
+						<view v-else class="tui-center">
+							<button  @tap="goPage('address')"  class="flex padding relative column" style="padding:20upx 30upx">
 								
-							<view class="item">
+							<view class="tui-item">
 								添加您的地址
 							</view>
-							<view class="absolute flex " style=" font-size:1em ; align-items: center;justify-content: flex-end; right: 20rpx;top:0;bottom:0;height: 95%;">
+							<view class="tui-absolute tui-flex " style=" font-size:1em ; align-items: center;justify-content: flex-end; right: 20upx;top:0;bottom:0;height: 95%;">
 								 <icon class="iconfont icon-jinrujiantouxiao1" style="color:#999;"></icon>
 							</view>
 							</button>
@@ -66,20 +66,20 @@
 					<view v-else class="orders-list">
 						<view class="uni-flex ">
 							<view class="">人数</view>
-							<input  class="border" v-model="number" :focus="focus" />
+							<input  class="tui-border" v-model="number" :focus="focus" />
 							<view class="">人</view>
 						</view>
 						<view class="uni-flex ">
 							<view class="">桌号</view>
-							<input  class="border" v-model="tableNumbers" :focus="focus" /><view class="">号</view>
+							<input  class="tui-border" v-model="tableNumbers" :focus="focus" /><view class="">号</view>
 						</view>
 					</view>
 				</view>
 
 		</scroll-view>
-		<nav class="bottom-nav flex " style="background: #F9F9F9;z-index: 99;text-align: left;padding-left: 30rpx;">
-			<view class="item flex " style="font-size: 1.2em;" >支付金额：<text style="color:red">￥{{total}}</text></view>
-			<button type="warn" @tap="toPay" >去付款</button>
+		<nav class="tui-bottom-nav tui-flex " style="background: #F9F9F9;z-index: 99;text-align: left;padding-left: 30upx;">
+			<view class="tui-item tui-flex " style="font-size: 1.2em;" >支付金额：<text style="color:red">￥{{total}}</text></view>
+			<button type="warn" @tap="toPay" size="mini"  style="line-height:100upx;padding: 0 15upx;">去付款</button>
 		</nav>
 	</view>
 </template>
@@ -235,80 +235,80 @@
 
 	.orders-list view {
 
-		padding: 0 20rpx;
+		padding: 0 20upx;
 	}
 
 	.orders-list input {
-		padding-top:4rpx ;
+		padding-top:4upx ;
 		flex: 1;
-		/* border: 1rpx solid #7f7f7f; */
+		/* border: 1upx solid #7f7f7f; */
 
 	}
 
 	.orders-address {
 		position: relative;
-		padding: 20rpx 50rpx 20rpx 35rpx;
+		padding: 20upx 50upx 20upx 35upx;
 		font-size: 14px;
 		line-height: 25px;
-		border-bottom: 20rpx solid #ededed;
+		border-bottom: 20upx solid #ededed;
 		color: #adadad;
 	}
 
 	.orders-address::after {
 		position: absolute;
-		right: 30rpx;
-		top: 60rpx;
+		right: 30upx;
+		top: 60upx;
 		content: '';
 		width: 8px;
 		height: 8px;
-		border-top: 4rpx solid #7f7f7f;
-		border-right: 4rpx solid #7f7f7f;
+		border-top: 4upx solid #7f7f7f;
+		border-right: 4upx solid #7f7f7f;
 		-webkit-transform: rotate(45deg);
 		transform: rotate(45deg);
 	}
 
 	.orders-address-name {
 		display: inline-block;
-		width: 300rpx;
+		width: 300upx;
 	}
 
 	.orders-no-address {
 		position: relative;
-		height: 90rpx;
-		line-height: 90rpx;
+		height: 90upx;
+		line-height: 90upx;
 		color: #adadad;
-		border-bottom: 20rpx solid #ededed;
+		border-bottom: 20upx solid #ededed;
 		text-align: center;
 	}
 
 	.orders-no-address::after {
 		position: absolute;
-		right: 30rpx;
-		top: 34rpx;
+		right: 30upx;
+		top: 34upx;
 		content: '';
-		width: 16rpx;
-		height: 16rpx;
-		border-top: 4rpx solid #7f7f7f;
-		border-right: 4rpx solid #7f7f7f;
+		width: 16upx;
+		height: 16upx;
+		border-top: 4upx solid #7f7f7f;
+		border-right: 4upx solid #7f7f7f;
 		-webkit-transform: rotate(45deg);
 		transform: rotate(45deg);
 	}
 
 
 	.orders-box {
-		padding-bottom: 105rpx;
+		padding-bottom: 105upx;
 	}
 
 	.orders-list {
 		display: flex;
-		padding: 15rpx;
-		border-bottom: 1rpx solid #ededed;
+		padding: 15upx;
+		border-bottom: 1upx solid #ededed;
 	}
 
 	.orders-thumb {
-		padding: 0 20rpx;
-		width: 100rpx;
-		height: 100rpx;
+		padding: 0 20upx;
+		width: 100upx;
+		height: 100upx;
 	}
 
 	.orders-right {
@@ -322,7 +322,7 @@
 	}
 
 	.orders-title {
-		padding-right: 10rpx;
+		padding-right: 10upx;
 		color: #333;
 		/* font-weight:bold; */
 	}
@@ -330,14 +330,14 @@
 	.orders-version {
 
 		background: hsla(30, 100%, 0%, 0.1);
-		padding: 2rpx 5rpx;
+		padding: 2upx 5upx;
 		font-size: 0.8em;
-		border-radius: 10rpx;
+		border-radius: 10upx;
 	}
 
 	.orders-tip {
 		text-align: right;
-		right: 15rpx;
+		right: 15upx;
 		position: absolute;
 	}
 	.orders-right view {
@@ -346,27 +346,27 @@
 	}
 
 	.orders-list view {
-		line-height: 60rpx;
+		line-height: 60upx;
 	}
 
 	.orders-footer {
 		bottom: 0;
-		height: 95rpx;
-		line-height: 95rpx;
-		border-top: 1rpx solid #ededed;
+		height: 95upx;
+		line-height: 95upx;
+		border-top: 1upx solid #ededed;
 	}
 
 	.orders-footer .orders-footer-total {
 		align-self: center;
 		text-align: left;
 		flex: 1;
-		padding-left: 30rpx;
+		padding-left: 30upx;
 		box-sizing: border-box;
 		color: red;
 	}
 
 	.orders-footer .orders-footer-btn {
-		width: 240rpx;
+		width: 240upx;
 		text-align: center;
 		color: #fff;
 		background: #AB956D;

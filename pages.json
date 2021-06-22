@@ -41,9 +41,29 @@
 				"navigationBarTitleText": "我的"
 			}
 		},{
+			"path": "pages/user/info",
+			"style": {
+				"navigationBarTitleText":  "个人信息"
+			}
+		},{
+			"path": "pages/user/update",
+			"style": {
+				"navigationBarTitleText":  "个人信息修改"
+			}
+		},{
+			"path": "pages/goods/collect",
+			"style": {
+				"navigationBarTitleText": "收藏"
+			}
+		},{
 			"path": "pages/user/address",
 			"style": {
 				"navigationBarTitleText": "地址信息"
+			}
+		},{
+			"path": "pages/user/security",
+			"style": {
+				"navigationBarTitleText": "安全中心"
 			}
 		},{
 			"path": "pages/chat/list",
@@ -69,6 +89,26 @@
 			"path": "pages/order/detail",
 			"style": {
 				"navigationBarTitleText": "订单详情"
+			}
+		},{
+			"path": "pages/tool/crop",
+			"style": {
+				"navigationBarTitleText": "图片裁剪"
+			}
+		},{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登陆"
+			}
+		},{
+			"path": "pages/login/reg",
+			"style": {
+				"navigationBarTitleText": "reg"
+			}
+		},{
+			"path": "pages/login/pwd",
+			"style": {
+				"navigationBarTitleText": "pwd"
 			}
 		}
 	],
@@ -128,7 +168,36 @@
 				"path": "pages/chat/list",
 				"name": "消息列表", //模式名称
 				"query": "id=1&name=挺好&num=10" //启动参数，在页面的onLoad函数里面得到
+			},{
+				"path": "pages/user/wode",
+				"name": "我的", //模式名称
+				"query": "id=1&name=挺好&num=10" //启动参数，在页面的onLoad函数里面得到
+			},{
+				"path": "pages/user/info",
+				"name": "个人信息", //模式名称
+				"query": "id=1&name=挺好&num=10" //启动参数，在页面的onLoad函数里面得到
+			},{
+				"path": "pages/user/update",
+				"name": "个人信息修改", //模式名称
+				"query": "id=1&name=挺好&num=10" //启动参数，在页面的onLoad函数里面得到
+			},{
+				"path": "pages/goods/collect",
+				"name": "收藏", //模式名称
+				"query": "id=1&name=挺好&num=10" //启动参数，在页面的onLoad函数里面得到
+			},{
+				"path": "pages/login/login",
+				"name": "登陆", //模式名称
+				"query": "id=1&name=挺好&num=10" //启动参数，在页面的onLoad函数里面得到
+			},{
+				"path": "pages/login/reg",
+				"name": "注册", //模式名称
+				"query": "id=1&name=挺好&num=10" //启动参数，在页面的onLoad函数里面得到
+			},{
+				"path": "pages/login/pwd",
+				"name": "找回密码", //模式名称
+				"query": "id=1&name=挺好&num=10" //启动参数，在页面的onLoad函数里面得到
 			}
+			
 		]
 	}
 }

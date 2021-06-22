@@ -352,14 +352,14 @@
 }
 .categroy-left{
     float: left;
-    width: 150rpx;
+    width: 150upx;
     height: 100%;
     border-right: 1px solid #ddd;
     box-sizing: border-box;
 }
 .categroy-left .cate-list{
-    height: 90rpx;
-    line-height: 90rpx;
+    height: 90upx;
+    line-height: 90upx;
     text-align: center;
     border-left: 3px solid #fff;
 }
@@ -369,61 +369,61 @@
 }
 .categroy-right{
     float: right;
-    width: 600rpx;
+    width: 600upx;
     height: 100%;
     overflow: hidden;
     
 }
 .cate-box{
     height: 100%;
-    padding:40rpx;
+    padding:40upx;
     box-sizing: border-box;
 }
 .cate-box .cate-banner image{
     display: block;
     width: 100%;
-    height: 190rpx;
+    height: 190upx;
 }
 .cate-title{
     position: relative;
-    height: 30rpx;
-    line-height: 30rpx;
-    padding:30rpx 0 55rpx;
+    height: 30upx;
+    line-height: 30upx;
+    padding:30upx 0 55upx;
     text-align: center;
     color: #AB956D;
-    font-size: 28rpx;
+    font-size: 28upx;
 }
 .cate-title::before{
     position: absolute;
-    left: 130rpx;
-    top: 43rpx;
+    left: 130upx;
+    top: 43upx;
     content: '';
-    width: 70rpx;
-    height: 4rpx;
+    width: 70upx;
+    height: 4upx;
     background: #AB956D;
 }
 .cate-title::after{
     position: absolute;
-    right: 130rpx;
-    top: 43rpx;
+    right: 130upx;
+    top: 43upx;
     content: '';
-    width: 70rpx;
-    height: 4rpx;
+    width: 70upx;
+    height: 4upx;
     background: #AB956D;
 }
 
 .product-list{
     display: inline-block;
-    width: 160rpx;
-    height: 160rpx;
+    width: 160upx;
+    height: 160upx;
     text-align: center;
-    margin:0 20rpx 20rpx 0;
-    font-size: 24rpx;
+    margin:0 20upx 20upx 0;
+    font-size: 24upx;
 }
 .product-list image{
-    width: 80rpx;
-    height: 80rpx;
-    margin-bottom: 20rpx;
+    width: 80upx;
+    height: 80upx;
+    margin-bottom: 20upx;
 }
 .product-list:nth-child(3n){
     margin-right: 0;

@@ -3,9 +3,9 @@
 `一指香飞`，是有uni-app开发的一个掌上点餐系统。我们也简称`XF`。
 #### 安卓手机app已经打包发布在百度网盘,欢迎下载安装体验。
 ```
-版本日期：2018-01-23;
+更新日期：2019-01-31;
+新添加用户登陆/注册/找回密码/用户中心/修改用户资料/服务器真实api接口
 [使用体验百度网盘下载地址——提取码：p3ta ](链接：https://pan.baidu.com/s/1sS2Nglji7CUwH_sLSpcePQ)
-
 [git源码下载地址](链接：https://gitee.com/wokaixin/a_fragrant_fly)
 ```
 

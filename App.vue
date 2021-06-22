@@ -26,7 +26,40 @@
 		font-size:28upx;
 		overflow:hidden;
 	}
-	.page{
-		overflow:hidden;
+	.page-body{
+		padding: 0;
+		margin: 0;
+		justify-content:space-between;
+		flex-direction: column;
+		align-content: ;
+		height: 100vh;
+		box-sizing:border-box;
+		display: flex;
+	}
+/* 	.main-content{
+		margin-bottom: 100upx;
+		text-align: center;
+		width: 100%;
+		flex:1;
+		overflow-y:auto;
+		box-sizing:border-box;
+	} */
+	.uni-input-group .uni-input-row:after {
+		right: 10upx;
+		left: 10upx;
+	}
+	.uni-input-row input{
+		flex: 1;
+		padding:0 10upx;
+		border-radius: 6upx;
+		background: #E9E9E9;
+	}
+
+	.uni-input-row .uni-label {
+		text-indent:0;
+		flex-direction: column;
+		display: flex;
+		justify-content: center;
+		text-align: center;
 	}
 </style>

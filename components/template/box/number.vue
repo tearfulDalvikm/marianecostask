@@ -1,8 +1,8 @@
 <template>
 
-		<view class="tui flex uni-numbox" style="align-items: center;">
+		<view class="tui tui-flex uni-numbox" style="align-items: center;">
 			<icon class="iconfont icon-biaodankongjianshanchu" color="ju" :class="{'uni-numbox-disabled': disableSubtract}"  @click="_calcValue('subtract')"></icon>
-			<view class="center" style="width: 50rpx;">{{inputValue}}</view>
+			<view class="center" style="width: 50upx;">{{inputValue}}</view>
 			<icon class="iconfont icon-jia-shixin"   color="ju" :class="{'uni-numbox-disabled': disableAdd}" @click="_calcValue('add')"></icon>
 		</view>
 </template>

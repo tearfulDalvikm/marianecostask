@@ -1,31 +1,31 @@
 <template>
 	<view class="tui"  >
-			<view  :style="drawerBottomShow?'top:0':'top:100vh'" class="flex  fixed column bottom-nav center tui-drawer" style="padding-bottom: 100rpx;">
+			<view  :style="drawerBottomShow?'top:0':'top:100vh'" class="tui-flex  tui-fixed tui-column tui-bottom-nav tui-center tui-drawer" style="padding-bottom: 100upx;">
 				<view  v-if="isShow" class="toubu">
-					<view class="toubu-list flex">
-						<view  class="left relative">
+					<view class="toubu-list tui-flex">
+						<view  class="left tui-relative">
 
 							<!-- <image v-if="goods.version" class="img absolute" :src="goods.version[botIdx].image" mode="aspectFill"></image> -->
-								<image class="img absolute" :src="image" mode="aspectFill"></image>
+								<image class="img tui-absolute" :src="image" mode="aspectFill"></image>
 
 						</view>
-						<view  class="right item flex column line-height6 relative">
-							<icon class="absolute  iconfont icon-guanbishixin" @tap="onClose()" style="right: 20rpx;top: 0;color: rgb(255,50,50);font-size:2em ;"></icon>
-							<view  class="title">
+						<view  class="right tui-item tui-flex tui-column line-height6 relative">
+							<icon class="tui-absolute  iconfont icon-guanbishixin" @tap="onClose()" style="right: 20upx;top: 0;color: rgb(255,50,50);font-size:2em ;"></icon>
+							<view  class="tui-title">
 								<text></text><text style="color: red;">￥{{goods.price}}</text>
 							</view>
 							<view  class="text"  v-if="goods.version">
-								已选：<text class="uni-badge bg-ju" >{{goods.versionName}}</text>
+								已选：<text class="uni-badge tui-bg-ju" >{{goods.versionName}}</text>
 							</view>
-							<view class="item number-box" style="font-size:1.5em ;" >
+							<view class="tui-item number-box" style="font-size:1.5em ;" >
 								<number-box :min="1" :max="goods.stock"  :value="number"   v-on:change="numberUpdate" ></number-box>
 							</view>
 						</view>
 					</view>
 				</view>
-				<view v-if="isShow && goods.version"  class="list flex " style="flex-wrap: wrap;justify-content: space-between;" >
+				<view v-if="isShow && goods.version"  class="tui-list tui-flex " style="flex-wrap: wrap;justify-content: space-between;" >
 
-					<text   style="line-height: 1.6;height: 1.6em;" class="button tag"  :style="key==botIdx?'opacity:0.5;':'opacity:1;'" v-for="(item,key) in goods.version "  :key="key" @tap="selection(key,item)">{{item.name}}</text>
+					<text   style="line-height: 1.6;height: 1.6em;" class="tui-button tui-tag"  :style="key==botIdx?'opacity:0.5;':'opacity:1;'" v-for="(item,key) in goods.version "  :key="key" @tap="selection(key,item)">{{item.name}}</text>
 
 
 				</view>
@@ -164,7 +164,7 @@
 	.tui .line-height6{
 		line-height: 1.6;
 	}
-	.tui .bottom-nav{
+	.tui .tui-bottom-nav{
 		justify-content: flex-end;
 		width: 100%;
 		bottom:0;
@@ -174,49 +174,49 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-end;
-		height: 180rpx;
+		height: 180upx;
 		/* background: #0062CC; */
 	}
 	.tui .toubu >.toubu-list{
-		height: 160rpx;
+		height: 160upx;
 		width: 100%;
 		background: #fff;
 		
 	}
 	.tui .toubu .toubu-list >.left{
-		width:240rpx ;
+		width:240upx ;
 	}
 	.tui .toubu .toubu-list .left >.img{
 		/* background: #808080; */
 		bottom: 0;
-		height: 200rpx;
-		width: 200rpx;
+		height: 200upx;
+		width: 200upx;
 		background: #fff;
-		padding:10rpx ;
-		border-radius: 10rpx;
+		padding:10upx ;
+		border-radius: 10upx;
 		text-align:center;
-		left: 20rpx;
-		border: 1rpx solid rgb(200,200,200);
+		left: 20upx;
+		border: 1upx solid rgb(200,200,200);
 	}
 	.tui .toubu .toubu-list >.right{
-		padding: 20rpx;
+		padding: 20upx;
 		justify-content: center;
 		text-align: left;
-		/* padding: 10rpx; */
+		/* padding: 10upx; */
 		box-sizing: border-box;
 	}
   
 
-	.tui .tag{
+	.tui .tui-tag{
 		font-size: 1.2em;
 		text-align: center;
 		/* color:#333; */
-		line-height: 40rpx;
+		line-height: 40upx;
 		/* background:#007AFF; */
-		/* border-radius: 3rpx; */
-		border:#f9f9f9 solid 1rpx;
+		/* border-radius: 3upx; */
+		border:#f9f9f9 solid 1upx;
 	}
-	.tui .button:hover{
+	.tui .tui-button:hover{
 		opacity:0.6;
 	}
 	.tui .tanchu{
@@ -224,7 +224,7 @@
 	}
 	.tui .tui-drawer{
 		height: 100%;
-		/* padding-bottom: 100rpx; */
+		/* padding-bottom: 100upx; */
 		top:0;
 		/* height: 100%; */
 		bottom: 0;
@@ -234,21 +234,21 @@
 		-webkit-transition:top 1s;
 		-o-transition:top 1s;
 	}
-	.tui-drawer .list{
-		border:#f9f9f9 solid 1rpx;
+	.tui-drawer .tui-list{
+		border:#f9f9f9 solid 1upx;
 		/* justify-content:; */
 		box-sizing: border-box;
-		height: 200rpx;
+		height: 200upx;
 		overflow-y:auto;
 	}
-	.tui .list::-webkit-scrollbar {
+	.tui .tui-list::-webkit-scrollbar {
 		 display: none;
 	}
 /* 	.tui .tui-drawer > .item{
-		margin: 10rpx;
-		height: 40rpx;
+		margin: 10upx;
+		height: 40upx;
 		width: 100%;
-		line-height: 40rpx;
+		line-height: 40upx;
 
 	} */
 

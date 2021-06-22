@@ -116,63 +116,63 @@
 
 .orders-address{
     position: relative;
-    padding: 20rpx 50rpx 20rpx 35rpx;
+    padding: 20upx 50upx 20upx 35upx;
     font-size: 14px;
     line-height: 25px;
-    border-bottom: 20rpx solid #ededed;
+    border-bottom: 20upx solid #ededed;
     color: #adadad;
 }
 .orders-address::after{
     position: absolute;
-    right: 30rpx;
-    top: 60rpx;
+    right: 30upx;
+    top: 60upx;
     content: '';
     width: 8px;
     height: 8px;
-    border-top: 4rpx solid #7f7f7f;
-    border-right: 4rpx solid #7f7f7f;
+    border-top: 4upx solid #7f7f7f;
+    border-right: 4upx solid #7f7f7f;
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
 }
 .orders-address-name{
     display: inline-block;
-    width: 300rpx;
+    width: 300upx;
 }
 
 .orders-no-address{
     position: relative;
-    height: 90rpx;
-    line-height: 90rpx;
+    height: 90upx;
+    line-height: 90upx;
     color: #adadad;
-    border-bottom: 20rpx solid #ededed;
+    border-bottom: 20upx solid #ededed;
     text-align: center;
 }
 .orders-no-address::after{
     position: absolute;
-    right: 30rpx;
-    top: 34rpx;
+    right: 30upx;
+    top: 34upx;
     content: '';
-    width: 16rpx;
-    height: 16rpx;
-    border-top: 4rpx solid #7f7f7f;
-    border-right: 4rpx solid #7f7f7f;
+    width: 16upx;
+    height: 16upx;
+    border-top: 4upx solid #7f7f7f;
+    border-right: 4upx solid #7f7f7f;
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
 }
 
 
 .orders-box{
-    padding-bottom: 105rpx;
+    padding-bottom: 105upx;
 }
 .orders-list{
 	display: flex;
-	padding: 15rpx;
-	border-bottom: 1rpx solid #ededed;
+	padding: 15upx;
+	border-bottom: 1upx solid #ededed;
 }
 .orders-thumb{
-	padding:0  20rpx;
-	width: 100rpx;
-	height: 100rpx;
+	padding:0  20upx;
+	width: 100upx;
+	height: 100upx;
 }
 .orders-right{
 	display: flex;
@@ -186,13 +186,13 @@
 }
 .orders-version text{
 	background: hsla(30, 100%, 0%,0.1);
-	padding:2rpx 5rpx;
+	padding:2upx 5upx;
 	font-size:0.8em ;
-	border-radius: 10rpx;
+	border-radius: 10upx;
 }
 .orders-tip{
 	text-align: right;
-	right: 15rpx;
+	right: 15upx;
 	position:absolute;
 }
 .orders-right .orders-pro-price{
@@ -201,7 +201,7 @@
 	flex-direction: row;
 }
 .orders-list view{
-    line-height: 60rpx;
+    line-height: 60upx;
 }
 
 .orders-footer{
@@ -209,20 +209,20 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 95rpx;
-    line-height: 95rpx;
-    border-top: 1rpx solid #ededed;
+    height: 95upx;
+    line-height: 95upx;
+    border-top: 1upx solid #ededed;
 }
 .orders-footer .orders-footer-total{
     display: inline-block;
-    width: 510rpx;
-    padding-left: 30rpx;
+    width: 510upx;
+    padding-left: 30upx;
     box-sizing: border-box;
     color: #a55350;
 }
 .orders-footer .orders-footer-btn{
     display: inline-block;
-    width: 240rpx;
+    width: 240upx;
     text-align: center;
     color: #fff;
     background: #AB956D;

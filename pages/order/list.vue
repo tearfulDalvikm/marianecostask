@@ -1,9 +1,9 @@
 <template>
-	<view class="main tui">
-		<scroll-view   style="height:100vh;padding: 0 15rpx;box-sizing: border-box;" scroll-y >
+	<view class="page-body tui">
+		<scroll-view   style="height:100vh;padding: 0 15upx;box-sizing: border-box;" scroll-y >
 				<view class="uni-card" v-for="(orders,index) in orderList" :key="index">
 					<view class="orders-list" style="justify-content: space-between;">
-						<view class="" @tap="goPage('shop',orders.shop_id)" style="">{{orders.shopName}} ></view>
+						<view class="tui-title" @tap="goPage('shop',orders.shop_id)" style="">{{orders.shopName}} ></view>
 						<view  style="color: red;">
 							<text v-if="orders.status!='0'">已付款</text>
 							<text v-else class="">未付款</text>
@@ -15,23 +15,23 @@
 								<text class="orders-title">{{item.title}}</text>
 								<text class="orders-version" v-if="item.versionName">{{item.versionName}}</text>
 							</view>
-							<view class="orders-right" style="flex-direction: row;width: 150rpx;">
+							<view class="orders-right" style="flex-direction: row;width: 150upx;">
 								<view>￥{{item.price}}</view>
-								<view style="width: 100rpx;">x{{item.number}}</view>
+								<view style="width: 100upx;">x{{item.number}}</view>
 							</view>
 						</view>
 					</view>
-					<view class="orders-list flex" style="justify-content:flex-end;text-align:left">
+					<view class="orders-list tui-flex" style="justify-content:flex-end;text-align:left">
 						<text  style="">实付：￥{{orders.pay}}</text>
 					</view>
-					<view class="orders-list flex" style="justify-content:flex-end;align-self: flex-end;">
+					<view class="orders-list tui-flex" style="justify-content:flex-end;align-self: flex-end;">
 						<view v-if="orders.status!='0'" >
-							<text  class="button border" style="margin-left:10upx;" @tap="deleteOrder(orders)" >删除订单</text>
-							<text  class="button border" style="margin-left:10upx;" @tap="refund(orders)" >申请退款</text>
+							<text  class="tui-button tui-border" style="margin-left:10upx;" @tap="deleteOrder(orders)" >删除订单</text>
+							<text  class="tui-button tui-border" style="margin-left:10upx;" @tap="refund(orders)" >申请退款</text>
 						</view>
 						<view v-else >
-							<text  class="button border" style="margin: 0 10upx;" @tap="cancelOrder(orders)" >取消订单</text>
-							<text  class="button" style="background: #FF3030;color: #fff;" @tap="toPay(orders)" >去支付</text>
+							<text  class="tui-button tui-border" style="margin: 0 10upx;" @tap="cancelOrder(orders)" >取消订单</text>
+							<text  class="tui-button" style="background: #FF3030;color: #fff;" @tap="toPay(orders)" >去支付</text>
 						</view>
 					</view>
 
@@ -193,88 +193,88 @@
 
 <style>
 /* 	.section {
-		border-top: 1rpx solid #ededed;
-		border-bottom: 1rpx solid #EDEDED;
+		border-top: 1upx solid #ededed;
+		border-bottom: 1upx solid #EDEDED;
 		display: flex;
 		justify-content: center;
 	}
  */
 	.orders-list view {
 
-		/* padding: 0 20rpx; */
+		/* padding: 0 20upx; */
 	}
 
 	.orders-list input {
-		padding-top:4rpx ;
+		padding-top:4upx ;
 		flex: 1;
-		/* border: 1rpx solid #7f7f7f; */
+		/* border: 1upx solid #7f7f7f; */
 
 	}
 
 	.orders-address {
 		position: relative;
-		padding: 20rpx 50rpx 20rpx 35rpx;
+		padding: 20upx 50upx 20upx 35upx;
 		font-size: 14px;
 		line-height: 25px;
-		border-bottom: 20rpx solid #ededed;
+		border-bottom: 20upx solid #ededed;
 		color: #adadad;
 	}
 
 	.orders-address::after {
 		position: absolute;
-		right: 30rpx;
-		top: 60rpx;
+		right: 30upx;
+		top: 60upx;
 		content: '';
 		width: 8px;
 		height: 8px;
-		border-top: 4rpx solid #7f7f7f;
-		border-right: 4rpx solid #7f7f7f;
+		border-top: 4upx solid #7f7f7f;
+		border-right: 4upx solid #7f7f7f;
 		-webkit-transform: rotate(45deg);
 		transform: rotate(45deg);
 	}
 
 	.orders-address-name {
 		display: inline-block;
-		width: 300rpx;
+		width: 300upx;
 	}
 
 	.orders-no-address {
 		position: relative;
-		height: 90rpx;
-		line-height: 90rpx;
+		height: 90upx;
+		line-height: 90upx;
 		color: #adadad;
-		border-bottom: 20rpx solid #ededed;
+		border-bottom: 20upx solid #ededed;
 		text-align: center;
 	}
 
 	.orders-no-address::after {
 		position: absolute;
-		right: 30rpx;
-		top: 34rpx;
+		right: 30upx;
+		top: 34upx;
 		content: '';
-		width: 16rpx;
-		height: 16rpx;
-		border-top: 4rpx solid #7f7f7f;
-		border-right: 4rpx solid #7f7f7f;
+		width: 16upx;
+		height: 16upx;
+		border-top: 4upx solid #7f7f7f;
+		border-right: 4upx solid #7f7f7f;
 		-webkit-transform: rotate(45deg);
 		transform: rotate(45deg);
 	}
 
 
 	.orders-box {
-		padding-bottom: 105rpx;
+		padding-bottom: 105upx;
 	}
 
 	.orders-list {
 		display: flex;
-		padding: 15rpx;
-		border-bottom: 1rpx solid #ededed;
+		padding: 15upx;
+		border-bottom: 1upx solid #ededed;
 	}
 
 	.orders-thumb {
-		padding: 0 20rpx;
-		width: 100rpx;
-		height: 100rpx;
+		padding: 0 20upx;
+		width: 100upx;
+		height: 100upx;
 	}
 
 	.orders-right {
@@ -288,7 +288,7 @@
 	}
 
 	.orders-title {
-		padding-right: 10rpx;
+		padding-right: 10upx;
 		color: #333;
 		/* font-weight:bold; */
 	}
@@ -296,14 +296,14 @@
 	.orders-version {
 
 		background: hsla(30, 100%, 0%, 0.1);
-		padding: 2rpx 5rpx;
+		padding: 2upx 5upx;
 		font-size: 0.8em;
-		border-radius: 10rpx;
+		border-radius: 10upx;
 	}
 
 	.orders-tip {
 		text-align: right;
-		right: 15rpx;
+		right: 15upx;
 		position: absolute;
 	}
 
@@ -318,7 +318,7 @@
 	}
 
 	.orders-list view {
-		line-height: 60rpx;
+		line-height: 60upx;
 	}
 
 	.orders-footer {
@@ -327,22 +327,22 @@
 		bottom: 0;
 		left: 0;
 		width: 100%;
-		height: 95rpx;
-		line-height: 95rpx;
-		border-top: 1rpx solid #ededed;
+		height: 95upx;
+		line-height: 95upx;
+		border-top: 1upx solid #ededed;
 	}
 
 	.orders-footer .orders-footer-total {
 		align-self: center;
 		text-align: left;
 		flex: 1;
-		padding-left: 30rpx;
+		padding-left: 30upx;
 		box-sizing: border-box;
 		color: red;
 	}
 
 	.orders-footer .orders-footer-btn {
-		width: 240rpx;
+		width: 240upx;
 		text-align: center;
 		color: #fff;
 		background: #AB956D;

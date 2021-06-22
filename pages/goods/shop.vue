@@ -1,68 +1,63 @@
 <template>
 
-	<view class="uni-page-body tui">
+	<view class="page-body tui">
 
-			<nav class="uni-flex bottom-nav" style="">
+			<nav class="uni-flex tui-bottom-nav" style="">
 
-				<view class="uni-flex-item uni-flex center" style="justify-content: space-around;">
-					<view class="icon center item flex" @tap="goPage('about')">
-						<icon class="iconfont icon-xuzhixianxiao" style="font-size: 1.4em;line-height: 0.6em;"></icon>
-						<text style="font-size:0.8em ;">店家</text>
-					</view>
-					<view class="icon center item flex" @tap="goPage('chat')">
-						<icon class="iconfont icon-kefu" style="font-size: 1.4em;line-height: 0.6em;"></icon>
-						<text style="font-size:0.8em ;">客服</text>
-					</view>
-					<view class="icon center item flex" @tap="goPage('order')">
-						<icon class="iconfont icon-dingdanjihe" style="font-size: 1.4em;line-height: 0.6em;"></icon>
-						<text style="font-size:0.8em ;">订单</text>
-					</view>
-					<view class="icon center item flex" @tap="goPage('wode')">
-						<icon class="iconfont icon-wode" style="font-size: 1.4em;line-height: 0.6em;"></icon>
-						<text style="font-size:0.8em ;">我的</text>
-					</view>
+				<view class="uni-flex-item uni-flex tui-center" style="justify-content: space-around;padding: 0;">
+					<icon class="iconfont icon-xuzhixianxiao tui-flex tui-column" style="font-size: 1.4em;line-height: 0.8em;" @tap="goPage('about')">
+						<text style="font-size:0.6em ;">店家</text>
+					</icon>
+					<icon class="iconfont icon-kefu tui-flex tui-column" style="font-size: 1.4em;line-height: 0.8em;"  @tap="goPage('chat')">
+						<text style="font-size:0.6em ;">客服</text>
+					</icon>
+					<icon class="iconfont icon-dingdanjihe tui-flex tui-column" style="font-size: 1.4em;line-height: 0.8em;" @tap="goPage('order')">
+						<text style="font-size:0.6em ;">订单</text>
+					</icon>
+					<icon class="iconfont icon-wode tui-flex tui-column" style="font-size: 1.4em;line-height: 0.8em;" @tap="goPage('wode')">
+						<text style="font-size:0.6em ;">我的</text>
+					</icon>
 					<!-- 导航微信 -->
 				</view>
-				<button type="warn" @tap="goPage('cart')">下单</button>
+				<button class="" type="warn" size="mini" @tap="goPage('cart')" style="padding: 0;line-height:100upx; width: 100upx; justify-content: center;">下单</button>
 				<!-- <uni-nav-bar left-icon="back" left-text="返回" right-text="菜单" title="标题"></uni-nav-bar> -->
 			</nav>
 
-		<view v-if="isShow" class="page-body flex row" :style="{height:contentHeight + 'px'}">
+		<view v-if="isShow" class="main-content tui-flex tui-row" :style="{height:contentHeight + 'px'}">
 
-					<scroll-view scroll-y class=" flex center column" style="width: 180rpx; " :style="{height:contentHeight + 'px'}">
-							<view class="item border cebian-list"   @click="categoryClickMain(null,{id:null})"  :class="categoryActive==null?'active':''">
+					<scroll-view scroll-y class="tui-flex tui-center tui-column" style="width: 180upx; " :style="{height:contentHeight + 'px'}">
+							<view class="tui-item tui-border cebian-list"   @click="categoryClickMain(null,{id:null})"  :class="categoryActive==null?'active':''">
 												全部
 							</view>
-							<view class="item cebian-list border relative"   @click="categoryClickMain(idx,item)" :key="idx" :style="idx==categoryActive?'opacity:0.7;color:red':'opacity:1;color:;'" v-for="(item,idx) in category">
-												{{item.name}}
-												<view class="nav-badge absolute" style="top:0;right: 0;">
-												<text v-if="item.total" class="uni-badge uni-badge-warning">{{item.total}}</text>
-												</view>
+							<view class="tui-item cebian-list tui-border tui-relative"   @click="categoryClickMain(idx,item)" :key="idx" :style="idx==categoryActive?'opacity:0.7;color:red':'opacity:1;color:;'" v-for="(item,idx) in category">
+									{{item.name}}
+									<view class="tui-nav-badge tui-absolute" style="top:0;right: 0;">
+										<text v-if="item.total" class="uni-badge uni-badge-warning">{{item.total}}</text>
+									</view>
 							</view>
 					</scroll-view>
-					<scroll-view class="scrollList" scroll-y :scroll-into-view="scrollViewId" :style="{height:contentHeight + 'px'}">
-							<view class="nav-item" v-if="categoryList">
-									<view  v-if="categoryId==item.categoryId||categoryId==null" class="flex border list" style="height: 100%;" v-for="(item,key) in categoryList" :key="key">
+					<scroll-view class="uni-flex-item" scroll-y :scroll-into-view="scrollViewId" :style="{height:contentHeight + 'px'}">
+							<view class="content-right" v-if="goodsList">
+									<view  v-if="categoryId==item.categoryId||categoryId==null" class="tui-flex tui-border tui-list" style="" v-for="(item,key) in goodsList" :key="key">
 										
-										<view class="center absolute" style="right: 20rpx;">
+										<view class="tui-center tui-absolute" style="right: 20upx;">
 											<icon v-if="item.selected" type="success" color="#32CD32" :data-index="key"  class="cart-pro-select" @tap="selectList(item,key,true)"/>
 											<icon v-else type="circle" class="cart-pro-select" :data-index="key" @tap="selectList(item,key,false)" />
-											<!-- @tap="selectList(key)" -->
+
 										</view>
 										<!-- @tap="tapDetail(item,key,item.selected);" -->
-											<image    style="height:130rpx;width: 130rpx;" :src="item.image" mode="aspectFill" />
-										<view  class="flex item  column" style="padding: 0 20rpx;height: 130rpx;"  >
-												<view class="weight">{{item.title}}</view>
+											<image    style="height:130upx;width: 130upx;" :src="item.image" mode="aspectFill" />
+										<view  class="tui-flex tui-item  tui-column" style="padding: 0 20upx;height: 130upx;"  >
+												<view class="tui-title">{{item.title}}</view>
 												<view>
 													<text style="color: red;">¥{{item.price}} </text>
-													<text style="text-decoration:line-through;font-size:0.8em ;">¥{{item.newprice}}</text>
+													<text style="text-decoration:line-through;font-size:0.8em ;">¥{{item.oldPrice}}</text>
 												</view>
 												
-												<view v-if="item.version" class="flex color-ju"  @tap="versionTap">
-
-														<view  class="colorj iconfont icon-jia-shixin">
-														</view>
-													<view v-if="item.version"  class="item"  style="white-space: nowrap;box-sizing: border-box;overflow-y:hidden;overflow-x:auto;width: 100rpx; "><text class="uni-badge"  style="" :style="item.versionName==vn.name?'color:red':''" v-for="(vn,vIdx) in item.version" :key="vIdx" >{{vn.name}}:¥{{vn.price}}</text>
+												<view v-if="item.version" class="tui-flex color-ju "  @tap="versionTap">
+													<view  class="iconfont icon-jia-shixin tui-center">
+													</view>
+													<view v-if="item.version"  class="tui-item "   style="white-space: nowrap;box-sizing: border-box;overflow-y:hidden;overflow-x:auto;width: 100upx; "><text class="uni-badge"  style="font-size: 0.8em;" :style="item.versionName==vn.name?'color:red':''" v-for="(vn,vIdx) in item.version" :key="vIdx" >{{vn.name}}:¥{{vn.price}}</text>
 													</view>
 												</view>
 
@@ -111,7 +106,7 @@
 					synopsis:"简介，这里是梨花带雨详情",
 					version:[{name:'大份',price:18,stock:6,image:''}]
 						},
-					categoryList:[],//商品列表
+					goodsList:[],//商品列表
 					selectGood:{},
 					totalCart:0,//购物车商品总数量
 					shopCart:{},		
@@ -144,16 +139,41 @@
 				this.contentHeight=(winHeight-uni.upx2px(100));
 				this.winHeight = winHeight;
 
-			// 请求服务器
-			var self = this;
-			ajax.get('shop',(res)=>{
-				
-				var shops=res.data.data ||{};
-				self.categoryList=shops.goods;
-				self.category=shops.category;
-				// console.log(res.data.data)
-			})
 
+
+		},onLoad(e) {
+			var id=e.id
+			console.log(e)
+						// 请求服务器
+			var self = this;
+			var host=this.$config.host+"shop/"+id;//主服务器地址
+			ajax.get(host,(res)=>{
+				
+				// var shops=res.data.data ||{};
+				var goodsList=res.data.data.goodsList;
+				for(let i=0;i<goodsList.length;i++){
+				// 判断图片地址是站内或站外，替换链接地址http
+					let src='';
+					if(goodsList[i].image.indexOf("http")<0){
+						src=this.$config.server.image;
+					}
+					goodsList[i].image= src+goodsList[i].image;
+				}
+				self.goodsList=goodsList;
+				
+				
+				var category=res.data.data.category;
+// 				for(let i=0;i<category.length;i++){
+// 				// 判断图片地址是站内或站外，替换链接地址http
+// 					let src='';
+// 					if(category[i].image.indexOf("http")<0){
+// 						src=this.$config.server.image;
+// 					}
+// 					category[i].image= src+category[i].image;
+// 				}
+				self.category=category;
+				console.log(res.data.data)
+			})
 		},methods:{
 			versionTap(){
 				uni.showModal({
@@ -165,20 +185,20 @@
 			goodsUpdate(e){
 				// console.log(e)
 				console.log('goodsUpdate')
-				this.$set(this.categoryList[this.detailIndex],this.detailIndex,e)
+				this.$set(this.goodsList[this.detailIndex],this.detailIndex,e)
 				// this.categoryList[this.detailIndex]=e;
 				this.selectList(this.detailIndex)
 			},
 			commit(){
 				
-				this.$set(this.categoryList,this.detailIndex,this.detail)
+				this.$set(this.goodsList,this.detailIndex,this.detail)
 			},
 
 				goPage(e){
 					var url='';
 					switch (e){
 						case "cart":
-									var goods=this.categoryList;
+									var goods=this.goodsList;
 									var cart={};
 									// cart[this.goods.id]=this.goods;
 									for(let i=0;i<goods.length;i++){
@@ -215,16 +235,16 @@
 			},
 			countSelect(){
 				
-			},
-			selectList(item,index,selected) {
-
+			},selectList(item,index,selected) {
+				console.log(item)
+				// console.log(JSON.stringify(item)+index+selected)
 							// var categoryList =Object.assign({},this.categoryList);//深度拷贝源数据防止联动改变值
 							var item=Object.assign({},item);
 									var selected = selected || item.selected ||false;
 
 									var category=this.category.concat();
 
-									var categoryId=item.categoryId;
+									var categoryId=item.category_id;
 
 
 									var cateIdx=0;
@@ -244,21 +264,14 @@
 						
 										}
 									}
-											item.selected = !selected;
-			
-									this.$set(this.category,cateIdx,category[cateIdx]);
-									this.$set(this.categoryList,index,item)
+									item.selected = !selected;
+									if(category[cateIdx]){
+										this.$set(this.category,cateIdx,category[cateIdx]);
+									}
+									this.$set(this.goodsList,index,item)
 
 			},
-// 			confirm() {
-// 				uni.showToast({
-// 					title: '搜索'
-// 				})
-// 			},//侧边菜单完
-// 			// 
-// 			setNumber(e){
-// 				console.log(e)
-// 			},
+
 			categoryClickMain(idx,item){
 				this.categoryId=item.id;
 				this.categoryActive=idx;
@@ -275,13 +288,16 @@
 	height: 100vh;
 }
 .cebian-list{
-	width: 180rpx;
+	width: 180upx;
 	font-size:1em;
 	line-height: 3em;
 }
+.content-right{
+	text-align: left;
+}
 
 	/* 侧边菜单 */
-.header {
+	.header {
 		display: flex;
 		flex-direction: row;
 		padding: 10px 15px;

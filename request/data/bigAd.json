@@ -18,8 +18,7 @@
 		"price":"111",
 		"newprice":"89",
 		"tip":"自营"
-	},
-		{
+	},{
 	  "id":"3",
 		"title":"鸡排面",
 		"image":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544204280787&di=cfd84df82c675e88976d5cb83049e30d&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Fe824b899a9014c08cbe37399017b02087bf4f436.jpg",

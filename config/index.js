@@ -1,7 +1,11 @@
 var server={
-	host:"https://gitee.com/wokaixin/data/raw/demo4/",
-	// host:"http://demo.we99.net",
+	// host:"http://www.shop.com/api/",
+	image:"http://csapi.we99.net/public/",
+	// host:"https://gitee.com/wokaixin/data/raw/demo4/",
+	// host:"https://gitee.com/wokaixin/a_fragrant_fly/raw/master/request/data/",
+	host:"http://csapi.we99.net/public/index.php/api/"
 }
+
 module.exports = {
 	host:server.host,
 	server:server,

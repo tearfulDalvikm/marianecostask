@@ -1,15 +1,15 @@
 <template>
-	<view  class="tui flex center bottom-nav">
+	<view  class="tui uni-flex tui-center tui-bottom-nav">
 		<view  class="uni-flex-item" v-for="(item,idx) in bottomNav" :key="idx" @tap="index=idx,(item.fn)(item)"  :class="index==idx?'uni-badge-primary uni-badge-inverted':''">
 
-			<view class="item column">
-				<view class="nav-icon item">
+			<view class="uni-item uni-column">
+				<view class="nav-icon uni-item">
 					<view class="nav-msg" >
 						<view class="uni-badge uni-badge-danger" v-if="item.msg">{{item.msg}}</view>
 					</view>
-					<i class="item iconfont" :class="item.ico"></i>
+					<i class="uni-item iconfont" :class="item.ico"></i>
 				</view>
-				<view class="item nav-title">
+				<view class="uni-item nav-title">
 						{{item.name}}
 				</view>
 			</view>
@@ -34,7 +34,7 @@
 						msg:0,
 						name:'首页',
 						ico:'icon-fangzi',
-						url:'/pages/index/index'
+						url:'/pages/home/index'
 					},{
 						fn:this.tijiao,
 						msg:0,
@@ -67,45 +67,21 @@
 		},methods:{
 			tijiao(item){
 				console.log('tijiao')
+				if(item.name=="首页"){
+					uni.redirectTo({
+						url: item.url
+					});
+				}else{
 				// console.log(item)
-				uni.navigateTo({
-					url: item.url
-				});
+					uni.navigateTo({
+						url: item.url
+					});
+				}
 			}
 		}
 	}
 </script>
 
 <style>
-.bottom-nav {
-	border-top: 1upx solid hsl(180,0%,90%);
-	font-size:1.2em ;
-	bottom: 0;
-	height: 100%;
-	box-sizing: border-box;
-	padding: 10rpx 0;
-}
-.bottom-nav view{
-	line-height: 1.3em;
-}
 
-.bottom-nav .nav-msg .uni-badge{
-	top: 8upx;
-	text-align: center;
-	position: absolute;
-	padding:1upx 8upx;
-	font-size:0.6em;
-}
-
-.bottom-nav   .nav-title{
-	font-size:0.7em ;
-}
-.bottom-nav .nav-icon .iconfont{
-	font-size: 1.5em;
-}
-.bottom-nav .nav-icon{
-	min-height: 1em;
-	line-height: 1em;
-	font-size: 1em;
-}
 </style>

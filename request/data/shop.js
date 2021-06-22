@@ -1,36 +1,36 @@
 var category= [
 	{
-		name:'果味',
-		id:'1',
+		name:"果味",
+		id:"1",
 	},
 	{
-		name:'蔬菜',
-		id:'2',
+		name:"蔬菜",
+		id:"2",
 	},
 	{
-		name:'炒货',
-		id:'3'},
+		name:"炒货",
+		id:"3"},
 	{
-		name:'点心',
-		id:'4'},
+		name:"点心",
+		id:"4"},
 	{
-		name:'粗茶',
-		id:'5',
+		name:"粗茶",
+		id:"5",
 	},
 	{
-		name:'淡饭',
-		id:'6',
+		name:"淡饭",
+		id:"6",
 		},{
-		name:'果味',
-		id:'7',
+		name:"果味",
+		id:"7",
 	},
 	{
-		name:'蔬菜',
-		id:'8',
+		name:"蔬菜",
+		id:"8",
 	},
 	{
-		name:'炒货',
-		id:'9',
+		name:"炒货",
+		id:"9",
 	}]
 var goods =[{
 		"id":"1",

@@ -1,45 +1,45 @@
 <template>
-	<view class="uni-page-body tui">
+	<view class="page-body tui">
 		<view class="">
-			<view class="flex column uni-card "  v-for="(item,index) in address" :key="index">
-				<view  class="flex padding ">
-					<view class="item ">
+			<view class="tui-flex tui-column uni-card "  v-for="(item,index) in addressInfo" :key="index">
+				<view  class="tui-flex tui-padding ">
+					<view class="tui-item ">
 						<label class="">姓名</label>
 					{{item.name}}</view>
-					<view class="item">
+					<view class="tui-item">
 					<label class="">电话</label>
 					{{item.phone}}</view>
 					<icon v-if="item.selected" type="success" color="#32CD32" :data-index="index"  class="cart-pro-select" @tap="selectList(index)"/>
 					<icon v-else type="circle" class="cart-pro-select" :data-index="index" @tap="selectList(index)"/>
 				</view>
-				<view class="flex padding border">
+				<view class="tui-flex tui-padding tui-border">
 					<label class="">地址</label>
-					<view class="item">{{item.detail}}</view>
+					<view class="tui-item">{{item.address}}</view>
 						
 					<icon type="clear" @tap="delet(index)" size="15"></icon> 
 				</view>
 				
 			</view>
 		</view>
-		<view v-if="hasAddress" class="flex column">
-			<view class=" center padding">输入新地址</view>
-			<view class="flex column uni-card">
-				<view class="flex padding ">
-					<view class="flex ">
+		<view v-if="hasAddress" class="tui-flex tui-column">
+			<view class="tui-center tui-padding">输入新地址</view>
+			<view class="tui-flex tui-column uni-card">
+				<view class="tui-flex tui-padding ">
+					<view class="tui-flex ">
 					<label class="">姓名</label>
-					<input class="input border" type="text"  v-model="name" />
+					<input class="tui-input tui-border" type="text"  v-model="name" />
 					</view>
-					<view class="flex">
+					<view class="tui-flex">
 						<label class="">电话</label>
-						<input class="input border" type="text"   v-model="phone"  />
+						<input class="tui-input tui-border" type="text"   v-model="phone"  />
 					</view>
 				</view>
-				<view class="flex border padding">
+				<view class="tui-flex tui-border tui-padding">
 					<label class="">地址</label>
-					<input class="input border" type="text"  v-model="detail"  />
+					<input class="tui-input tui-border" type="text"  v-model="address"  />
 				</view>
 			</view>
-			<view class="item">
+			<view class="tui-item">
 				<button class="" @tap="add()" type="primary">确认添加</button>
 			</view>
 			
@@ -72,27 +72,27 @@
 				name:'',
 				phone:'',
 				detail:'',
-				address:[],
+				addressInfo:[],
 				hasAddress:false,
 			}
 		},
 		onLoad() {
-			var address=[{
+			var addressInfo=[{
 				name:"李先生",
 				phone:"18888888888",
-				detail:"王府井边中南胡同1号院1101号",
+				address:"王府井边中南胡同1号院1101号",
 				selected:true
 			},{
 				name:"李先生",
 				phone:"16668888888",
-				detail:"西单胡同1号院101号"
+				address:"西单胡同1号院101号"
 			},{
 				name:"李先生",
 				phone:"19988886999",
-				detail:"中南海1号院1号"
+				address:"中南海1号院1号"
 			}];
-			this.address=address;
-			var data=Storage.get('address');
+			this.addressInfo=addressInfo;
+			var data=Storage.get('addressInfo');
 			if(typeof data==='object' && Array.isArray(data)){
 				var addr=[];
 				for(let i=0;i<data.length;i++){
@@ -100,40 +100,40 @@
 						addr.push(data[i])	
 					}
 				}
-				this.address=addr;
+				this.addressInfo=addr;
 			}else if(data){
-				Storage.remove('address');
+				Storage.remove('addressInfo');
 			}
 			// this.hasAddress=true;
 		},
 		methods:{
 			delet(index){
 				// this.address[index];
-				this.address.splice(index,1); 
+				this.addressInfo.splice(index,1); 
 			},
 			commit(){
 				// console.log(this.address)
-				Storage.set('address',this.address,300);
-				var data=Storage.get('address')
+				Storage.set('addressInfo',this.addressInfo,300);
+				var data=Storage.get('addressInfo')
 				uni.showToast({
 					title:"提交成功"
 				})
 				// console.log(data)
 			},
 			selectList(key){
-				var address=this.address;
-				for(let i=0;i<address.length;i++){
+				var addressInfo=this.addressInfo;
+				for(let i=0;i<addressInfo.length;i++){
 					if(i===key){
-						address[i].selected=true;
+						addressInfo[i].selected=true;
 					}else{
-						address[i].selected=false;
+						addressInfo[i].selected=false;
 					}
 				}
-				this.$set(this.address, key,address[key]);
+				this.$set(this.addressInfo, key,addressInfo[key]);
 			},
 			add(){
-				var address=this.address;
-				var length=address.length;
+				var addressInfo=this.addressInfo;
+				var length=addressInfo.length;
 				if(length>4){
 					uni.showModal({
 						title:"失败提示",
@@ -151,7 +151,7 @@
 							checkType:"notnull",
 							// checkRule:"1,8"
 							},{
-							name:"detail",
+							name:"address",
 							errorMsg:"地址不能为空",
 							checkType:"notnull",
 							checkRule:"6,20"
@@ -160,7 +160,7 @@
 			var data={
 						name:this.name,
 						phone:this.phone,
-						detail:this.detail
+						address:this.address
 					}
 			var Vali=Validate.check(data,rule);
 			// console.log(Validate)
@@ -172,10 +172,10 @@
 					})
 					console.log(Validate)
 				}else{
-					this.address=this.address.concat([{
+					this.addressInfo=this.addressInfo.concat([{
 						name:this.name,
 						phone:this.phone,
-						detail:this.detail
+						address:this.address
 					}])
 					this.hasAddress=false;
 					
@@ -197,7 +197,7 @@ view{
 }
 .uni-card .uni-list{
 	box-sizing: border-box;
-	margin:10rpx 0;
-	padding: 0 15rpx;
+	margin:10upx 0;
+	padding: 0 15upx;
 }
 </style>

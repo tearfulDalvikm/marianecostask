@@ -1,10 +1,10 @@
 <template>
-	<view class="main tui">
+	<view class="page-body tui">
 	    <view v-if="hasList" >
 	        <!-- <view class="cart-box"> -->
-					<scroll-view scroll-y class=" flex center column" style="" :style="{height:contentHeight + 'px'}">
+					<scroll-view scroll-y class=" tui-flex tui-center tui-column" style="" :style="{height:contentHeight + 'px'}">
 
-	            <view class="list cart-list" v-for="(item,key) in  cartData" :key="key" style="position: relative;">
+	            <view class="tui-list cart-list" v-for="(item,key) in  cartData" :key="key" style="position: relative;">
 								<view class="cart-left">
 									
 										<view class="">
@@ -31,14 +31,14 @@
 												<view class="uni-flex-item" style="font-size:1.5em ;">
 													<number-box :min="1" :max="item.stock" :item="item" :value="item.number" :other="{index:key}" v-on:change="numberUpdate" ></number-box>
 												</view>
-												<picker class="item"   @change="bindPickerChange" :range-key="'name'" :data-index="key" :data-data="item.version" :value="item.versionName" :range="item.version">
+												<picker class="tui-item"   @change="bindPickerChange" :range-key="'name'" :data-index="key" :data-data="item.version" :value="item.versionName" :range="item.version">
 													<view v-if="item.version" class="picker" style="text-align: right;">
 														{{item.versionName}}<icon class="iconfont icon-dianziqianmingx" style="color: #B42F2D;"></icon>
 													</view>
 												</picker>
 
 											</view>
-											<view class="item" style="background:#EEE9E9;">
+											<view class="tui-item" style="background:#EEE9E9;">
 												<input type="text" value="" @blur="KeyInput" :data-key="key" placeholder="请在这里输入商品备注" focus/>
 											</view>
 								</view>
@@ -53,14 +53,16 @@
 	    <view v-else>
 	        <view class="cart-no-data">购物车是空的哦~</view>
 	    </view>
-				        <nav class="bottom-nav flex " style="font-size: 1.4em">
-				            <view class="flex item  row" style="background: #F9F9F9;z-index: 99;text-align: left;padding-left: 20rpx;">
+				        <nav class="tui-bottom-nav tui-flex " style="font-size: 1.4em">
+				            <view class="tui-flex tui-item  tui-row" style="background: #F9F9F9;z-index: 99;text-align: left;padding-left: 20upx;">
 											<icon v-if="selectAllStatus" class="" color="#32CD32" type="success" @tap="selectAll(key)" style="font-size: 1.2em;"></icon>
 											<icon v-else class="" type="circle" @tap="selectAll(key)" style="font-size: 1.2em;"></icon>
-											<view  style="padding:0 20rpx;">全选</view>
-											<view class="item" style="text-align: right;padding-right: 30rpx;">合计:<text style="color: red;">￥{{totalPrice}}</text></view>
-										</view>
-										<button type="warn" @tap="goPage('order')" >确认下单</button>
+											<view class="tui-center" style="text-align: left;padding: 0 15upx;">全选</view>
+											<view class="tui-center tui-item" style="text-align: right;padding-right: 30upx;">
+												合计:<text style="color: red;">￥{{totalPrice}}</text>
+											</view>
+							</view>
+							<button type="warn" size="mini" @tap="goPage('order')" style="line-height:100upx;padding: 0 15upx;" >确认下单</button>
 				        </nav>
 	</view>
 </template>
@@ -284,18 +286,18 @@
 <style>
 
 .cart-box{
-    padding-bottom: 100rpx;
+    padding-bottom: 100upx;
 }
 .cart-list{
     position: relative;
-		width: 750rpx;
+		width: 750upx;
 		display: flex;
-		padding: 15rpx;
+		padding: 15upx;
 		box-sizing: border-box;
 		justify-content: center;
 		flex-direction: row;
 
-    border-bottom: 1rpx solid #e9e9e9;
+    border-bottom: 1upx solid #e9e9e9;
 }
 .cart-left{
 	display: flex;
@@ -317,7 +319,7 @@
 
 .cart-right .picker{
 
-	border-bottom: 1rpx solid #e9e9e9;
+	border-bottom: 1upx solid #e9e9e9;
 }
 .cart-list .cart-pro-select{
 	align-self: center;
@@ -325,9 +327,9 @@
 }
 
 .cart-list .cart-thumb{
-	padding: 0 15rpx ;
-	width: 150rpx;
-	height: 150rpx;
+	padding: 0 15upx ;
+	width: 150upx;
+	height: 150upx;
 }
 
 .cart-tip{
@@ -336,7 +338,7 @@
 	justify-content: space-around;
 	flex-direction:column;
 	align-items:center;
-	right: 15rpx;
+	right: 15upx;
 	position:absolute;
 }
 
@@ -347,12 +349,12 @@
 
 .total-select{
     position: absolute;
-    left: 20rpx;
-    width: 45rpx;
+    left: 20upx;
+    width: 45upx;
 }
 
 .cart-no-data{
-    padding:40rpx 0;
+    padding:40upx 0;
     color: #999;
     text-align: center;
 }

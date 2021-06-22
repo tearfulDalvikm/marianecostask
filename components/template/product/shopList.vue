@@ -1,9 +1,9 @@
 
 <template>
 				<view class="uni-product-list tui" v-if="productList.length">
-					<view class="uni-product-item item" hover-class="uni-list-cell-hover" v-for="(product,index) in productList"  :key="index">
+					<view class="uni-product-item tui-item" hover-class="uni-list-cell-hover" v-for="(product,index) in productList"  :key="index">
 						<view class="image-view" @tap="goTo(product)">
-							<text class="button tip" style="right: 0;">{{product.tip}}</text>
+							<text class="tui-button tui-tip" style="right: 0;">{{product.tip}}</text>
 
 						<view  v-if="!product.show && index>showImageNum" :data-index="index" class="uni-product-image  lazy" style="display: flex;justify-content:center ;flex-direction:column">
 							图片加载中...
@@ -13,12 +13,12 @@
 							<image  class="uni-product-image"  mode="aspectFill" :src="product.image" />
 						</view>
 						</view>
-						<view class="uni-flex-item relative">
+						<view class="uni-flex-item tui-relative">
 							<view class="weight center uni-flex-item nowrap">
 							{{product.title}}餐饮
 							</view>
 							
-							<view class="tip absolute" style="font-size: 0.6em;background-color:#fff;color:red;top:-10rpx;right: 0;">
+							<view class="tui-tip tui-absolute" style="font-size: 0.6em;background-color:#fff;color:red;top:-10upx;right: 0;">
 							{{product.juli>1000? ((product.juli)/1000)+"千米":product.juli+'米'}}
 							</view>
 						</view>
@@ -74,7 +74,7 @@ export default {
 				console.log('gotolist')
 				console.log(e)
 				uni.navigateTo({
-					url: '/pages/goods/shop?'+e.id
+					url: '/pages/goods/shop?id='+e.id
 				});
 // 				uni.navigateTo({
 // 				    url: '/pages/goods/detail?'+e

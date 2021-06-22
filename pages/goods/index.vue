@@ -17,7 +17,7 @@
 				<page-foot :name="name" v-if="subCategoryList.length > 1"></page-foot>
 			</scroll-view> -->
 			
-			<scroll-view  class="nav-right" :scroll-y="isScroll" :scroll-into-view="toView" :scroll-with-animation="true">
+			<scroll-view  class="nav-right" :style="'height:'+height+'px'" :scroll-y="isScroll" :scroll-into-view="toView" :scroll-with-animation="true">
 			         <block v-for="(item,key,idx) in detail"  :key="idx">
 			            <view :id="item.id" class="cate-box">
 <!-- 			                <view class="cate-banner">

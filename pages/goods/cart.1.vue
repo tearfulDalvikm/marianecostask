@@ -263,18 +263,18 @@
 <style>
 
 .cart-box{
-    padding-bottom: 100rpx;
+    padding-bottom: 100upx;
 }
 .cart-list{
     position: relative;
-		width: 750rpx;
+		width: 750upx;
 		display: flex;
-		padding: 15rpx;
+		padding: 15upx;
 		box-sizing: border-box;
 		justify-content: center;
 		flex-direction: row;
 
-    border-bottom: 1rpx solid #e9e9e9;
+    border-bottom: 1upx solid #e9e9e9;
 }
 .cart-left{
 	display: flex;
@@ -295,8 +295,8 @@ picker{
 
 }
 .cart-right .picker{
-	width: 200rpx;
-	border-bottom: 1rpx solid #e9e9e9;
+	width: 200upx;
+	border-bottom: 1upx solid #e9e9e9;
 }
 .cart-list .cart-pro-select{
 	align-self: center;
@@ -304,9 +304,9 @@ picker{
 }
 
 .cart-list .cart-thumb{
-	padding: 0 15rpx ;
-	width: 150rpx;
-	height: 150rpx;
+	padding: 0 15upx ;
+	width: 150upx;
+	height: 150upx;
 }
 
 .cart-tip{
@@ -315,7 +315,7 @@ picker{
 	justify-content: space-around;
 	flex-direction:column;
 	align-items:center;
-	right: 15rpx;
+	right: 15upx;
 	position:absolute;
 }
 
@@ -331,31 +331,31 @@ picker{
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 90rpx;
-    line-height: 90rpx;
-    padding:0 100rpx 0 80rpx;
+    height: 90upx;
+    line-height: 90upx;
+    padding:0 100upx 0 80upx;
     box-sizing: border-box;
     background: #AB956D;
     color: #fff;
 }
 .total-select{
     position: absolute;
-    left: 20rpx;
-    top: 25rpx;
-    width: 45rpx;
+    left: 20upx;
+    top: 25upx;
+    width: 45upx;
 }
 .order-icon{
     position: absolute;
-    right: 40rpx;
-    width: 45rpx;
+    right: 40upx;
+    width: 45upx;
 }
 .cart-toatl-price{
     float: right;
-    width: 120rpx;
+    width: 120upx;
 }
 
 .cart-no-data{
-    padding:40rpx 0;
+    padding:40upx 0;
     color: #999;
     text-align: center;
 }
