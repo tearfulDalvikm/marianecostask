@@ -7,24 +7,27 @@ const store = new Vuex.Store({
 	state: {
 		hasLogin: false,//登陆状态
 		loginProvider: "",//登陆方式 如 微信
-		openid: null //应用id
+		openid: null, //应用id
+		address:{},//收货地址
 	},
 	getters:{
 		login(state){
 			return  state.hasLogin;
-        }
+        },address(state){
+			return state.address;
+		}
 	},
 	mutations: {
 		login(state, provider) {
 			state.hasLogin = true;
 			state.loginProvider = provider;
-		},
-		logout(state) {
+		},logout(state) {
 			state.hasLogin = false
 			state.openid = null
-		},
-		setOpenid(state, openid) {
+		},setOpenid(state, openid) {
 			state.openid = openid
+		},setAddress(state,address){
+			state.address=address;
 		}
 	},
 	actions: {

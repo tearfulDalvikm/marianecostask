@@ -38,7 +38,7 @@
 					</scroll-view>
 					<scroll-view class="uni-flex-item" scroll-y :scroll-into-view="scrollViewId" :style="{height:contentHeight + 'px'}">
 							<view class="content-right" v-if="goodsList">
-									<view  v-if="categoryId==item.categoryId||categoryId==null" class="tui-flex tui-border tui-list" style="" v-for="(item,key) in goodsList" :key="key">
+									<view  v-if="categoryId==item.category_id||categoryId==null" class="tui-flex tui-border tui-list" style="" v-for="(item,key) in goodsList" :key="key">
 										
 										<view class="tui-center tui-absolute" style="right: 20upx;">
 											<icon v-if="item.selected" type="success" color="#32CD32" :data-index="key"  class="cart-pro-select" @tap="selectList(item,key,true)"/>
@@ -142,6 +142,9 @@
 
 
 		},onLoad(e) {
+			uni.showLoading({
+				title: '加载中'
+			});
 			var id=e.id
 			console.log(e)
 						// 请求服务器
@@ -171,6 +174,7 @@
 // 					}
 // 					category[i].image= src+category[i].image;
 // 				}
+					uni.hideLoading();
 				self.category=category;
 				console.log(res.data.data)
 			})

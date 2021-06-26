@@ -75,13 +75,15 @@
 				addressInfo:[],
 				hasAddress:false,
 			}
-		},
-		onLoad() {
+		},computed:{
+// 			address(){
+// 				return this.$store.getters.login;
+// 			}
+		},onLoad() {
 			var addressInfo=[{
 				name:"李先生",
 				phone:"18888888888",
-				address:"王府井边中南胡同1号院1101号",
-				selected:true
+				address:"王府井边中南胡同1号院1101号"
 			},{
 				name:"李先生",
 				phone:"16668888888",
@@ -129,6 +131,7 @@
 						addressInfo[i].selected=false;
 					}
 				}
+				this.$store.commit('setAddress',addressInfo[key]);
 				this.$set(this.addressInfo, key,addressInfo[key]);
 			},
 			add(){

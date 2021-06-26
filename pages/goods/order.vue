@@ -97,7 +97,7 @@
 				tableNumbers:'',//桌号
 				number:'',//人数
 				addrShow:false,
-				address: {},
+				// address: {},
 				hasAddress: false,
 				total: 0,
 				orders: [{
@@ -117,8 +117,11 @@
 				]
 
 			};
-		},
-		onLoad(e) {
+		},computed:{
+			address(){
+				return this.$store.getters.address;
+			}
+		},onLoad(e) {
 			console.log("onload")
 			console.log(e)
 			let winHeight = uni.getSystemInfoSync().windowHeight;
@@ -126,7 +129,6 @@
 				this.contentHeight=(winHeight-uni.upx2px(140));
 				this.winHeight = winHeight;
 			var orderData =Storage.get('order') //读取购物车缓存数据
-
 
 // 			// 请求服务器
 // 			var self = this;
@@ -156,8 +158,8 @@
 				if(address && typeof address==='object'){
 					for(let i=0;i<address.length;i++){
 						if(address[i].selected){
-							this.address=address[i];
-							console.log(this.address)
+							this.$store.commit('address',address[i]);
+							// console.log(this.address)
 						}
 					}
 				}else{

@@ -83,8 +83,8 @@
 				CountdownBt:0,//验证码有效期
                 providerList: [],//第三方快捷登陆方法
                 hasProvider: false,//是否开启第三方登陆
-                account: '18888888889',
-                password: 'qweqweqwe',
+                account: '18888888888',
+                password: '18888888888',
 				failAccount:{},//登陆失败的账号 再次登陆需要验证码
 				successAccount:{},//登陆成功的账号组 再次登陆无需验证码
 				code:'',//手机验证码
@@ -278,7 +278,8 @@
 
 				
 				// http://www.api.com/user/account/login/psd?
-				var client= {"client":that.Config.client()};
+				// var client= {"client":that.$config.client()};
+				var client={};
 					client.account=this.account;
 					// 判断登陆方法
 					switch (that.sloginType){
