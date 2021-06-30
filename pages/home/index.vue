@@ -18,7 +18,7 @@
 				</view>
 				<view style="height: 90upx;"></view>
 			</scroll-view>
-			<footer>
+			<footer class="uni-flex tui-bottom-nav">
 				<bottom-nav></bottom-nav>
 			</footer>	
 
@@ -50,6 +50,7 @@
 				scrollTime:300,//滚动条定时器间隔触发时间毫秒 防止触发频率太高性能下降
 				scrollTimeout:0,//记录懒加载定时触发器
 				refreshTimeout:0,//上拉刷新定时器
+				timeOut:0,
 				title:'首页',
 				bodyShow:false,
 				bigAdData:[],//大屏广告数据替换
@@ -95,8 +96,8 @@
 				// 如果下来触发状态未关闭 将会触发请求服务器
 				if(this.loadingType!=2){
 				console.log("滚动底部触发")
-					clearTimeout(timeOut)
-						var  timeOut=setTimeout(()=> {
+					clearTimeout(this.timeOut)
+						this.timeOut=setTimeout(()=> {
 							this.loadData();
 						}, 100);
 
@@ -279,8 +280,8 @@
     onPullDownRefresh() {
         // console.log('refresh');
 				var self=this;
-				clearTimeout(refreshTimeout)
-        refreshTimeout=setTimeout(function () {
+				clearTimeout(this.refreshTimeout)
+        this.refreshTimeout=setTimeout(function () {
 						self.refresh()
             uni.stopPullDownRefresh();
         }, 1000);
@@ -299,7 +300,9 @@
 	}
 
 footer{
-	background: #007AFF;
+	
+	background: #fff;
+	/* background: #007AFF; */
 	left: 0;
 	right: 0;
 	position:fixed;

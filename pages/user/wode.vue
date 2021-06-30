@@ -47,11 +47,11 @@
 				//#ifdef APP-PLUS
 				isH5Plus:true,
 				//#endif
-				userinfo:{
-					headimg:'../../static/HM-PersonalCenter/face.jpeg',
-					nickName:"未登录",
-					integral:"1435",
-					},
+// 				userinfo:{
+// 					headimg:'../../static/HM-PersonalCenter/face.jpeg',
+// 					nickName:"未登录",
+// 					integral:"1435",
+// 					},
 				orderTypeLise:[
 					//name-标题 icon-图标 badge-角标
 					{name:'待付款',icon:'l1.png',badge:1},
@@ -80,10 +80,12 @@
 		},computed:{
 			hasLogin(){
 				return this.$store.getters.login;
+			},userinfo(){
+				return this.$store.getters.userinfo;
 			}
 		},
 		onShow(){
-			var store=this.$store.state;
+			// var store=this.$store.state;
 			// var hasLogin=store.hasLogin;
 			// console.log(this.$store)
 			let winHeight = uni.getSystemInfoSync().windowHeight;
@@ -127,12 +129,7 @@
 		},
 		methods: {
 			init(){
-				// 默认头像
-				this.userinfo={
-					headimg:'../../static/HM-PersonalCenter/face.jpeg',
-					nickName:"未命名",
-					integral:"1435"
-				}	
+
 				var self=this;
 				/**
 				 * 获取用户信息
@@ -140,11 +137,12 @@
 				uni.getUserInfo({
 				  success: function(res){
 					  console.log(res.userInfo)
-					  self.userinfo={
+					  var userinfo={
 					  	headimg:res.userInfo.avatarUrl,
 					  	nickName:res.userInfo.nickName,
 					  	integral:"1435"
-					  }	
+					  }
+					   self.$store.commit('userinfo',userinfo); 
 				  }
 				})
 	

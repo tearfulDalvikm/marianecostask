@@ -4,13 +4,12 @@
 		<view class="tui-flex tui-list" v-for="(item,index) in shops" :key="index"  >
 			<image class="tui-list-item tui-list-image" :src="item.image" mode="aspectFill">左边</image>
 			<view class="item tui-list-item"  >
-				<view class="uni-badge" style="position: absolute;right: 10upx;color: #fff;background-color: #dd524d" @tap="deleteTap(item)">
-					x
-				</view>
 				<text class="line-clamp">{{item.describe}}</text>
 				<text class="line-clamp tui-title" @tap="toPage(item)">{{item.shopName}}</text>
 			</view>
-
+			<view style="" @tap="deleteTap(item)">
+			<text  class="uni-badge" style="color: #fff;background-color: #dd524d">x</text>
+			</view>
 		</view>
 	</view>
 </template>
@@ -41,13 +40,14 @@
 				})
 			},
 			deleteTap(item){
+				console.log('删除')
 				var self=this;
 				uni.showModal({
-					title:"确定删除？",
-					success(e) {
+					title:"您确定要删除吗?",
+					content:"删除后无法恢复",
+					success(e){
 						if(e.confirm){
 							var shops=self.shops;
-							// self.shops=self.shops.splice(index, 1);
 							var shopNew=[];
 							for(let i=0;i<shops.length;i++){
 								if(item.shop_id!=shops[i].shop_id){
@@ -55,10 +55,12 @@
 								}
 							}
 							self.shops=shopNew;
+						}else{
+							// console.log("已取消")
 						}
-					console.log(e)
 					}
 				})
+
 			}
 		}
 	}

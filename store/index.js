@@ -9,9 +9,20 @@ const store = new Vuex.Store({
 		loginProvider: "",//登陆方式 如 微信
 		openid: null, //应用id
 		address:{},//收货地址
+		userinfo:{
+			nickName:"未登录",
+			headimg:"../../static/HM-PersonalCenter/face.jpeg",
+			user_id:"123",
+			individuality:"爱你一万年",
+			address:"北京市西城区中南海大院1号",
+			sex:"男",
+			area:"北京-北京-东城区"
+		}//用户信息
 	},
 	getters:{
-		login(state){
+		userinfo(state){
+			return state.userinfo;
+		},login(state){
 			return  state.hasLogin;
         },address(state){
 			return state.address;
@@ -28,6 +39,8 @@ const store = new Vuex.Store({
 			state.openid = openid
 		},setAddress(state,address){
 			state.address=address;
+		},setUserinfo(state,userinfo){
+			state.userinfo=userinfo;
 		}
 	},
 	actions: {

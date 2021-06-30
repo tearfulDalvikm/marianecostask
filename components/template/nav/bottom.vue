@@ -1,23 +1,29 @@
 <template>
-	<view  class="tui uni-flex tui-center tui-bottom-nav">
-		<view  class="uni-flex-item" v-for="(item,idx) in bottomNav" :key="idx" @tap="index=idx,(item.fn)(item)"  :class="index==idx?'uni-badge-primary uni-badge-inverted':''">
-
-			<view class="uni-item uni-column">
+	<view class="uni-flex tui">
+		<view  class="uni-flex-item uni-flex uni-column tui-center" v-for="(item,idx) in bottomNav" :key="idx" @tap="index=idx,(item.fn)(item)"  :class="index==idx?'uni-badge-primary uni-badge-inverted':''">
+		
+			<!-- <view class="uni-item uni-column"> -->
 				<view class="nav-icon uni-item">
-					<view class="nav-msg" >
-						<view class="uni-badge uni-badge-danger" v-if="item.msg">{{item.msg}}</view>
+					<view class="tui-nav-badge" style="">
+						<view class="uni-badge uni-badge-danger" style="font-size: 0.7em;position: absolute;" v-if="item.msg">
+							<text v-if="item.msg>10">…</text>
+							<text v-else>{{item.msg}}</text>
+						</view>
 					</view>
-					<i class="uni-item iconfont" :class="item.ico"></i>
+					<icon class="uni-item iconfont" style="font-size:1.6em ;" :class="item.ico"></icon>
 				</view>
 				<view class="uni-item nav-title">
 						{{item.name}}
 				</view>
-			</view>
+			<!-- </view> -->
 			
-
+		
 		</view>
-
 	</view>
+<!-- 	<nav  class="tui uni-flex tui-center tui-bottom-nav ">
+
+
+	</nav> -->
 </template>
 
 <script>
@@ -37,14 +43,14 @@
 						url:'/pages/home/index'
 					},{
 						fn:this.tijiao,
-						msg:0,
+						msg:1,
 						name:'订单',
 						ico:'icon-dingdanjihe',
 						url:'/pages/order/list'
 					},
 					{
 						fn:this.tijiao,
-						msg:230,
+						msg:23,
 						name:'消息',
 						ico:'icon-xiaoxi',
 						url:'/pages/chat/list'

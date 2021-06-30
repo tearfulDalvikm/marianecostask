@@ -1,6 +1,6 @@
 <template>
 	<view class="tui">
-		<view class="uni-list">
+		<view class="uni-list" v-if="onshow">
 <!-- 			<view class="uni-list-cell-divider">
 				右侧带箭头
 			</view> -->
@@ -9,7 +9,7 @@
 					头像
 				</view>
 				<view class="uni-list-cell-navigate uni-navigate-right flex " style="justify-content:flex-end;flex:2" >
-					<image  class=" tui-headimg"  style="padding:0 20upx;" :src="userInfo.headimg" mode="aspectFit"></image>
+					<image  class=" tui-headimg"  style="padding:0 20upx;" :src="userinfo.headimg" mode="aspectFit"></image>
 				</view>
 			</view>
 			<view class="uni-list-cell flex" style="justify-content: space-between;" hover-class="uni-list-cell-hover"  @tap="update('nickName')">
@@ -17,7 +17,7 @@
 					昵称
 				</view>
 				<view class="uni-list-cell-navigate uni-navigate-right flex " style="justify-content:flex-end;flex:2">
-					<text  style="padding:0 20upx;">{{userInfo.nickName}}</text>
+					<text  style="padding:0 20upx;">{{userinfo.nickName}}</text>
 				</view>
 			</view>
 			<view class="uni-list-cell flex" style="justify-content: space-between;" hover-class="uni-list-cell-hover" @tap="update('area')">
@@ -25,7 +25,7 @@
 					地区
 				</view>
 				<view class="uni-list-cell-navigate uni-navigate-right flex " style="justify-content:flex-end;flex:2">
-					<text  style="padding:0 20upx;">{{userInfo.area}}</text>
+					<text  style="padding:0 20upx;">{{userinfo.area}}</text>
 				</view>
 			</view>
 			<view class="uni-list-cell flex" style="justify-content: space-between;" hover-class="uni-list-cell-hover" @tap="update('individuality')">
@@ -33,7 +33,7 @@
 					个性
 				</view>
 				<view class="uni-list-cell-navigate uni-navigate-right flex " style="justify-content:flex-end;flex:2">
-					<text  style="padding:0 20upx;">{{userInfo.individuality}}</text>
+					<text  style="padding:0 20upx;">{{userinfo.individuality}}</text>
 				</view>
 			</view>
 			<view class="uni-list-cell flex" style="justify-content: space-between;" hover-class="uni-list-cell-hover" @tap="toPage('address')">
@@ -53,26 +53,31 @@
 
 		data(){
 			return{
-				userInfo:{
-					nickName:"小宝宝",
-					headimg:"../../static/HM-PersonalCenter/face.jpeg",
-					user_id:"123",
-					individuality:"爱你一万年",
-					address:"北京市西城区中南海大院1号",
-					sex:"男",
-					area:"北京-北京-东城区",
-					infoUpdate:{
-						key:null,
-						value:null
-					}
-					
-					
-				}
+				onshow:false,
+// 				userinfo:{
+// 					nickName:"小宝宝",
+// 					headimg:"../../static/HM-PersonalCenter/face.jpeg",
+// 					user_id:"123",
+// 					individuality:"爱你一万年",
+// 					address:"北京市西城区中南海大院1号",
+// 					sex:"男",
+// 					area:"北京-北京-东城区",
+// 					infoUpdate:{
+// 						key:null,
+// 						value:null
+// 					}
+// 					
+// 					
+// 				}
+			}
+		},computed:{
+			userinfo(){
+				return this.$store.getters.userinfo;
 			}
 		},methods:{
 			update(e){
-				var str="key="+e+"&value="+this.userInfo[e];
-				this.infoUpdate={key:e,value:this.userInfo[e]};
+				var str="key="+e+"&value="+this.userinfo[e];
+				this.infoUpdate={key:e,value:this.userinfo[e]};
 				this.toPage('update',str)
 // 				switch (e){
 // 					case "nickName":
@@ -88,12 +93,13 @@
 				})
 			}
 		},onShow(){
-		var value= Storage.get('userInfoUpdate');
-			if(value && this.infoUpdate && this.infoUpdate.key && this.infoUpdate.value!= value){
-				this.userInfo[this.infoUpdate.key]=value;
-				Storage.set('userInfoUpdate',false,10);
-			}
-			console.log('返回触发')
+			this.onshow=true;
+// 		var value= Storage.get('userinfoUpdate');
+// 			if(value && this.infoUpdate && this.infoUpdate.key && this.infoUpdate.value!= value){
+// 				this.userinfo[this.infoUpdate.key]=value;
+// 				Storage.set('userinfoUpdate',false,10);
+// 			}
+// 			console.log('返回触发')
 		}
 	}
 </script>

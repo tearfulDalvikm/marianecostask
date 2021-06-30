@@ -86,11 +86,11 @@
 				// console.log(e.detail.value)
 			},confirm(e){
 				console.log(this.value)
-				console.log(this.value)
 				var self=this;
 				if (this.oldValue==this.value) {
 					uni.showModal({
-						title:"未做任何修改？",
+						title:"提示",
+						content: '未做任何修改？',
 						showCancel:false,
 						success(e) {
 							if (e.confirm) {
@@ -101,11 +101,18 @@
 					
 				} else{
 					uni.showModal({
-						title:"确认修改？",
+						title:"提示",
+						content:"确认修改？",
 						success(e) {
 							if (e.confirm) {
 								self.oldValue=self.value;
 								Storage.set('userInfoUpdate',self.value,60);
+								var userinfo=self.$store.getters.userinfo;
+								if(userinfo[self.key]){
+									userinfo[self.key]=self.value;
+									self.$store.commit('setUserinfo',userinfo); 
+								}
+								
 								uni.navigateBack({
 									delta:1
 								})
