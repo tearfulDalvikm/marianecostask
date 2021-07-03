@@ -99,29 +99,24 @@
 	position: fixed;
 	background: #F9F9F9;
 }
-.tui icon{
-	color: #999;
-	padding: 0;
-	margin: 0;
-	font-size:1em ;
-}
+
 /* 字体色 */
 /* .tui [color] { 
 	color: #666;
 	} */
-.tui icon[color~=hong],.color-hong { 
+.tui [color~=hong],.color-hong { 
 	color: #09BB07;
 	}
-.tui icon[color~=lv], .color-lv{ 
+.tui [color~=lv], .color-lv{ 
 	color: #09BB07;
 }
-.tui icon[color~=lan], .color-lan{ 
+.tui [color~=lan], .color-lan{ 
 	color: #09BB07;
 }
-.tui icon[color~=ju], .color-ju{ 
+.tui [color~=ju], .color-ju{ 
 	color: #FF8C00;
 }
-.tui icon[color~=bai], .color-bai{ 
+.tui [color~=bai], .color-bai{ 
 	color: #fff;
 }
 /* 背景色 */
@@ -232,4 +227,7 @@
 	min-height: 1em;
 	line-height: 1em;
 	font-size: 1em;
+}
+.tui button{
+	font-size:1em 
 }

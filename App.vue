@@ -1,5 +1,16 @@
 <script>
 	export default {
+		mounted() {
+			 var that=this;
+			// 监听窗口宽高变化
+			(function screenListener(){
+				uni.onWindowResize((res) => {
+					that.$store.commit('screen',{width:res.size.windowWidth,height:res.size.windowHeight});
+// 					console.log('变化后的窗口宽度=' + res.size.windowWidth)
+// 					console.log('变化后的窗口高度=' + res.size.windowHeight)
+			})
+			})()
+		},
 		onLaunch: function () {
 			console.log('App Launch')
 		},
@@ -18,6 +29,13 @@
 	@import "./common/uni.css";
 	@import "./common/css/iconfont.css"; 
 	@import "./common/css/tui.css";
+/* 	    @font-face {
+        font-family: 'iconfont';
+        src: url('https://at.alicdn.com/t/font_865816_17gjspmmrkti.ttf') format('truetype');
+    }
+    .iconfont{
+        font-family: iconfont;
+    } */
 	/* 以下样式用于 hello uni-app 演示所需 */
 	page {
 		color: #666;

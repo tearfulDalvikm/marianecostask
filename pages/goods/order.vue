@@ -1,8 +1,8 @@
 <template>
 	<view class="page-body tui"  >
-		<scroll-view class=""  :style="{height:contentHeight + 'px'}" style="padding:0 15upx;box-sizing:border-box;" scroll-y  >
+		<scroll-view class=""  :style="{height:contentHeight + 'px'}" style="padding:0 15upx;box-sizing:border-box;width: 100vw;" scroll-y  >
 				<view class="uni-card">
-					<view v-for="(item,key) in orders" :key="key" class="orders-list column">
+					<view v-for="(item,key) in orders" :key="key" style="padding: 0;" class="orders-list column">
 
 						<view class="tui-item tui-flex">
 							<view style="flex: 1;">
@@ -10,9 +10,9 @@
 								<text class="orders-version" v-if="item.versionName">{{item.versionName}}</text>
 							</view>
 							<!-- <image class="orders-thumb" :src="item.image"></image> -->
-							<view class="orders-right" style="flex-direction: row;width: 150upx;">
+							<view class="orders-right" style="flex-direction: row;width: 250upx;justify-content: space-between;">
 								<view>￥{{item.price}}</view>
-								<view style="width: 100upx;">x{{item.number}}</view>
+								<view style="width: 80upx;">x{{item.number}}</view>
 							</view>
 						</view>
 						<view v-if="item.note" class="tui-item" style="width: 100%;font-size:0.6em;opacity:0.5;height: 1em;line-height: 1em;">
@@ -44,7 +44,7 @@
 							{{address.address}}
 							</view>
 							<view class="tui-absolute tui-flex " style=" font-size:1.3em ; align-items: center;justify-content: flex-end; right: 20upx;top:0;bottom:0;height: 95%;">
-								<icon class="iconfont icon-jinrujiantouxiao1" style="color:#999;"></icon>
+								<text class="iconfont " style="color:#999;">&#xe95a;</text>
 							</view>
 							
 						</button>
@@ -56,7 +56,7 @@
 								添加您的地址
 							</view>
 							<view class="tui-absolute tui-flex " style=" font-size:1em ; align-items: center;justify-content: flex-end; right: 20upx;top:0;bottom:0;height: 95%;">
-								 <icon class="iconfont icon-jinrujiantouxiao1" style="color:#999;"></icon>
+								 <text class="iconfont " style="color:#999;">&#xe95a;</text>
 							</view>
 							</button>
 
@@ -78,7 +78,7 @@
 
 		</scroll-view>
 		<nav class="tui-bottom-nav tui-flex " style="background: #F9F9F9;z-index: 99;text-align: left;padding-left: 30upx;">
-			<view class="tui-item tui-flex " style="font-size: 1.2em;" >支付金额：<text style="color:red">￥{{total}}</text></view>
+			<view class="tui-item tui-flex " style="font-size: 1.2em;" >支付金额：<text style="color:red">￥{{totalPrice}}</text></view>
 			<button type="warn" @tap="toPay" size="mini"  style="line-height:100upx;padding: 0 15upx;">去付款</button>
 		</nav>
 	</view>
@@ -87,60 +87,39 @@
 <script>
 	import Storage from "../../common/utils/Storage.js";
 	// import ajax from "../../request/ajax.js";
-	import uniIcon from "../../components/template/icon/icon.vue";
+	// import uniIcon from "../../components/template/icon/icon.vue";
 	export default {
-		 components: {uniIcon},
+		 // components: {uniIcon},
 		data() {
 			return {
-				winHeight:0,
-				contentHeight:0,
+				focus:'',
 				tableNumbers:'',//桌号
 				number:'',//人数
 				addrShow:false,
-				// address: {},
 				hasAddress: false,
-				total: 0,
-				orders: [{
-						id: 1,
-						title: '新鲜芹菜 半斤',
-						image: 'https://img-cdn-qiniu.dcloud.net.cn/uploads/example/product3.jpg',
-						num: 4,
-						price: 0.01
-					},
-					{
-						id: 2,
-						title: '素米 500g',
-						image: 'https://img-cdn-qiniu.dcloud.net.cn/uploads/example/product3.jpg',
-						num: 1,
-						price: 0.03
-					}
-				]
 
 			};
 		},computed:{
+			totalPrice(){
+				return this.$store.state.goods.cartTotal;
+			},
+			orders:{
+				get(){
+					 return this.$store.getters.order
+				},set(cartData){
+					return cartData
+					// this.
+				}
+			},
 			address(){
 				return this.$store.getters.address;
+			},widHeight(){
+				return this.$store.state.win.screen.height;
+			},contentHeight(){
+				return this.widHeight-uni.upx2px(100)
 			}
 		},onLoad(e) {
-			console.log("onload")
-			console.log(e)
-			let winHeight = uni.getSystemInfoSync().windowHeight;
-			//创建节点选择器 获取底部导航高度 
-				this.contentHeight=(winHeight-uni.upx2px(140));
-				this.winHeight = winHeight;
-			var orderData =Storage.get('order') //读取购物车缓存数据
 
-// 			// 请求服务器
-// 			var self = this;
-// 			ajax.get('orders',(res)=>{
-// 				
-// 				var orders=res.data.data ||{};
-// 				self.orders=orders;
-// 				// console.log(res.data.data)
-// 			})
-			this.orders = orderData; //读数据
-			// console.log(this.total)
-			// console.log(self.orders)
 		},
 		methods: {
 			switchTab(e){
@@ -177,34 +156,23 @@
 					})
 				}
 			},
-
-			ceshi() {
-				// uni-app暂时不支持worker
-				// 				worker.onMessage(function (res) {
-				// 				  console.log(res)
-				// 				})
-				// 				worker.postMessage({
-				// 				  msg: 'hello worker'
-				// 				})
-				// 				worker.terminate()
-			},
 			goPage(){
 				uni.navigateTo({
 					url:"../user/address"
 				}) 
 				
 			},
-			/**
-			 * 计算总价
-			 */
-			getTotalPrice() {
-				let orders = this.orders;
-				let total = 0;
-				for (let i in orders) {
-					total += orders[i].number * orders[i].price;
-				}
-				this.total = total;
-			},
+// 			/**
+// 			 * 计算总价
+// 			 */
+// 			getTotalPrice() {
+// 				let orders = this.orders;
+// 				let total = 0;
+// 				for (let i in orders) {
+// 					total += orders[i].number * orders[i].price;
+// 				}
+// 				this.total = total;
+// 			},
 			toPay() {
 				uni.showModal({
 					title: '提示',
@@ -219,7 +187,7 @@
 			}
 		},
 		mounted: function() {
-			this.getTotalPrice();
+			// this.getTotalPrice();
 			// el渲染完成触发
 // 			this.$nextTick(function() {
 // 				// const self = this;

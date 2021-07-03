@@ -1,52 +1,58 @@
 <template>
 	<view class="page-body tui">
-		<view class="">
-			<view class="tui-flex tui-column uni-card "  v-for="(item,index) in addressInfo" :key="index">
-				<view  class="tui-flex tui-padding ">
-					<view class="tui-item ">
-						<label class="">姓名</label>
-					{{item.name}}</view>
-					<view class="tui-item">
-					<label class="">电话</label>
-					{{item.phone}}</view>
-					<icon v-if="item.selected" type="success" color="#32CD32" :data-index="index"  class="cart-pro-select" @tap="selectList(index)"/>
-					<icon v-else type="circle" class="cart-pro-select" :data-index="index" @tap="selectList(index)"/>
-				</view>
-				<view class="tui-flex tui-padding tui-border">
-					<label class="">地址</label>
-					<view class="tui-item">{{item.address}}</view>
-						
-					<icon type="clear" @tap="delet(index)" size="15"></icon> 
-				</view>
-				
-			</view>
-		</view>
-		<view v-if="hasAddress" class="tui-flex tui-column">
-			<view class="tui-center tui-padding">输入新地址</view>
-			<view class="tui-flex tui-column uni-card">
-				<view class="tui-flex tui-padding ">
-					<view class="tui-flex ">
-					<label class="">姓名</label>
-					<input class="tui-input tui-border" type="text"  v-model="name" />
-					</view>
-					<view class="tui-flex">
+		<view style="flex: 1;">
+				<view class="tui-flex tui-column uni-card " style="height: 130upx;" v-for="(item,index) in addressInfo" :key="index">
+					<view  class="tui-flex tui-padding ">
+						<view class="tui-item ">
+							<label class="">姓名</label>
+						{{item.name}}</view>
+						<view class="tui-item">
 						<label class="">电话</label>
-						<input class="tui-input tui-border" type="text"   v-model="phone"  />
+						{{item.phone}}</view>
+						<text v-if="item.selected" class="iconfont" style="color: #32cd32;" :data-index="index"   @tap="selectList(index)">&#xe99c;</text>
+						<text v-else class="iconfont" :data-index="index" @tap="selectList(index)">&#xe9ae;</text>
 					</view>
-				</view>
-				<view class="tui-flex tui-border tui-padding">
-					<label class="">地址</label>
-					<input class="tui-input tui-border" type="text"  v-model="address"  />
-				</view>
-			</view>
-			<view class="tui-item">
-				<button class="" @tap="add()" type="primary">确认添加</button>
-			</view>
-			
-
+					<view class="tui-flex tui-padding tui-border">
+						<label class="">地址</label>
+						<view class="tui-item">{{item.address}}</view>
+							
+						<text class="iconfont" style="font-size:0.9em" @tap="delet(index)"  >&#xe964;</text>
+					</view>
+					
+				</view>	
 		</view>
 
-	<view v-if="!hasAddress">
+		<view class="" style="position: absolute;display: flex;justify-content: center;width: 100%;height: 100%;" v-if="hasAddress">
+					<view class="" style="opacity: 0.5;width: 100%;background: #000000;height: 100%;position: absolute;z-index: 1;">
+						
+					</view>
+					<view style="opacity: 1;position: absolute;z-index: 2; width: 100%;height:;background: #FFFFFF;margin-top: 20%;"  class="tui-flex tui-column">
+							<view class="tui-center tui-padding">输入新地址 
+								<text class="iconfont " style="position: absolute;right: 10upx;" @tap="hasAddress=!hasAddress" >&#xe964;</text>
+							</view>
+							<view class="tui-flex tui-column uni-card">
+								<view class="tui-flex tui-padding ">
+									<view class="tui-flex ">
+									<label class="">姓名</label>
+									<input class="tui-input tui-border" type="text"  v-model="name" />
+									</view>
+									<view class="tui-flex">
+										<label class="">电话</label>
+										<input class="tui-input tui-border" type="text"   v-model="phone"  />
+									</view>
+								</view>
+								<view class="tui-flex tui-border tui-padding">
+									<label class="">地址</label>
+									<input class="tui-input tui-border" type="text"  v-model="address"  />
+								</view>
+							</view>
+							<view class="tui-item">
+								<button class="" @tap="add()" type="primary">确认添加</button>
+							</view>
+					</view>
+		</view>
+
+	<view v-if="!hasAddress" style="height: 200upx;">
 		<button    @tap="hasAddress=!hasAddress" >
 			<text>添加新地址</text>
 		</button>
@@ -54,13 +60,8 @@
 			<text>确认</text>
 		</button>
 	</view>
-	<view v-else >
 
-		<button  @tap="hasAddress=!hasAddress" >
-			<text>取消</text>
-		</button>
-	</view>
-	</view>
+</view>
 </template>
 
 <script>
@@ -195,12 +196,17 @@
 </script>
 
 <style>
+.tui{
+	height:100%;
+	/* position: relative; */
+	overflow-x:scroll;
+}
 view{
-	line-height: 2em;
+	/* line-height: 3em; */
 }
 .uni-card .uni-list{
 	box-sizing: border-box;
-	margin:10upx 0;
+	/* margin:10upx 0; */
 	padding: 0 15upx;
 }
 </style>

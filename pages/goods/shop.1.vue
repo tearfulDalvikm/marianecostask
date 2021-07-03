@@ -13,25 +13,17 @@
 						<text class="iconfont">&#xe8b4;</text>
 						<text style="font-size:0.4em ;">客服</text>
 					</view>
-					<view class="tui-flex tui-column" style="font-size: 1.4em;line-height: 0.8em;" @tap="goPage('chatList')">
-						<text class="iconfont">&#xe872;</text>
-						<text style="font-size:0.4em ;">消息</text>
-					</view>
-<!-- 					<view class="tui-flex tui-column" style="font-size: 1.4em;line-height: 0.8em;" @tap="goPage('order')">
+					<view class="tui-flex tui-column" style="font-size: 1.4em;line-height: 0.8em;" @tap="goPage('order')">
 						<text class="iconfont">&#xe8cd;</text>
 						<text style="font-size:0.4em ;">订单</text>
-					</view> -->
+					</view>
 					<view class=" tui-flex tui-column" style="font-size: 1.4em;line-height: 0.8em;" @tap="goPage('wode')">
 						<text class="iconfont">&#xe8ea;</text>
 						<text style="font-size:0.4em ;">我的</text>
 					</view>
 					<!-- 导航微信 -->
 				</view>
-				<button class="" type="warn" size="mini" @tap="goPage('cart')" style="position: relative;font-size:0.7em ;padding: 0;line-height:100upx; width: 120upx; justify-content: center;">
-					<view style="text-align: center;width: 100upx;">¥{{total}}<text class="iconfont" style="position: absolute;z-index: 2;right: 0;">&#xe95a;</text></view>
-					
-					<!-- <view style="text-align: center;width: 100upx;">下单</view> -->
-					</button>
+				<button class="" type="warn" size="mini" @tap="goPage('cart')" style="padding: 0;line-height:100upx; width: 100upx; justify-content: center;">下单</button>
 				<!-- <uni-nav-bar left-icon="back" left-text="返回" right-text="菜单" title="标题"></uni-nav-bar> -->
 			</nav>
 
@@ -41,7 +33,6 @@
 							<view class="tui-item tui-border cebian-list"   @click="categoryClickMain(null,{id:null})"  :class="categoryActive==null?'active':''">
 												全部
 							</view>
-							
 							<view class="tui-item cebian-list tui-border tui-relative"   @click="categoryClickMain(idx,item)" :key="idx" :style="idx==categoryActive?'opacity:0.7;color:red':'opacity:1;color:;'" v-for="(item,idx) in category">
 									{{item.name}}
 									<view class="tui-nav-badge tui-absolute" style="top:0;right: 0;">
@@ -49,41 +40,34 @@
 									</view>
 							</view>
 					</scroll-view>
-					<scroll-view class="uni-flex-item" scroll-y   :style="{height:contentHeight + 'px'}" style="width: 570upx;">
-							<!-- <view class="content-right" v-if="goodsList"> -->
+					<scroll-view class="uni-flex-item" scroll-y  :style="{height:contentHeight + 'px'}">
+							<view class="content-right" v-if="goodsList">
 									<view  v-if="categoryId==item.category_id||categoryId==null" class="tui-flex tui-border tui-list" style="" v-for="(item,key) in goodsList" :key="key">
-										<view class="">
-												<image    style="height:130upx;width: 130upx;" :src="item.image" mode="aspectFill" />
+										
+										<view class="tui-center tui-absolute" style="right: 20upx;">
+											<text v-if="item.selected"   style="color:#32CD32" :data-index="key"  class="iconfont " @tap="selectList(item,key,true)">&#xe99c;</text>
+											<text v-else  class="iconfont " :data-index="key" @tap="selectList(item,key,false)" >&#xe9ae;</text>
+
 										</view>
 										<!-- @tap="tapDetail(item,key,item.selected);" -->
-
-										<view  class="tui-flex tui-column" style="box-sizing: border-box;padding-left:20upx;height: 135upx;width: 400upx;"  >
+											<image    style="height:130upx;width: 130upx;" :src="item.image" mode="aspectFill" />
+										<view  class="tui-flex tui-item  tui-column" style="box-sizing: border-box;padding: 0 20upx;height: 135upx;"  >
 												<view class="tui-title">{{item.title}}</view>
-												<view style="display: flex;justify-content: space-between;">
-													<view class="">
-														<text style="color: red;">¥{{item.price}} </text>
-														<text style="text-decoration:line-through;font-size:0.8em ;">¥{{item.oldprice}}</text>
-													</view>
-													<view class="tui-center" style="display: flex;">
-														<text class="iconfont" :class="cart[item.id] && cart[item.id].number && cart[item.id].number>0 ?'color-ju':''" @tap="selectList(item,key,'-')" style="width: 50upx;">&#xe931;</text>
-														<view class="" style="width: 50upx;">
-														<text  v-if=" cart[item.id]">{{cart[item.id].number}}</text>
-														<text  v-else >0</text>
-														</view>
-														<text class="iconfont" :class="cart[item.id] && cart[item.id].number && cart[item.id].number<cart[item.id].stock ?'color-ju':''" style="width: 50upx;" @tap="selectList(item,key,'+')">&#xe600;</text>
-													</view>
+												<view>
+													<text style="color: red;">¥{{item.price}} </text>
+													<text style="text-decoration:line-through;font-size:0.8em ;">¥{{item.oldprice}}</text>
 												</view>
-												<view v-if="item.version[0]" class="" style="white-space:nowrap;overflow-y:hidden;width:350upx;" @tap="versionTap">
-													<!-- <view class="" style="white-space:nowrap;overflow:auto;" v-for="(vn,vIdx) in item.version" :key="vIdx"> -->
-														<text class="uni-badge" v-for="(vn,vIdx) in item.version" :key="vIdx" style="max-width: 100%;font-size: 0.8em;" :style="item.versionName==vn.name?'color:red':''"  >{{vn.name}}</text>
-													<!-- </view> -->
+												<view v-if="item.version[0]" class="tui-flex" style="white-space:nowrap;overflow-x:scroll;align-self: center;width: 360upx;box-sizing: border-box;" @tap="versionTap">
+														<!-- <text class="iconfont icon-jia-shixin color-ju"></text> -->
+														<!-- <view style="white-space:nowrap;overflow-x:scroll;width: 340upx;box-sizing: border-box;"> -->
+															<text class="uni-badge"  style="font-size: 0.7em;" :style="item.versionName==vn.name?'color:red':''" v-for="(vn,vIdx) in item.version" :key="vIdx" >{{vn.name}}</text>
+														<!-- </view> -->
 
 												</view>
 
 										</view>
-
 									</view>
-							<!-- </view> -->
+							</view>
 						</scroll-view>
 		</view>
 
@@ -92,7 +76,7 @@
 </template>
 
 <script>
-		// import numberBox from '../../components/template/box/number.vue'
+
 		import Storage from "../../common/utils/Storage.js";
 		// import uniDrawer from '../../components/template/drawer/drawer.vue';
 		import yc from "../../request/index.js"
@@ -126,10 +110,10 @@
 					synopsis:"简介，这里是梨花带雨详情",
 					version:[{name:'大份',price:18,stock:6,image:''}]
 						},
-					goodsList:[],//商品列表\
-					// selectGood:{},
+					goodsList:[],//商品列表
+					selectGood:{},
 					totalCart:0,//购物车商品总数量
-					// shopCart:{},		
+					shopCart:{},		
 					category: [
 								{
 									name:'果味',
@@ -154,17 +138,6 @@
 			};
 		},
 		computed:{
-			total:{
-				get(){
-					return this.$store.getters.cartTotal
-				}
-				
-			},
-			cart:{
-				get(){
-					return this.$store.getters.cart	
-				}
-			},
 			Cartlist:{
 				set(value){
 					this.shopCart=value;
@@ -181,7 +154,6 @@
 				this.winHeight = winHeight;
 
 		},onLoad(e) {
-			
 			uni.showLoading({
 				title: '加载中'
 			});
@@ -254,9 +226,6 @@
 							case "order":
 							url="/pages/order/list?id=2";
 							break;
-							case "chatList":
-							url="/pages/chat/list?id=2";
-							break;
 						default:
 							url="/pages/goods/"+e+"?id=2";
 							break;
@@ -275,10 +244,39 @@
 			countSelect(){
 				
 			},selectList(item,index,selected) {
-					item.selected=true;
+				console.log(item)
+				// console.log(JSON.stringify(item)+index+selected)
+							// var categoryList =Object.assign({},this.categoryList);//深度拷贝源数据防止联动改变值
+							var item=Object.assign({},item);
+									var selected = selected || item.selected ||false;
 
-				this.$store.commit('addCart',{goods:item,methods:selected})
-				this.$set(this.goodsList,index,this.goodsList[index]) 
+									var category=this.category.concat();
+
+									var categoryId=item.category_id;
+
+
+									var cateIdx=0;
+									for(let i=0;i<category.length;i++){
+										if(category[i].id==categoryId){
+											// 根据分类id 把角标数量赋值
+											cateIdx=i;
+
+											if(!category[i].total){
+												category[i].total=0;
+											}
+											if(selected){
+												category[i].total--;	
+											}else{
+												category[i].total++;
+											}
+						
+										}
+									}
+									item.selected = !selected;
+									if(category[cateIdx]){
+										this.$set(this.category,cateIdx,category[cateIdx]);
+									}
+									this.$set(this.goodsList,index,item)
 
 			},
 
@@ -292,9 +290,7 @@
 </script>
 
 <style>
- .tui-box::-webkit-scrollbar {
-        display: none;
-    }
+
 .scrollList {
 	flex: 1;
 	height: 100vh;

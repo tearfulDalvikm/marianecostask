@@ -34,7 +34,7 @@
             "orientation" : [ "portrait-primary" ],
             "icons" : {
                 "ios" : {
-                    "appstore" : "C:/Users/My/Pictures/timg.png",
+                    "appstore" : "C:/Users/Administrator/Pictures/一直想飞/d058ccbf6c81800a3ffcc632ba3533fa828b47f4.png",
                     "ipad" : {
                         "app" : "unpackage/res/icons/76x76.png",
                         "app@2x" : "unpackage/res/icons/152x152.png",
@@ -68,31 +68,31 @@
             },
             "splashscreen" : {
                 "android" : {
-                    "hdpi" : "C:/Users/My/Pictures/timg.png",
-                    "xhdpi" : "C:/Users/My/Pictures/timg.png",
-                    "xxhdpi" : "C:/Users/My/Pictures/timg.png"
+                    "hdpi" : "C:/Users/Administrator/Pictures/一直想飞/023b5bb5c9ea15ce7cf8d627bd003af33a87b28d.png",
+                    "xhdpi" : "C:/Users/Administrator/Pictures/一直想飞/023b5bb5c9ea15ce7cf8d627bd003af33a87b28d.png",
+                    "xxhdpi" : "C:/Users/Administrator/Pictures/一直想飞/023b5bb5c9ea15ce7cf8d627bd003af33a87b28d.png"
                 },
                 "ios" : {
                     "ipad" : {
-                        "landscape-retina7" : "C:/Users/My/Pictures/timg.png",
-                        "landscape7" : "C:/Users/My/Pictures/timg.png",
-                        "portrait-retina7" : "C:/Users/My/Pictures/timg.png",
-                        "portrait7" : "C:/Users/My/Pictures/timg.png",
+                        "landscape-retina7" : "C:/Users/Administrator/Pictures/一直想飞/023b5bb5c9ea15ce7cf8d627bd003af33a87b28d.png",
+                        "landscape7" : "C:/Users/Administrator/Pictures/一直想飞/023b5bb5c9ea15ce7cf8d627bd003af33a87b28d.png",
+                        "portrait-retina7" : "C:/Users/Administrator/Pictures/一直想飞/023b5bb5c9ea15ce7cf8d627bd003af33a87b28d.png",
+                        "portrait7" : "C:/Users/Administrator/Pictures/一直想飞/023b5bb5c9ea15ce7cf8d627bd003af33a87b28d.png",
                         "landscape-retina" : "C:/Users/Administrator/Desktop/023b5bb5c9ea15ce7cf8d627bd003af33a87b28d.png",
                         "landscape" : "C:/Users/Administrator/Desktop/023b5bb5c9ea15ce7cf8d627bd003af33a87b28d.png",
                         "portrait-retina" : "C:/Users/Administrator/Desktop/d058ccbf6c81800a3ffcc632ba3533fa828b47f4.png",
                         "portrait" : "C:/Users/Administrator/Desktop/023b5bb5c9ea15ce7cf8d627bd003af33a87b28d.png"
                     },
                     "iphone" : {
-                        "iphonexl" : "C:/Users/My/Pictures/timg.png",
-                        "iphonex" : "C:/Users/My/Pictures/timg.png",
-                        "retina55l" : "C:/Users/My/Pictures/timg.png",
-                        "retina55" : "C:/Users/My/Pictures/timg.png",
-                        "retina47l" : "C:/Users/My/Pictures/timg.png",
-                        "retina47" : "C:/Users/My/Pictures/timg.png",
-                        "retina40l" : "C:/Users/My/Pictures/timg.png",
-                        "retina40" : "C:/Users/My/Pictures/timg.png",
-                        "retina35" : "C:/Users/My/Pictures/timg.png"
+                        "iphonexl" : "C:/Users/Administrator/Pictures/一直想飞/023b5bb5c9ea15ce7cf8d627bd003af33a87b28d.png",
+                        "iphonex" : "C:/Users/Administrator/Pictures/一直想飞/023b5bb5c9ea15ce7cf8d627bd003af33a87b28d.png",
+                        "retina55l" : "C:/Users/Administrator/Pictures/一直想飞/023b5bb5c9ea15ce7cf8d627bd003af33a87b28d.png",
+                        "retina55" : "C:/Users/Administrator/Pictures/一直想飞/023b5bb5c9ea15ce7cf8d627bd003af33a87b28d.png",
+                        "retina47l" : "C:/Users/Administrator/Pictures/一直想飞/023b5bb5c9ea15ce7cf8d627bd003af33a87b28d.png",
+                        "retina47" : "C:/Users/Administrator/Pictures/一直想飞/023b5bb5c9ea15ce7cf8d627bd003af33a87b28d.png",
+                        "retina40l" : "C:/Users/Administrator/Pictures/一直想飞/023b5bb5c9ea15ce7cf8d627bd003af33a87b28d.png",
+                        "retina40" : "C:/Users/Administrator/Pictures/一直想飞/023b5bb5c9ea15ce7cf8d627bd003af33a87b28d.png",
+                        "retina35" : "C:/Users/Administrator/Pictures/一直想飞/023b5bb5c9ea15ce7cf8d627bd003af33a87b28d.png"
                     }
                 }
             }
@@ -110,5 +110,16 @@
             "urlCheck" : true,
             "postcss" : true
         }
+    },
+    "h5" : {
+        "title" : "一指香飞",
+        "template" : "h5",
+        "router" : {
+            "base" : "/h5/"
+        },
+        "devServer" : {
+            "port" : 80
+        },
+        "domain" : "http://csapi.we99.net/h5"
     }
 }

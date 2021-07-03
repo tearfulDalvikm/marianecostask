@@ -1,9 +1,9 @@
 <template>
 
 		<view class="tui tui-flex uni-numbox" style="align-items: center;">
-			<icon class="iconfont icon-biaodankongjianshanchu" color="ju" :class="{'uni-numbox-disabled': disableSubtract}"  @click="_calcValue('subtract')"></icon>
-			<view class="center" style="width: 50upx;">{{inputValue}}</view>
-			<icon class="iconfont icon-jia-shixin"   color="ju" :class="{'uni-numbox-disabled': disableAdd}" @click="_calcValue('add')"></icon>
+			<text class="iconfont  color-ju" :class="{'uni-numbox-disabled': disableSubtract}"  @click="_calcValue('subtract')">&#xe931;</text>
+			<view class="tui-center" style="width: 50upx;">{{inputValue}}</view>
+			<text class="iconfont  color-ju"    :class="{'uni-numbox-disabled': disableAdd}" @click="_calcValue('add')">&#xe600;</text>
 		</view>
 </template>
 <script>
@@ -53,7 +53,8 @@
 				this.inputValue = val;
 			},
 			inputValue(val) {
-				this.$emit('change', val,this.item,this.other);
+				// console.log(this.item)
+				this.$emit('change',{value:val,item:this.item,other:this.other});
 			}
 		},
 		methods: {
@@ -79,21 +80,7 @@
 					scale = Math.pow(10, (this.step + '').split('.')[1].length);
 				}
 				return scale;
-			},
-// 			_onBlur(event) {
-// 				let value = event.detail.value;
-// 				if (!value) {
-// 					this.inputValue = 0;
-// 					return
-// 				}
-// 				value = +value;
-// 				if (value > this.max) {
-// 					value = this.max;
-// 				} else if (value < this.min) {
-// 					value = this.min
-// 				}
-// 				this.inputValue = value
-// 			}
+			}
 		}
 	}
 </script>

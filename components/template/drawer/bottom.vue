@@ -1,21 +1,20 @@
 <template>
-	<view class="tui"  >
-			<view  :style="drawerBottomShow?'top:0':'top:100vh'" class="tui-flex  tui-fixed tui-column tui-bottom-nav tui-center tui-drawer" style="padding-bottom: 100upx;">
-				<view  v-if="isShow" class="toubu">
+	<!-- <view class="" style="position: absolute;z-index: 9999;background: #000000;height: 100vh;width: 100%;"  > -->
+	<!-- :style="drawerBottomShow?'top:0':'top:100vh'" -->
+			<view   :style="drawerBottomShow?'top:0':'top:100vh'" class="tui-flex  tui-fixed tui-column tui-bottom-nav tui-center tui-drawer" style="height: 100vh;width: 100%;padding-bottom: 100upx;">
+				<view  v-if="drawerBottomShow" class="toubu">
 					<view class="toubu-list tui-flex">
 						<view  class="left tui-relative">
-
-							<!-- <image v-if="goods.version" class="img absolute" :src="goods.version[botIdx].image" mode="aspectFill"></image> -->
 								<image class="img tui-absolute" :src="image" mode="aspectFill"></image>
-
 						</view>
 						<view  class="right tui-item tui-flex tui-column line-height6 relative">
-							<icon class="tui-absolute  iconfont icon-guanbishixin" @tap="onClose()" style="right: 20upx;top: 0;color: rgb(255,50,50);font-size:2em ;"></icon>
-							<view  class="tui-title">
-								<text></text><text style="color: red;">￥{{goods.price}}</text>
+							
+							<view  class="tui-title" style="position: relative;">
+								<text class="tui-absolute  iconfont" @tap="onClose()" style="right: 0upx;top: 0;font-size:2em ;">&#xe964;</text>
+								<text style="color: red;">￥{{goods.price}}</text>
 							</view>
 							<view  class="text"  v-if="goods.version">
-								已选：<text class="uni-badge tui-bg-ju" >{{goods.versionName}}</text>
+								已选：<text class="uni-badge tui-button tui-tag"   style="line-height: 1.6;height: 1.6em;" >{{goods.versionName}}</text>
 							</view>
 							<view class="tui-item number-box" style="font-size:1.5em ;" >
 								<number-box :min="1" :max="goods.stock"  :value="number"   v-on:change="numberUpdate" ></number-box>
@@ -23,7 +22,7 @@
 						</view>
 					</view>
 				</view>
-				<view v-if="isShow && goods.version"  class="tui-list tui-flex " style="flex-wrap: wrap;justify-content: space-between;" >
+				<view v-if="drawerBottomShow && goods.version"  class="tui-list tui-flex " style="flex-wrap: wrap;justify-content: space-between;" >
 
 					<text   style="line-height: 1.6;height: 1.6em;" class="tui-button tui-tag"  :style="key==botIdx?'opacity:0.5;':'opacity:1;'" v-for="(item,key) in goods.version "  :key="key" @tap="selection(key,item)">{{item.name}}</text>
 
@@ -32,7 +31,7 @@
 				<button class="" @tap="commit()" type="primary" style="width:100%">确认</button>
 	
 			</view>	
-	</view>
+	<!-- </view> -->
 </template>
 
 <script>
@@ -58,6 +57,7 @@
 		},
 		data(){
 			return{
+				drawerBottomShow:false,
 // 				goods:{
 // 					id: 1,
 // 					image: 'https://img-cdn-qiniu.dcloud.net.cn/uploads/example/product3.jpg',
@@ -73,25 +73,17 @@
 				number:0,
 				image:0,
 				botIdx:0,
-				isShow:false,
-				drawerBottomShow:false
+				isShow:false
 			};
-		},watch: {
+		},
+		onLoad() {
+			console.log("bottom")
+		},
+		watch: {
 				drawerBottomShow(val){
-					// console.log(val)
 					if(val){
-						var goods = Object.assign({}, this.goods);//深度拷贝源数据防止联动改变值
-						// var version=[];
-// 						if(goods.version && typeof goods.version =='object'){
-// 							version=goods;
-// 						}
-// 						for(let i =0;i<version.length;i++){
-// 	
-// 								version[i].image=version[i].image|| goods.image;
-// 								version[i].price=version[i].price|| goods.price;
-// 								version[i].stock=version[i].stock|| goods.stock;
-// 						}
-
+						// var goods = Object.assign({}, this.goods);//深度拷贝源数据防止联动改变值
+						var goods=this.goods;
 						this.image=goods.image;
 						this.number=goods.number;
 						this.goods=goods; 
@@ -106,10 +98,8 @@
 			commit(){
 				var self =this;
 				this.onClose();
-// 				timeOut=setTimeout(function() {
-// 					clearTimeout(timeOut)
-					var goods = Object.assign({}, self.goods);//深度拷贝源数据防止联动改变值
-					goods.number=self.number;
+					var goods =  self.goods;//深度拷贝源数据防止联动改变值
+
 					self.$emit('change',goods);
 				// }, 1000);
 				
@@ -117,21 +107,17 @@
 			selection(idx,item){
 				// console.log(item)
 				// this.drawerBottomShow=true;
-				var item = Object.assign({}, item);//深度拷贝源数据防止联动改变值
 
 				this.botIdx=idx;
-
-				var goods = Object.assign({}, this.goods);//深度拷贝源数据防止联动改变值
-				// console.log(goods)
-
-						goods.number=1;
-						goods.price=item.price ||goods.price;
-						goods.versionName=item.name || '未选择';
-// 						console.log('image'+item.image)
-// 						console.log(goods)
-						this.image=item.image || goods.image;
-						goods.stock=item.stock || goods.stock;
-						this.goods=goods;
+				// var goods = Object.assign({}, this.goods);//深度拷贝源数据防止联动改变值
+				var goods=this.goods;
+					goods.number=1;
+					goods.price=item.price ||goods.price;
+					goods.versionName=item.name || '未选择';
+					this.image=item.image || goods.image;
+					goods.stock=item.stock || goods.stock;
+					goods.stock=parseInt(goods.stock)
+					this.goods=goods;
 			},
 			onShow(){
 				
@@ -141,9 +127,10 @@
 			onClose(){
 				this.drawerBottomShow=false;
 			},
-			numberUpdate(value){
-				this.number=value
-				// console.log(value)
+			numberUpdate(item){
+				this.goods.number=item.value;
+				// this.number=value
+				console.log(item.value)
 // 				var goods=this.goods;
 // 				item.number=value;
 // 				if(goods.number && goods.price){
@@ -178,19 +165,19 @@
 		/* background: #0062CC; */
 	}
 	.tui .toubu >.toubu-list{
-		height: 160upx;
+		height: 180upx;
 		width: 100%;
 		background: #fff;
 		
 	}
 	.tui .toubu .toubu-list >.left{
-		width:240upx ;
+		width:280upx ;
 	}
 	.tui .toubu .toubu-list .left >.img{
 		/* background: #808080; */
 		bottom: 0;
-		height: 200upx;
-		width: 200upx;
+		height: 240upx;
+		width: 240upx;
 		background: #fff;
 		padding:10upx ;
 		border-radius: 10upx;

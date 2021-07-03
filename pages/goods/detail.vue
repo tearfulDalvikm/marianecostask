@@ -119,17 +119,7 @@
 								var url='';
 								switch (e){
 									case "cart":
-
-// 												var goods=this.goods;
-// 												var cart={};
-// 												// cart[this.goods.id]=this.goods;
-// 												for(let i=0;i<goods.length;i++){
-// 													if(goods[i].selected){
-// 														cart[goods[i].id]=goods[i];
-// 													}
-// 												}
-												// Storage.set('cart',cart,1000);
-												url="/pages/goods/"+e+"?id=2";
+										url="/pages/goods/"+e+"?id=2";
 										break;
 										case "wode":
 										url="/pages/user/"+e+"?id=2";
@@ -168,56 +158,6 @@
 								complete: () => {}
 							});
 					},
-// 			numberUpdate(value,item){
-// 				console.log(value)
-// 				var goods=this.goods;
-// 				item.number=value;
-// 				if(goods.number && goods.price){
-// 					this.totalPrice=goods.number*goods.price;
-// 					this.goods=item;
-// 				}
-// 			},
-// 			// 下拉表单
-// 				bindPickerChange (e) {
-// 					var vIndex=e.detail.value;
-// 					this.vIndex =vIndex;
-// 					this.goods.price=e.target.dataset.data[vIndex].price || this.goods.price;
-// 				  console.log(e)
-// 				},
-// 			// 增加数量
-// 			  addCount() {
-// 				  if(this.num>=this.goods.stock){
-// 					  uni.showToast({
-// 						title: '库存不足',
-// 						icon:'none',
-// 						duration: 2000
-// 					});
-// 				  }else{
-// 					  this.num++;
-// 				  }
-// 			  },
-// 			  // 减少数量
-// 				cutCount() {	
-// 					if(this.num>1){
-// 						this.num--;
-// 					}
-// 			  },
-// 			  addToCart() {
-// 				const self = this;
-// 				const num = this.num;
-// 				let total = this.totalNum;
-// 
-// 					this.show=true;
-// 					this.scaleCart = true;
-// 					clearTimeout(self.timeOut2);
-// 				  this.timeOut2=setTimeout( function() {
-// 					self.totalNum= num + total;
-// 					self.show=false;
-// 					self.scaleCart= false;
-// 				  }, 100)
-// 					console.log(this.timeOut2)
-// 			  },
-
 			  bindTap(index) {
 				  // console.log(index)
 				this.curIndex=index

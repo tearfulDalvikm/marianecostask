@@ -1,5 +1,6 @@
 <template>
 	<view class="page-body tui">
+		<drawer-bottom  ref="drawerBottom"   :goods="goods" v-on:change="goodsUpdate"></drawer-bottom>	
 	    <view v-if="hasList" >
 	        <!-- <view class="cart-box"> -->
 					<scroll-view scroll-y class=" tui-flex tui-center tui-column" style="" :style="{height:contentHeight + 'px'}">
@@ -8,8 +9,8 @@
 								<view class="cart-left">
 									
 										<view class="">
-											<icon v-if="item.selected" type="success" color="#32CD32" :data-index="key"  class="cart-pro-select" @tap="selectList(key)"/>
-											<icon v-else type="circle" class="cart-pro-select" :data-index="key" @tap="selectList(key)"/>
+											<text v-if="item.selected" class="iconfont" style="color:#32CD32" :data-index="key"   @tap="selectList(key)">&#xe99c;</text>
+											<text v-else class="iconfont" :data-index="key" @tap="selectList(key)">&#xe9ae;</text>
 											<view class=" iconfont icon-shanchu center" style="font-size: 1.5em;color: #999;" @tap="deleteList(key)" :data-index="key"></view>
 										</view>
 										<image class="cart-thumb" :src="item.image" @tap="goPage('detail',item)" mode="aspectFill">
@@ -29,14 +30,10 @@
 
 											<view class="uni-flex" style="justify-content: space-between;">
 												<view class="uni-flex-item" style="font-size:1.5em ;">
-													<number-box :min="1" :max="item.stock" :item="item" :value="item.number" :other="{index:key}" v-on:change="numberUpdate" ></number-box>
+													<number-box :min="1" :max="Number(item.stock)" :item="item" :value="item.number" :other="{index:key}" v-on:change="numberUpdate" ></number-box>
 												</view>
-												<picker class="tui-item"   @change="bindPickerChange" :range-key="'name'" :data-index="key" :data-data="item.version" :value="item.versionName" :range="item.version">
-													<view v-if="item.version" class="picker" style="text-align: right;">
-														{{item.versionName}}<icon class="iconfont icon-dianziqianmingx" style="color: #B42F2D;"></icon>
-													</view>
-												</picker>
-
+												<button v-if="item.version" style="" size="mini" type="primary" @click="setGoods(item)">已选:{{item.versionName}}</button>
+	
 											</view>
 											<view class="tui-item" style="background:#EEE9E9;">
 												<input type="text" value="" @blur="KeyInput" :data-key="key" placeholder="请在这里输入商品备注" focus/>
@@ -53,100 +50,113 @@
 	    <view v-else>
 	        <view class="cart-no-data">购物车是空的哦~</view>
 	    </view>
-				        <nav class="tui-bottom-nav tui-flex " style="font-size: 1.4em">
-				            <view class="tui-flex tui-item  tui-row" style="background: #F9F9F9;z-index: 99;text-align: left;padding-left: 20upx;">
-											<icon v-if="selectAllStatus" class="" color="#32CD32" type="success" @tap="selectAll(key)" style="font-size: 1.2em;"></icon>
-											<icon v-else class="" type="circle" @tap="selectAll(key)" style="font-size: 1.2em;"></icon>
-											<view class="tui-center" style="text-align: left;padding: 0 15upx;">全选</view>
-											<view class="tui-center tui-item" style="text-align: right;padding-right: 30upx;">
-												合计:<text style="color: red;">￥{{totalPrice}}</text>
-											</view>
-							</view>
-							<button type="warn" size="mini" @tap="goPage('order')" style="line-height:100upx;padding: 0 15upx;" >确认下单</button>
-				        </nav>
+
+			<nav class="tui-bottom-nav tui-flex " style="font-size: 1.4em">
+				<view class="tui-flex tui-item  tui-row" style="background: #F9F9F9;z-index: 99;text-align: left;padding-left: 20upx;">
+								<text v-if="selectAllStatus" class="iconfont " @tap="selectAll()" style="color:#32CD32;font-size: 1.6em;">&#xe99c;</text>
+								<text v-else class="iconfont " @tap="selectAll()" style="font-size: 1.6em;">&#xe9ae;</text>
+								<view class="tui-center" style="text-align: left;padding: 0 15upx;">全选</view>
+								<view class="tui-center tui-item" style="text-align: right;padding-right: 30upx;">
+									合计:<text style="color: red;">￥{{totalPrice}}</text>
+								</view>
+				</view>
+				<button type="warn" size="mini" @tap="goPage('order')" style="line-height:100upx;padding: 0 15upx;" >确认下单</button>
+			</nav>
 	</view>
 </template>
 
 <script>
-  import numberBox from '../../components/template/box/number.vue'
+	import drawerBottom from '../../components/template/drawer/bottom.vue'
+	import numberBox from '../../components/template/box/number.vue'
 	import Storage from "../../common/utils/Storage.js"
-  import cart_Data from '../../request/data/cart.js';
+	import cart_Data from '../../request/data/cart.js';
 
 	export default {
     components: {
-    	numberBox
+    	numberBox,drawerBottom
     },
 		data() {
 			return {
-				contentHeight:0,
+				goods:{},
+				// contentHeight:0,
 				winHeight:0,
 				change:0,
-        totalNumber:0, //购物车总数量
-				cartData:[],               // 购物车商品列表
+				totalNumber:0, //购物车总数量
+				// cartData:[],               // 购物车商品列表
 				hasList:false,          // 列表是否有数据
-				totalPrice:0,           // 总价，初始为0
+				// totalPrice:0,           // 总价，初始为0
 				selectAllStatus:true,    // 全选状态，默认全选
-
-				
 			};
 		},
-    onLoad(e) {
-			let winHeight = uni.getSystemInfoSync().windowHeight;
-			//创建节点选择器 获取底部导航高度 
-				this.contentHeight=(winHeight-uni.upx2px(100));
-				this.winHeight = winHeight;
-
-      console.log("onload")
-      console.log(e)
-			var cartData =Storage.get('cart') //读取购物车缓存数据
-			// var cartData =cart_Data //读取模拟数据
-			
-			console.log(cartData)
-			for(var k in cartData){
-				if(!cartData[k].number){
-					cartData[k].number=1;
+		computed:{
+			totalPrice(){
+				return this.$store.state.goods.cartTotal;
+			},
+			cartData:{
+				get(){
+					 return this.$store.getters.cart
+				},set(cartData){
+					return cartData
+					// this.
 				}
-				if(!cartData[k].selected){
-					cartData[k].selected=false;
-				}
-
-				if(!cartData[k].versionName){
-					let version=cartData[k].version;
-
-					if(version && version[0] && version[0].name){
-						cartData[k].versionName=version[0].name;
-					}
-				}
-// 				let version=cartData[k].version;
-// 				if(typeof version==='object'){
-// 					for (var i = 0; i < version.length; i++) {
-// 						if(!version[i].selected){
-// 							cartData[k].version[i].selected=true;
-// 						}
-// 					}
-// 				}
-
+			},
+			widHeight(){
+				return this.$store.state.win.screen.height;
+			},contentHeight(){
+				return this.widHeight-uni.upx2px(100)
 			}
-			this.cartData=cartData;
-			this.pageinit();
-			this.hasList= true;
+		},
+    onLoad(e) {
+// 			let winHeight = this.$store.;
+// 			//创建节点选择器 获取底部导航高度 
+// 				this.contentHeight=(winHeight-uni.upx2px(100));
+// 				this.winHeight = winHeight;
+				var cartData=this.cartData;
+					for(var k in cartData){
+						if(!cartData[k].number){
+							cartData[k].number=1;
+						}
+						if(!cartData[k].selected){
+							cartData[k].selected=false;
+						}
+						cartData[k].stock= parseInt(cartData[k].stock)
+						
+						if(!cartData[k].versionName){
+							let version=cartData[k].version;
+					
+							if(version && version[0] && version[0].name){
+								cartData[k].versionName=version[0].name;
+							}
+						}
+					}
+					this.$store.commit('cart',cartData)
+			// var cartData =Storage.get('cart') //读取购物车缓存数据
+			// var cartData =cart_Data //读取模拟数据
+					this.hasList= true;
+
     },
-		
 		mounted(){
 
-
-		},
-		watch:{
-			change:(e)=>{
-				console.log(e)
-			}
 		},
 		methods:{
+			// 弹出遮罩商品类别选项触发
+			goodsUpdate(e){
+				var cartData=this.cartData;
+				cartData[e.id]=e;
+				this.$store.commit('cart',cartData)
+				console.log(e)
+			},
+			setGoods(item){
+				// console.log(this.$refs.drawerBottom)
+				this.$refs.drawerBottom.drawerBottomShow=true;
+				// this.drawerBottomShow=true;
+				this.goods=item;
+			},
 			KeyInput(e){
 				var cartData=this.cartData;
 				var key=e.target.dataset.key;
 				cartData[key].note=e.detail.value;
-				console.log(cartData[key])
+				this.$store.commit('cart',cartData)
 			},
 			goPage(pg,item){
 				var id="";
@@ -171,8 +181,9 @@
 							
 						}
 					}
+					this.$store.commit('order',orderData)
 					// order[this.goods.id]=this.goods;
-					Storage.set('order',orderData,100)
+					// Storage.set('order',orderData,100)
 				}else{
 					id=item.id;
 				}
@@ -183,32 +194,17 @@
 					complete: () => {}
 				});
 			},
-			// 下拉表单
-				bindPickerChange (e) {
-					console.log(e)
-					var index=e.detail.value;
-					var key=e.target.dataset.index;
-					this.cartData[key].price=e.target.dataset.data[index].price || this.cartData[key].price;
-					this.cartData[key].versionName=e.target.dataset.data[index].name;
-					this.getTotalPrice();//重新计算总价格
-				},
-//       // 获取商品购物数量
-//       getNumber(index){
-//       	
-//       	if(this.cartData[index] && this.cartData[index].number ){
-//       		return this.cartData[index].number
-//       	}
-//       	return  0;
-//       },
-      // 购物数量增减 触发
-      numberUpdate(value,item,other) {
+			  // 购物数量增减 触发
+			numberUpdate(Obj) {
+				var value=Obj.value;
+				var other=Obj.other;
+				var item=Obj.item;
+				var cart=this.cartData;
+				item.number=value;
+				this.cartData[item.id]=item;
+				this.$store.commit('cart',this.cartData)
 
-      				item.number=value;
-      				var cartData =this.cartData;
-      				cartData[other.index]=item;
-							this.getTotalPrice()
-
-      },
+			},
 			pageinit(){
 				console.log('before')
 				this.hasList= true;
@@ -223,29 +219,17 @@
 						const selected = cartData[index].selected || false;
 						cartData[index].selected = !selected;
 						this.cartData=cartData;
-						this.getTotalPrice();
+						this.$store.commit('cart',this.cartData)
+						// var item =item;
+						// this.getTotalPrice();
 			  },
-
 			  /**
 			   * 删除购物车当前商品
 			   */
 			  deleteList(index) {
 						let cartData = this.cartData;
-						// console.log(index)
-						// console.log(cartData[index])
-						if(!cartData[index]){
-							this.hasList= false;
-						}else{
-							var ct={};
-							for(let key in cartData){
-								if(key!=index){
-									ct[key]=cartData[key]
-								}
-							}
-							this.cartData=ct;
-
-							this.getTotalPrice();
-						}
+						delete cartData[index];
+						this.$store.commit('cart',cartData)
 			  },
 
 			  /**
@@ -254,32 +238,16 @@
 			  selectAll(e) {
 						this.selectAllStatus=!this.selectAllStatus;
 						let cartData = this.cartData;
+						// var newData={}
 						for (let index in cartData) {
-							cartData[index].selected =this.selectAllStatus;
-						}
-						
-							this.cartData= cartData;
-							this.getTotalPrice();
-			  },
-
-			  /**
-			   * 计算总价
-			   */
-			  getTotalPrice() {
-							let cartData = this.cartData;                  // 获取购物车列表
-							let total = 0;
-							for(let i in cartData) {         // 循环列表得到每个数据
-								if(cartData[i].selected) {                     // 判断选中才会计算价格
-								if(!cartData[i].number){
-									cartData[i].number=0;
-								}
-								total += cartData[i].number * cartData[i].price;   // 所有价格加起来
-								}
+							if(cartData[index]){
+								cartData[index].selected =this.selectAllStatus
 							}
-							this.cartData=cartData;
-							this.totalPrice=total.toFixed(2);
-			  }
-				},
+							
+						}
+						this.$store.commit('cart',cartData)
+			  },
+			},
 	}
 </script>
 

@@ -4,8 +4,8 @@
 		<!-- <page-head :title="title"></page-head> -->
 		<view class="page-body tui">
 			<header></header>
+
 			<scroll-view v-if="bodyShow" class="main-content" :style="'height:'+windowHeight+'px'" @scrolltoupper="scrolltoupper" style="flex: 1;" :lower-threshold="100"  @scroll="scroll"  @scrolltolower="scrolltolower" scroll-y>
-				
 				<view v-if="bigAdData.length>0" style="height: 300upx;width: 100vw;">
 					<big-ad  ref="bigAd"  :bigAd="bigAdData" :autoplay="bigAdAutoplay"></big-ad>
 				</view>
@@ -36,7 +36,7 @@
 	import bigAd from '../../components/template/swiper/big-ad.vue';
 	import uniLoadMore from '../../components/template/unit/uni-load-more.vue';
 	import Url from '../../common/utils/Url';
-	import request from '../../request/ajax.js'
+	import yc from '../../request/index.js'
 	export default {
 		components: { 
 			bigAd,bottomNav,indexShopList,uniLoadMore
@@ -73,12 +73,6 @@
 			goTo(e){
 				// var host=this.$config.host;
 				console.log('gotoindex')
-// 				request.get(host,{},function(res){
-// 					console.log(res)
-// 				})
-				// console.log(Url.urlEncode(e))
-				console.log('gotoindex')
-				
 				uni.navigateTo({
 				    url: '/pages/goods/detail?'+Url.urlEncode(e)
 				});
@@ -153,11 +147,11 @@
 				}
 			},
 			 loadData(action = 'add') {
-				
+				// console.log(action)
 					if (action === 'refresh') {
 							this.productListData = [];
-						var host=this.$config.host+"";//主服务器地址
-							request.get(host,{},(res)=>{
+						// var host=this.$config.host+"";//主服务器地址
+							yc.ajax("index",(res)=>{
 								console.log(res.data)
 										if(res.data.length<this.number){
 											// 如果服务器端数据少于20条关闭下拉触发
@@ -185,16 +179,19 @@
 							
 												}
 												this.productListData=this.productListData.concat(shopList)
-												this.bodyShow=true;
+												
 										}
+										this.bodyShow=true;
 										uni.hideLoading();
 							
 								})
 					}else{
-					var host=this.$config.host+"shop/list/"+this.p;//主服务器地址
-					request.get(host,{},(res)=>{
+						console.log("ajax")
+					var host="shopList";//主服务器地址
+					var rdata={p:this.p};
+					yc.ajax(host,(res)=>{
 						var data= res.data.data;
-						console.log(data.length);
+						console.log(res.data);
 								if(data.length<this.number){
 									// 如果服务器端数据少于20条关闭下拉触发
 									this.loadingType=2;
@@ -214,7 +211,7 @@
 								}
 								uni.hideLoading();
 					
-						})	
+						},rdata)	
 					}
 
 			},
@@ -264,7 +261,7 @@
 				// this.refresh('refresh')
 				that.loadData('refresh');//加载列表数据
 				// that.$refs.productList.goTo=that.goTo;
-				that.loadAdData();//加载广告数据
+				// that.loadAdData();//加载广告数据
 		  })
 			
 		},

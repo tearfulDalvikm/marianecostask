@@ -10,7 +10,7 @@
 							<text v-else>{{item.msg}}</text>
 						</view>
 					</view>
-					<icon class="uni-item iconfont" style="font-size:1.6em ;" :class="item.ico"></icon>
+					<text class="uni-item iconfont" style="font-size:1.6em;line-height: 1.3em;" v-html="item.ico"></text>
 				</view>
 				<view class="uni-item nav-title">
 						{{item.name}}
@@ -39,36 +39,34 @@
 						fn:this.tijiao,
 						msg:0,
 						name:'首页',
-						ico:'icon-fangzi',
+						ico:'&#xe98e;',
 						url:'/pages/home/index'
 					},{
 						fn:this.tijiao,
 						msg:1,
 						name:'订单',
-						ico:'icon-dingdanjihe',
+						ico:'&#xe8cd;',
 						url:'/pages/order/list'
 					},
 					{
 						fn:this.tijiao,
 						msg:23,
 						name:'消息',
-						ico:'icon-xiaoxi',
+						ico:'&#xe872;',
 						url:'/pages/chat/list'
 					},
 					{
 						fn:this.tijiao,
 						msg:0,
 						name:'我的',
-						ico:'icon-wode',
+						ico:'&#xe8ea;',
 						url:'/pages/user/wode'
 					}
 				]
 				
 			}
 		},mounted(){
-			console.log("template/nav/bottom/mounted")
-			// console.log(this.$refs.bottomnav)
-		
+			// console.log("template/nav/bottom/mounted")
 		
 		},methods:{
 			tijiao(item){

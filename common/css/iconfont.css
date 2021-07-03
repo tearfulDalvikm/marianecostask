@@ -4,13 +4,13 @@ src: url('~@/common/css/iconfont.ttf');
 
 .iconfont {
   font-family: "iconfont" !important;
-  font-size: 16px;
+  font-size: 40upx;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-dengdaifukuan:before {
+/* .icon-dengdaifukuan:before {
   content: "\e60e";
 }
 
@@ -273,7 +273,6 @@ src: url('~@/common/css/iconfont.ttf');
 .icon-ditudingwei:before {
   content: "\e8f5";
 }
-
 .icon-canyin:before {
   content: "\e8f6";
 }
@@ -335,6 +334,7 @@ src: url('~@/common/css/iconfont.ttf');
 }
 
 .icon-duigouzhong:before {
+	color: #32CD32;
   content: "\e92b";
 }
 
@@ -501,3 +501,4 @@ src: url('~@/common/css/iconfont.ttf');
 .icon-jia-shixin:before {
   content: "\e600";
 }
+ */

@@ -3,8 +3,9 @@
 `一指香飞`，是有uni-app开发的一个掌上点餐系统。我们也简称`XF`。
 #### 安卓手机app已经打包发布在百度网盘,欢迎下载安装体验。
 ```
-更新日期：2019-01-31;
+更新日期：2019-02-13;
 新添加用户登陆/注册/找回密码/用户中心/修改用户资料/服务器真实api接口
+[h5web体验地址(这个不一定是最新版-如果要看最新版请下载源码自行编译)](http://csapi.we99.net/h5)
 [使用体验百度网盘下载地址——提取码：p3ta ](链接：https://pan.baidu.com/s/1sS2Nglji7CUwH_sLSpcePQ)
 [git源码下载地址](链接：https://gitee.com/wokaixin/a_fragrant_fly)
 ```
@@ -42,17 +43,31 @@
 ## 目录结构
 ```
 ┌─components            uni-app组件目录
-│	│─pages				可复用的页面内容组件目录
-│	│	└─address		地址管理
-│	└─template			可复用的模板组件目录
+│	│─pages				 可复用的页面内容组件目录
+│	│	└─address		    地址管理
+│	│─crop			     裁剪图片
+│	│	└─crop				裁剪图片
+│	│─mpvue-citypicker   弹出城市选择器
+│	│	│─mpvueCityPicker	    弹出选择器
+│	│	└─city-data				地区数据
+│	│		│─area                  省-市-区
+│	│		│─city                  省-市
+│	│	    └─province		        省
+│	│─mpvue-picker          弹出选择器
+│	│	└─mpvuePicker	        弹出选择器
+│	│─crop			     裁剪图片
+│	│	│─crop				裁剪图片
+│	└─template			 可复用的模板组件目录
 │		│─box				盒子模板目录
 │		│	└─number		商品数字加减模板
 │		│─drawer			抽屉模板目录
+│		│	│─bottom        底部弹出商品选择
 │		│	└─drawer		抽屉模板
 │		│─icon			icon图标库模板
 │		│	└─icon			uni-app官方默认的icon
 │		│─im-chat			聊天对话模板
 │		│	│─chatinput		输入模板
+│		│	│─orderMessage  新订单消息模板
 │		│	└─messageshow	消息内容模板
 │		│─index			入口页模板
 │		│	└─shopList		店铺首页模板
@@ -61,12 +76,19 @@
 │		│─picker			弹出选择
 │		│	└─mpvuePicker	默认弹出选择
 │		│─product			商品模板
+│		│	│─shopList      店铺列表模板
 │		│	└─list			商品列表
 │		│─swiper			滚动模块
 │		│	└─big-ad		大屏广告图片左右滚动
-│		└─unit			元素装置
-│			│─search		搜索框
-│			└─search		加载旋转圈圈
+│		│─uni-icon			icon图标库模板
+│		│	└─uni-icon		uni-app官方默认的icon 含font-icon
+│		│─uni-notice-bar	    滚动通告字栏
+│		│	└─uni-notice-bar    滚动通告字栏
+│		│─verify	            验证
+│		│	└─captchaInput      验证码
+│		└─unit			        元素装置
+│			│─search		    搜索框
+│			└─search		    加载旋转圈圈
 ├─common				可复用公共工具插件类
 │	│─data				数据目录
 │	│─css				公共css 目录
@@ -74,7 +96,6 @@
 │	│	└─tui.css			项目自定义的全局css样式
 │	│─icon.css			uni-app官方默认icon
 │	│─uni.css			uni-app官方默认css
-│	│─data				数据目录
 │	└─utils				公共js工具插件目录
 │		│─Arr.js			数组对象处理插件
 │		│─Base64.js		base64编码转换工具
@@ -82,7 +103,6 @@
 │		│─Storage.js		Storage缓存工具
 │		│─Time.js			时间格式转换处理工具
 │		│─Url.js			Url地址处理工具
-│		│─Arr.js			数组对象处理插件
 │		└─Validate.js		input输入验证器
 │     
 ├─request               AJAX请求封装
@@ -100,21 +120,47 @@
 │		├─js
 │		│	└─xxx.js
 │		└─local.html
-│     
+│    
+├─store     vuex
+│	├─goods.js			商户商品购物车处理
+│	│─index.js          vuex主入口封装
+│	│—win.js		    窗口宽高元素处理
+│	└─store.js        	登陆状态 用户信息处理
+│ 
 ├─platforms             存放各平台专用页面的目录，[详见](https://uniapp.dcloud.io/platform)
 │     
 ├─pages                 业务页面文件存放的目录
-│	├─index
+│	├─home
 │	│	└─index.vue       index站点入口页面
-│	│ goods				商场主目录
-│	│	│─index.vue       店铺首页
-│	│	│—list.vue		商品列表页
-│	│	│—cart.vue		购物车页
+│	│─chat				消息对话
+│	│	│─chat.vue          消息对话
+│	│	│—list.vue		    消息列表
+│	│	└─order.vue         订单消息
+│	│─goods				商场主目录
+│	│	│─index.vue         店铺首页
+│	│	│─about.vue         关于商家简介
+│	│	│—list.vue		    商品列表页
+│	│	│—cart.vue		    购物车页
+│	│	│—collect.vue		我的收藏-店铺
 │	│	│—detail.vue		商品详情页
-│	│	│—order.vue		订单页
-│	│	└─category.vue    分类页
-│	└─user				用户目录
-│	  └─index.vue       用户中心
+│	│	│—order.vue		    订单页
+│	│	│—shop.vue		    店铺首页
+│	│	└─category.vue      分类页
+│	│─user				用户目录
+│	│	│—address.vue		    地址页
+│	│	│—info.vue		        个人信息页
+│	│	│—security.vue		    设置
+│	│	│—update.vue		    信息修改
+│	│	└─wode.vue              我的首页
+│	│─login				登陆目录
+│	│	│—login.vue		    登陆
+│	│	│—pwd.vue		    密码找回
+│	│	└─reg.vue		    注册页
+│	│─order			    订单目录
+│	│	│—list.vue		    订单列表
+│	│	└─detail.vue	    订单详情
+│	└─pay			    支付目录
+│	 	└─payment.vue		    付款
 │     
 ├─static                存放应用引用静态资源（如图片、视频等）的地方，注意：静态资源只能存放于此
 │	├─image				图片目录
