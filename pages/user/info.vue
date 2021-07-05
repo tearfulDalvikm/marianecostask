@@ -78,7 +78,15 @@
 			update(e){
 				var str="key="+e+"&value="+this.userinfo[e];
 				this.infoUpdate={key:e,value:this.userinfo[e]};
-				this.toPage('update',str)
+				switch (e){
+					case 'headimg':
+						this.toPage('updateHeadimg',str)
+						break;
+					default:
+						this.toPage('update',str)
+						break;
+				}
+
 // 				switch (e){
 // 					case "nickName":
 // 						break;

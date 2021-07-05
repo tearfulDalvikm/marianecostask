@@ -1,27 +1,28 @@
 <template>
 	<view class="page-body tui"  >
-		<scroll-view class=""  :style="{height:contentHeight + 'px'}" style="padding:0 15upx;box-sizing:border-box;width: 100vw;" scroll-y  >
-				<view class="uni-card">
-					<view v-for="(item,key) in orders" :key="key" style="padding: 0;" class="orders-list column">
+		<scroll-view class=""  :style="{height:contentHeight + 'px'}" style="padding:0 15upx;box-sizing:border-box;" scroll-y  >
+				<view class="uni-card" >
+					<view v-for="(item,key) in orders" :key="key" class="orders-list tui-column">
 
-						<view class="tui-item tui-flex">
+						<view class="tui-item tui-flex" style="width: 100%;">
 							<view style="flex: 1;">
+								<text class="orders-title" style="width: 80upx;font-size: 0.8em;">{{key+1}}</text>
 								<text class="orders-title">{{item.title}}</text>
 								<text class="orders-version" v-if="item.versionName">{{item.versionName}}</text>
 							</view>
 							<!-- <image class="orders-thumb" :src="item.image"></image> -->
-							<view class="orders-right" style="flex-direction: row;width: 250upx;justify-content: space-between;">
+							<view class="orders-right" style="flex-direction: row;width: 180upx;justify-content: space-between;">
 								<view>￥{{item.price}}</view>
-								<view style="width: 80upx;">x{{item.number}}</view>
+								<view style="width: 60upx;">x{{item.number}}</view>
 							</view>
 						</view>
 						<view v-if="item.note" class="tui-item" style="width: 100%;font-size:0.6em;opacity:0.5;height: 1em;line-height: 1em;">
 							备注:{{item.note}}
 						</view>
 					</view>
-					<view class="orders-list">
-						<view class="">订单备注</view>
-						<input class="tui-border" placeholder="给商家留言,可填写注意事项,特殊要求等" :focus="focus" />
+					<view class="orders-list" style="align-items: center;">
+						<view style="padding:0 20upx">订单备注</view>
+						<input class="tui-border" style="padding:0 20upx" placeholder="给商家留言,可填写注意事项,特殊要求等"  />
 					</view>
 				</view>
 				<view class="tui-flex tui-center" style="">
@@ -29,7 +30,7 @@
 						<text class="tui-item tui-center" style="color: #1482D1;" @tap="switchTab(0)" v-if="!addrShow">外卖送餐</text>
 						<text class="tui-item tui-center tui-bt-a"  style="color: #1482D1;" @tap="switchTab(1)" v-else >店内就餐</text>
 					</view>
-					<view class="" v-if="addrShow" style="color: #1482D1;" @tap="refreshAddress()">刷新地址</view>
+					<!-- <view class="" v-if="addrShow" style="color: #1482D1;" @tap="refreshAddress()">刷新地址</view> -->
 
 				</view>
 				<view class="uni-card">
@@ -44,7 +45,7 @@
 							{{address.address}}
 							</view>
 							<view class="tui-absolute tui-flex " style=" font-size:1.3em ; align-items: center;justify-content: flex-end; right: 20upx;top:0;bottom:0;height: 95%;">
-								<text class="iconfont " style="color:#999;">&#xe95a;</text>
+								<!-- <icon class="iconfont " style="color:#999;"></icon> -->
 							</view>
 							
 						</button>
@@ -56,29 +57,30 @@
 								添加您的地址
 							</view>
 							<view class="tui-absolute tui-flex " style=" font-size:1em ; align-items: center;justify-content: flex-end; right: 20upx;top:0;bottom:0;height: 95%;">
-								 <text class="iconfont " style="color:#999;">&#xe95a;</text>
+								 <text class="iconfont" style="color:#999;">&#xe95a;</text>
 							</view>
 							</button>
 
 						</view>
 
 					</view>
-					<view v-else class="orders-list">
-						<view class="uni-flex ">
-							<view class="">人数</view>
-							<input  class="tui-border" v-model="number" :focus="focus" />
-							<view class="">人</view>
+					<view v-else class="orders-list uni-flex" >
+						<view class="uni-flex " style="padding-right:10upx ;flex: 1; align-items: center;">
+							<view style="padding:0 20upx">人数:</view>
+							<input  class="tui-border" placeholder="1" style="padding:0 20upx" v-model="peopleNumber"  />
+							<view style="padding:0 20upx">人</view>
 						</view>
-						<view class="uni-flex ">
-							<view class="">桌号</view>
-							<input  class="tui-border" v-model="tableNumbers" :focus="focus" /><view class="">号</view>
+						<view class="uni-flex " style="padding-left:10upx ;flex: 1;justify-content: center;align-items: center;">
+							<view style="padding:0 20upx">桌号:</view>
+							<input  class="tui-border"  placeholder="001" style="padding:0 20upx" v-model="tableNumbers"  />
+							<view style="padding:0 20upx">号</view>
 						</view>
 					</view>
 				</view>
 
 		</scroll-view>
 		<nav class="tui-bottom-nav tui-flex " style="background: #F9F9F9;z-index: 99;text-align: left;padding-left: 30upx;">
-			<view class="tui-item tui-flex " style="font-size: 1.2em;" >支付金额：<text style="color:red">￥{{totalPrice}}</text></view>
+			<view class="tui-item tui-flex " style="font-size: 1.2em;" >支付金额：<text style="color:red">￥{{total}}</text></view>
 			<button type="warn" @tap="toPay" size="mini"  style="line-height:100upx;padding: 0 15upx;">去付款</button>
 		</nav>
 	</view>
@@ -92,76 +94,82 @@
 		 // components: {uniIcon},
 		data() {
 			return {
-				focus:'',
-				tableNumbers:'',//桌号
-				number:'',//人数
+				winHeight:0,
+				contentHeight:0,
+				tableNumbers:0,//桌号
+				peopleNumber:0,//人数
 				addrShow:false,
+				// address: {},
 				hasAddress: false,
+				// total: 0,
+				order:[],
+// 				orders: [{
+// 						id: 1,
+// 						title: '新鲜芹菜 半斤',
+// 						image: 'https://img-cdn-qiniu.dcloud.net.cn/uploads/example/product3.jpg',
+// 						num: 4,
+// 						price: 0.01
+// 					}]
 
 			};
 		},computed:{
-			totalPrice(){
-				return this.$store.state.goods.cartTotal;
+
+			total(){
+				return this.$store.getters.cartTotal;
 			},
 			orders:{
 				get(){
-					 return this.$store.getters.order
-				},set(cartData){
-					return cartData
-					// this.
+				return this.order
 				}
 			},
 			address(){
 				return this.$store.getters.address;
-			},widHeight(){
-				return this.$store.state.win.screen.height;
-			},contentHeight(){
-				return this.widHeight-uni.upx2px(100)
 			}
-		},onLoad(e) {
+		},
+		watch:{
+			tableNumbers(val){
+				Storage.setSync('tableNumbers',val,72000)
+			},peopleNumber(val){
+				Storage.setSync('peopleNumber',val,72000)
+			}
+		},
+		onLoad(e) {
+			this.tableNumbers=Storage.getSync('tableNumbers') || 1;
+			this.peopleNumber=Storage.getSync('peopleNumber') || 1;
+			console.log("onload")
+			console.log(e)
+			var cart = this.$store.getters.cart;
+			var order=[];
+			// var total =0;
+			for (var i in cart) {
+				if (cart[i].selected) {
+					// total += orders[i].number * orders[i].price;
+					order.push(cart[i])
+				} 
+			}
+			this.p
+			console.log(order)
+			// this.getTotalPrice();
+			this.order=order;
+			
+			let winHeight = uni.getSystemInfoSync().windowHeight;
+			//创建节点选择器 获取底部导航高度 
+				this.contentHeight=(winHeight-uni.upx2px(100));
+				this.winHeight = winHeight;
+			// var orderData =Storage.get('order') //读取购物车缓存数据
+
+// 			// 请求服务器
+// 			var self = this;
+// 			ajax.get('orders',(res)=>{
+// 				
+// 				var orders=res.data.data ||{};
+// 				self.orders=orders;
+// 				// console.log(res.data.data)
+// 			})
+			// this.orders = orderData; //读数据
 
 		},
 		methods: {
-			switchTab(e){
-				if(e==0){
-					this.addrShow=true;
-					this.refreshAddress()
-				}else if(e==1){
-					this.addrShow=false;
-				}
-				
-			},refreshAddress(){
-				var self=this;
-				var address=Storage.get('address');
-				// console.log(address)
-				if(address && typeof address==='object'){
-					for(let i=0;i<address.length;i++){
-						if(address[i].selected){
-							this.$store.commit('address',address[i]);
-							// console.log(this.address)
-						}
-					}
-				}else{
-					uni.showModal({
-							title:"添加默认地址？",
-							content:"请先添加默认地址,然后刷新地址",
-							success: function (res) {
-									if (res.confirm) {
-										self.goPage()
-										console.log('用户点击确定');
-									} else if (res.cancel) {
-										console.log('用户点击取消');
-									}
-								}
-					})
-				}
-			},
-			goPage(){
-				uni.navigateTo({
-					url:"../user/address"
-				}) 
-				
-			},
 // 			/**
 // 			 * 计算总价
 // 			 */
@@ -173,6 +181,20 @@
 // 				}
 // 				this.total = total;
 // 			},
+			switchTab(e){
+				if(e==0){
+					this.addrShow=true;
+				}else if(e==1){
+					this.addrShow=false;
+				}
+				},
+			goPage(){
+				uni.navigateTo({
+					url:"../user/address"
+				}) 
+				
+			},
+
 			toPay() {
 				uni.showModal({
 					title: '提示',
@@ -187,7 +209,7 @@
 			}
 		},
 		mounted: function() {
-			// this.getTotalPrice();
+			
 			// el渲染完成触发
 // 			this.$nextTick(function() {
 // 				// const self = this;
@@ -205,7 +227,7 @@
 
 	.orders-list view {
 
-		padding: 0 20upx;
+		/* padding: 0 20upx; */
 	}
 
 	.orders-list input {
@@ -316,7 +338,7 @@
 	}
 
 	.orders-list view {
-		line-height: 60upx;
+		/* line-height: 60upx; */
 	}
 
 	.orders-footer {

@@ -6,7 +6,7 @@ export default{
 			address:{},//收货地址
 			userinfo:{
 				nickName:"未登录",
-				headimg:"../../static/HM-PersonalCenter/face.jpeg",
+				headimg:"../../static/image/logo.png",
 				user_id:"123",
 				individuality:"爱你一万年",
 				address:"北京市西城区中南海大院1号",

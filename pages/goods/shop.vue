@@ -4,35 +4,37 @@
 
 			<nav class="uni-flex tui-bottom-nav" style="">
 
-				<view class="uni-flex-item uni-flex tui-center" style="justify-content: space-around;padding: 0;font-size: 1.2em;">
-					<view class="tui-flex tui-column" style="font-size: 1.4em;line-height: 0.8em;" @tap="goPage('about')">
+				<view class="uni-flex-item uni-flex tui-center" style="justify-content: space-around;padding: 0;">
+					<view class="tui-flex tui-column" style="font-size: 1.1em;line-height: 1.3em;" @tap="goPage('about')">
 						<text class="iconfont">&#xe8c7;</text>
-						<text style="font-size:0.4em ;">店家</text>
+						<text style="font-size:0.3em ;">店家</text>
 					</view>
-					<view class="tui-flex tui-column" style="font-size: 1.4em;line-height: 0.8em;"  @tap="goPage('chat')">
+					<view class="tui-flex tui-column" style="font-size: 1.1em;line-height: 1.3em;"  @tap="goPage('chat')">
 						<text class="iconfont">&#xe8b4;</text>
-						<text style="font-size:0.4em ;">客服</text>
+						<text style="font-size:0.3em ;">客服</text>
 					</view>
-					<view class="tui-flex tui-column" style="font-size: 1.4em;line-height: 0.8em;" @tap="goPage('chatList')">
+					<view class="tui-flex tui-column" style="font-size: 1.1em;line-height: 1.3em;" @tap="goPage('chatList')">
 						<text class="iconfont">&#xe872;</text>
-						<text style="font-size:0.4em ;">消息</text>
+						<text style="font-size:0.3em ;">消息</text>
 					</view>
 <!-- 					<view class="tui-flex tui-column" style="font-size: 1.4em;line-height: 0.8em;" @tap="goPage('order')">
 						<text class="iconfont">&#xe8cd;</text>
 						<text style="font-size:0.4em ;">订单</text>
 					</view> -->
-					<view class=" tui-flex tui-column" style="font-size: 1.4em;line-height: 0.8em;" @tap="goPage('wode')">
+					<view class=" tui-flex tui-column" style="font-size: 1.1em;line-height: 1.3em;" @tap="goPage('wode')">
 						<text class="iconfont">&#xe8ea;</text>
-						<text style="font-size:0.4em ;">我的</text>
+						<text style="font-size:0.3em ;">我的</text>
+					</view>
+					<view class="" style="width: 300upx;position: relative;">
+						<text class="iconfont" style="right:0;position: absolute;top: 0;z-index: 1;">&#xe95a;</text>
+						<button class="" type="warn" size="mini" @tap="goPage('cart')" style="position: relative;font-size:0.7em ;padding: 0;right:20upx ;line-height:100upx;justify-content: center;">
+							<view style="text-align: center;">¥{{cartTotal}}</view>
+							
+							<!-- <view style="text-align: center;width: 100upx;">下单</view> -->
+						</button><!-- <text class="iconfont" style="right: 0;">&#xe95a;</text> -->
 					</view>
 					<!-- 导航微信 -->
 				</view>
-				<button class="" type="warn" size="mini" @tap="goPage('cart')" style="position: relative;font-size:0.7em ;padding: 0;line-height:100upx; width: 120upx; justify-content: center;">
-					<view style="text-align: center;width: 100upx;">¥{{total}}<text class="iconfont" style="position: absolute;z-index: 2;right: 0;">&#xe95a;</text></view>
-					
-					<!-- <view style="text-align: center;width: 100upx;">下单</view> -->
-					</button>
-				<!-- <uni-nav-bar left-icon="back" left-text="返回" right-text="菜单" title="标题"></uni-nav-bar> -->
 			</nav>
 
 		<view v-if="isShow" class="main-content tui-flex tui-row" :style="{height:contentHeight + 'px'}">
@@ -65,18 +67,16 @@
 														<text style="text-decoration:line-through;font-size:0.8em ;">¥{{item.oldprice}}</text>
 													</view>
 													<view class="tui-center" style="display: flex;">
-														<text class="iconfont" :class="cart[item.id] && cart[item.id].number && cart[item.id].number>0 ?'color-ju':''" @tap="selectList(item,key,'-')" style="width: 50upx;">&#xe931;</text>
+														<text class="iconfont"   :class="cart[item.id] && cart[item.id].number && cart[item.id].number>0 ?'color-ju':''" @tap="selectList(item,key,'-')" style="width: 50upx;">&#xe931;</text>
 														<view class="" style="width: 50upx;">
 														<text  v-if=" cart[item.id]">{{cart[item.id].number}}</text>
 														<text  v-else >0</text>
 														</view>
-														<text class="iconfont" :class="cart[item.id] && cart[item.id].number && cart[item.id].number<cart[item.id].stock ?'color-ju':''" style="width: 50upx;" @tap="selectList(item,key,'+')">&#xe600;</text>
+														<text class="iconfont"  :class="cart[item.id] && cart[item.id].number && cart[item.id].number<cart[item.id].stock ?'color-ju':''" style="width: 50upx;" @tap="selectList(item,key,'+')">&#xe600;</text>
 													</view>
 												</view>
-												<view v-if="item.version[0]" class="" style="white-space:nowrap;overflow-y:hidden;width:350upx;" @tap="versionTap">
-													<!-- <view class="" style="white-space:nowrap;overflow:auto;" v-for="(vn,vIdx) in item.version" :key="vIdx"> -->
-														<text class="uni-badge" v-for="(vn,vIdx) in item.version" :key="vIdx" style="max-width: 100%;font-size: 0.8em;" :style="item.versionName==vn.name?'color:red':''"  >{{vn.name}}</text>
-													<!-- </view> -->
+												<view v-if="item.version[0]" class="" style="white-space:nowrap;overflow-y:hidden;width:350upx;" >
+														<text class="uni-badge" @tap="versionTap(item,vIdx)" v-for="(vn,vIdx) in item.version" :key="vIdx" style="max-width: 100%;font-size: 0.8em;" :style="item.versionName==vn.name?'color:red':''"  >{{vn.name}}</text>
 
 												</view>
 
@@ -127,9 +127,7 @@
 					version:[{name:'大份',price:18,stock:6,image:''}]
 						},
 					goodsList:[],//商品列表\
-					// selectGood:{},
 					totalCart:0,//购物车商品总数量
-					// shopCart:{},		
 					category: [
 								{
 									name:'果味',
@@ -150,11 +148,10 @@
 									id:'5',
 								}
 							],
-		
 			};
 		},
 		computed:{
-			total:{
+			cartTotal:{
 				get(){
 					return this.$store.getters.cartTotal
 				}
@@ -179,13 +176,16 @@
 			//创建节点选择器 获取底部导航高度 
 				this.contentHeight=(winHeight-uni.upx2px(100));
 				this.winHeight = winHeight;
+				this.$store.commit('shop',{shop_id:0,shop_name:"新店铺"})
+				
+				this.$store.commit('init')
 
 		},onLoad(e) {
 			
 			uni.showLoading({
 				title: '加载中'
 			});
-			var id=e.id
+			var id=e.id || '1';
 			console.log(e)
 						// 请求服务器
 			var self = this;
@@ -203,20 +203,20 @@
 					}
 					goodsList[i].image= src+goodsList[i].image;
 				}
-				self.goodsList=goodsList;
-				
-				var category=res.data.data.category;
+					self.goodsList=goodsList;
+					var category=res.data.data.category;
 			
 					uni.hideLoading();
-				self.category=category;
+					self.category=category;
 			},{id:id})
 		},methods:{
-			versionTap(){
-				uni.showModal({
-					title:"提示",
-					content:"请在下单后进行选择"
-				})
-				
+			versionTap(item,index){
+				item.selected=true;
+				this.$store.commit('version',{goods:item,index:index})
+// 				uni.showModal({
+// 					title:"提示",
+// 					content:"请在下单后进行选择"
+// 				})		
 			},
 			goodsUpdate(e){
 				// console.log(e)
@@ -225,10 +225,10 @@
 				// this.categoryList[this.detailIndex]=e;
 				this.selectList(this.detailIndex)
 			},
-			commit(){
-				
-				this.$set(this.goodsList,this.detailIndex,this.detail)
-			},
+// 			commit(){
+// 				
+// 				this.$set(this.goodsList,this.detailIndex,this.detail)
+// 			},
 
 				goPage(e){
 					var url='';
@@ -272,9 +272,11 @@
 						complete: () => {}
 					});
 			},
-			countSelect(){
-				
-			},selectList(item,index,selected) {
+// 			countSelect(){
+// 				
+// 			},
+// 购物车增减商品
+			selectList(item,index,selected) {
 					item.selected=true;
 
 				this.$store.commit('addCart',{goods:item,methods:selected})

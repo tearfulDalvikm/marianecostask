@@ -60,11 +60,11 @@
 			"style": {
 				"navigationBarTitleText": "地址信息"
 			}
-		},{
-			"path": "pages/user/security",
-			"style": {
-				"navigationBarTitleText": "安全中心"
-			}
+// 		},{
+// 			"path": "pages/user/security",
+// 			"style": {
+// 				"navigationBarTitleText": "安全中心"
+// 			}
 		},{
 			"path": "pages/chat/list",
 			"style": {
@@ -91,7 +91,7 @@
 				"navigationBarTitleText": "订单详情"
 			}
 		},{
-			"path": "pages/tool/crop",
+			"path": "pages/user/updateHeadimg",
 			"style": {
 				"navigationBarTitleText": "图片裁剪"
 			}

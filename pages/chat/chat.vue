@@ -1,13 +1,13 @@
 <template>
 	<view class="uni-column">
-		<view class="content" id="content" :style="{height:style.contentViewHeight+'px'}">
+		<!-- <view class="content" id="content" :style="{height:style.contentViewHeight+'px'}"> -->
 			<scroll-view id="scrollview" scroll-y="true" :style="{height:style.contentViewHeight+'px'}" :scroll-with-animation="true"
 			    :scroll-top="scrollTop">
-				<page-foot :name="name"></page-foot>
+				<!-- <view :name="name">fdfd</view> -->
 				<message-show v-for="(message,index) in messages" :key="index" :message="message" :id="index"></message-show>
 				<view id="bottom"></view>
 			</scroll-view>
-		</view>
+		<!-- </view> -->
 		<view class="foot">
 			<chat-input @send-message="getInputMessage" @focus="inputGetFocus"></chat-input>
 		</view>
@@ -41,13 +41,17 @@
 			messageShow
 		},
 		onLoad: function () {
-			const res = uni.getSystemInfoSync();
-			this.style.pageHeight = res.windowHeight;
-			this.style.contentViewHeight = res.windowHeight - uni.getSystemInfoSync().screenWidth / 750 * (100); //像素
+			let winHeight = uni.getSystemInfoSync().windowHeight;
+			//创建节点选择器 获取底部导航高度 
+			this.style.contentViewHeight=(winHeight-uni.upx2px(100));
+			this.style.pageHeight = winHeight;
+			var username="小龙龙";
+			uni.setNavigationBarTitle({
+				title: '您正在与'+username+"对话"
+			});
 		},
 		methods: {
 			getInputMessage: function (message) { //获取子组件的输入数据
-				// console.log(message);
 				this.addMessage('customer', message.content, false);
 				this.toRobot(message.content);
 			},

@@ -29,14 +29,17 @@
 											</view>
 
 											<view class="uni-flex" style="justify-content: space-between;">
-												<view class="uni-flex-item" style="font-size:1.5em ;">
-													<number-box :min="1" :max="Number(item.stock)" :item="item" :value="item.number" :other="{index:key}" v-on:change="numberUpdate" ></number-box>
+												<view class="uni-flex-item" style="">
+													<number-box :min="0" :max="Number(item.stock)" :item="item" :value="item.number" :other="{index:key}" v-on:change="numberUpdate" ></number-box>
 												</view>
-												<button v-if="item.version" style="" size="mini" type="primary" @click="setGoods(item)">已选:{{item.versionName}}</button>
+												<view class="" v-if="item.version" >
+													<button  style="line-height: 1.4em;padding: 5upx;" size="mini" type="primary" @click="setGoods(item)">已选:{{item.versionName}}</button>
+												</view>
+												
 	
 											</view>
 											<view class="tui-item" style="background:#EEE9E9;">
-												<input type="text" value="" @blur="KeyInput" :data-key="key" placeholder="请在这里输入商品备注" focus/>
+												<input type="text" value=""  @blur="KeyInput" :data-key="key" placeholder="请在这里输入商品备注" />
 											</view>
 								</view>
 											
@@ -78,7 +81,7 @@
 		data() {
 			return {
 				goods:{},
-				// contentHeight:0,
+				contentHeight:0,
 				winHeight:0,
 				change:0,
 				totalNumber:0, //购物车总数量
@@ -97,16 +100,15 @@
 					 return this.$store.getters.cart
 				},set(cartData){
 					return cartData
-					// this.
 				}
-			},
-			widHeight(){
-				return this.$store.state.win.screen.height;
-			},contentHeight(){
-				return this.widHeight-uni.upx2px(100)
 			}
+			
 		},
     onLoad(e) {
+			let winHeight = uni.getSystemInfoSync().windowHeight;
+		//创建节点选择器 获取底部导航高度 
+			this.contentHeight=(winHeight-uni.upx2px(105));
+			this.winHeight = winHeight;
 // 			let winHeight = this.$store.;
 // 			//创建节点选择器 获取底部导航高度 
 // 				this.contentHeight=(winHeight-uni.upx2px(100));

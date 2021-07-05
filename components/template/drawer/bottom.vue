@@ -10,7 +10,7 @@
 						<view  class="right tui-item tui-flex tui-column line-height6 relative">
 							
 							<view  class="tui-title" style="position: relative;">
-								<text class="tui-absolute  iconfont" @tap="onClose()" style="right: 0upx;top: 0;font-size:2em ;">&#xe964;</text>
+								<text class="tui-absolute  iconfont" @tap="onClose()" style="right: 0upx;top: 0;font-size:2em ;">&#xe921;</text>
 								<text style="color: red;">￥{{goods.price}}</text>
 							</view>
 							<view  class="text"  v-if="goods.version">

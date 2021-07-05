@@ -1,6 +1,8 @@
 <template>
+	<view class="page-body tui">
+		我的
+		<scroll-view scroll-y :style="{height: winHeight+'px'}">
 
-		<scroll-view scroll-y :style="{height: contentHeight+'px'}">
 		<view class="header" v-bind:class="{'status':isH5Plus}">
 			<view class="userinfo" @tap="toPage('info')">
 				<view class="face"><image :src="userinfo.headimg"></image></view>
@@ -11,6 +13,7 @@
 			</view>
 			<view class="setting iconfont" style="color: #fff;" @tap="toPage('info')">&#xe8c0;</view>
 		</view>
+
 		<view class="list" v-for="(list,list_i) in severList" :key="list_i">
 			<view class="li" v-for="(li,li_i) in list" @tap="toPage(li.url)" v-bind:class="{'noborder':li_i==list.length-1}"  hover-class="hover"   :key="li.name" >
 				<view class="iconfont" v-html="li.icon"></view>
@@ -27,15 +30,14 @@
 			</button>
 		<!-- </view> -->
 		</scroll-view>
+	</view>
 </template>
 <script>
 	import Storage from "../../common/utils/Storage.js";
 	export default {
-		props:['contentHeight'],
 		data() {
 			return {
-				title:"我的",
-				// winHeight:0,
+				winHeight:0,
 // 				userinfo:{
 // 					headimg:'../../static/HM-PersonalCenter/face.jpeg',
 // 					nickName:"未登录",
@@ -44,7 +46,10 @@
 				orderTypeLise:[
 					//name-标题 icon-图标 badge-角标
 					{name:'待付款',icon:'l1.png',badge:1},
+// 					{name:'待发货',icon:'l2.png',badge:2},
+// 					{name:'待收货',icon:'l3.png',badge:6},
 					{name:'待评价',icon:'l4.png',badge:9},
+// 					{name:'退换货',icon:'l5.png',badge:0}
 				],
 				severList:[
 					[
@@ -58,7 +63,7 @@
 // 						{name:'抽奖',icon:'choujiang.png'},
 						{name:'收货地址',icon:'&#xe920;',url:'../user/address'},
 						// {name:'银行卡',icon:'bank.png'},
-						{name:'安全中心',icon:'&#xe8c9;',url:'../user/info'},
+						{name:'安全中心',icon:'&#xe8c9;',url:'../user/security'},
 						{name:'在线客服',icon:'&#xe8b4;',url:'../chat/chat'}
 					]
 				],
@@ -76,12 +81,12 @@
 				return this.$store.getters.userinfo;
 			}
 		},
-		mounted() {
-			uni.setNavigationBarTitle({
-				title: this.title
-			});
-		},onLoad() {
-			console.log("我的")
+		onShow(){
+			// var store=this.$store.state;
+			// var hasLogin=store.hasLogin;
+			// console.log(this.$store)
+			let winHeight = uni.getSystemInfoSync().windowHeight;
+			this.winHeight= winHeight;
 			var that=this;
 			// var isLogin=this.$store.dispatch('isLogin')
 			function st(){
@@ -95,9 +100,11 @@
 				}
 					
 				});
-			
+
+		},onLoad() {
+
 // 			//加载
-			this.init();
+// 			this.init();
 		},
 		methods: {
 			init(){
@@ -129,10 +136,7 @@
 				switch (url){
 					case "login":
 					url="../login/login";
-					break;
-					case "info":
-					url="/pages/user/info";
-					break;
+						break;
 					case "logout":
 					this.$store.commit('logout');
 					return false;
@@ -177,11 +181,11 @@ page{background-color:#fff}
 		width:98%;padding:0 1%;background-color:#fefefe;border-radius:12upx;box-shadow:0px 0px 10upx rgba(0,0,0,0.15);margin-bottom:50upx;display:flex;align-items:center;justify-content:center;
 		.label{
 			display:flex;align-items:center;justify-content:center;flex-flow:wrap;width:100%;height:16vw;color:#666666;font-size:23upx;
-// 			.icon{
-// 				position:relative;width:7vw;height:7vw;margin:0 1vw;
-// 				.badge{position:absolute;width:4vw;height:4vw;background-color:#ec6d2c;top:-1vw;right:-1vw;border-radius:100%;font-size:20upx;color:#fff;display:flex;align-items:center;justify-content:center}
-// 				image{width:7vw;height:7vw}
-// 			}
+			.icon{
+				position:relative;width:7vw;height:7vw;margin:0 1vw;
+				.badge{position:absolute;width:4vw;height:4vw;background-color:#ec6d2c;top:-1vw;right:-1vw;border-radius:100%;font-size:20upx;color:#fff;display:flex;align-items:center;justify-content:center}
+				image{width:7vw;height:7vw}
+			}
 		}
 	}
 }

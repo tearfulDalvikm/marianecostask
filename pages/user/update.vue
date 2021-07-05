@@ -38,13 +38,13 @@
 	import Storage from "../../common/utils/Storage.js";
 	import Url from '../../common/utils/Url.js';
 	import ajax from "../../request/ajax.js";
-	import crop from '../../components/crop/crop.vue';
+	// import crop from '../../pages/tool/crop.vue';
 	// import mpvuePicker from '../../components/mpvue-picker/mpvuePicker.vue';
 	import mpvueCityPicker from '../../components/mpvue-citypicker/mpvueCityPicker.vue'
 	// import cityData from '../../common/city.data.js';
 	export default{
 		components: {
-			crop,
+			// crop,
 			mpvueCityPicker
 		},
 		data(){

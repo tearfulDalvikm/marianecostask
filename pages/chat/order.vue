@@ -1,13 +1,13 @@
 <template>
 	<view class="uni-column">
-		<view class="content" id="content" :style="{height:style.contentViewHeight+'px'}">
-			<scroll-view id="scrollview" scroll-y="true" :style="{height:style.contentViewHeight+'px'}" :scroll-with-animation="true"
+		<!-- <view class="content" id="content" :style="{height:contentHeight+'px'}"> -->
+			<scroll-view id="scrollview" scroll-y="true" :style="{height:contentHeight+'px'}" :scroll-with-animation="true"
 			    :scroll-top="scrollTop">
-				<page-foot :name="name"></page-foot>
+				<!-- <page-foot :name="name"></page-foot> -->
 				<order-message v-for="(message,index) in messages" :key="index" :message="message" :id="index" @tap="goPage(message)"></order-message>
 				<view id="bottom"></view>
 			</scroll-view>
-		</view>
+		<!-- </view> -->
 		<view class="foot">
 			<chat-input @send-message="getInputMessage" @focus="inputGetFocus"></chat-input>
 		</view>
@@ -51,9 +51,13 @@
 			orderMessage
 		},
 		onLoad: function () {
-			const res = uni.getSystemInfoSync();
-			this.style.pageHeight = res.windowHeight;
-			this.style.contentViewHeight = res.windowHeight - uni.getSystemInfoSync().screenWidth / 750 * (100); //像素
+			let winHeight = uni.getSystemInfoSync().windowHeight;
+		//创建节点选择器 获取底部导航高度 
+			this.contentHeight=(winHeight-uni.upx2px(100));
+			this.winHeight = winHeight;
+// 			const res = uni.getSystemInfoSync();
+// 			this.style.pageHeight = res.windowHeight;
+// 			this.style.contentViewHeight = res.windowHeight - uni.getSystemInfoSync().screenWidth / 750 * (100); //像素
 		},
 		methods: {
 			goPage(e){

@@ -33,7 +33,7 @@
 			</view>
 			<canvas canvas-id="myCanvas" :style="'position:absolute;border: 1px solid red; width:'+imageW+'px;height:'+imageH+'px;top:-9999px;left:-9999px;'"></canvas>
 		</view>
-		<page-foot :name="name"></page-foot>
+		<!-- <page-foot :name="name"></page-foot> -->
 	</view>
 </template>
 
@@ -266,8 +266,11 @@
 						canvasId: 'myCanvas',
 						success: function (res) {
 							uni.hideLoading();
+							var userinfo=_this.$store.getters.userinfo;
 							// 返回上页
 							console.log(res.tempFilePath)
+							userinfo.headimg=res.tempFilePath;
+							_this.$store.commit('setUserinfo',userinfo)
 							Storage.set('image',res.tempFilePath,3)
 							uni.navigateBack({
 								delta:1
@@ -353,14 +356,14 @@
 	/* pages/uni-cropper/index.wxss */
 
 	.uni-content-info {
-		/* position: fixed;
+		position: fixed;
 		top: 0;
 		left: 0;
 		right: 0;
 		bottom: 0;
 		display: block;
 		align-items: center;
-		flex-direction: column; */
+		flex-direction: column;
 	}
 
 	.cropper-config {

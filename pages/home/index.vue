@@ -1,310 +1,108 @@
-
 <template>
-	<view>
-		<!-- <page-head :title="title"></page-head> -->
-		<view class="page-body tui">
-			<header></header>
-
-			<scroll-view v-if="bodyShow" class="main-content" :style="'height:'+windowHeight+'px'" @scrolltoupper="scrolltoupper" style="flex: 1;" :lower-threshold="100"  @scroll="scroll"  @scrolltolower="scrolltolower" scroll-y>
-				<view v-if="bigAdData.length>0" style="height: 300upx;width: 100vw;">
-					<big-ad  ref="bigAd"  :bigAd="bigAdData" :autoplay="bigAdAutoplay"></big-ad>
+	<view class="uni-flex tui">
+<view class="" style="position: fixed;z-index: 9999;width: 100%;right: 0;left: 0;bottom: 0;display: flex;background: #fff; border-top:1px solid #F5F5F5" >
+			<view  class="uni-flex-item uni-flex uni-column tui-center" v-for="(item,idx) in bottomNav" :key="idx" @tap="tijiao(idx,item)"  :class="index==idx?'uni-badge-primary uni-badge-inverted':''">
+	
+		<!-- <view class="uni-item uni-column"> -->
+			<view class="nav-icon uni-item">
+				<view class="tui-nav-badge" style="">
+					<view class="uni-badge uni-badge-danger" style="font-size: 0.7em;position: absolute;" v-if="item.msg">
+						<text v-if="item.msg>10">…</text>
+						<text v-else>{{item.msg}}</text>
+					</view>
 				</view>
-
-				<view class="uni-flex-item" >
-					<index-shop-list   ref="productList" :productList="productListData"></index-shop-list>
-				</view>
-				<view class="" @tap="loadData">
-					<uni-load-more :loadingType="loadingType" :contentText="contentText"></uni-load-more>
-				</view>
-				<view style="height: 90upx;"></view>
-			</scroll-view>
-			<footer class="uni-flex tui-bottom-nav">
-				<bottom-nav></bottom-nav>
-			</footer>	
-
-		</view>
+				<text class="uni-item iconfont" style="font-size:1.6em;line-height: 1.3em;" v-html="item.ico"></text>
+			</view>
+			<view class="uni-item nav-title">
+					{{item.name}}
+			</view>
+	
 	</view>
+</view>
+
+				<page-home   :windowHeight="contentHeight" v-if="index=='0'"></page-home>	
+				<page-order :winHeight="winHeight"  :contentHeight="contentHeight" v-if="index=='1'"></page-order>
+				<page-chat :winHeight="winHeight" :contentHeight="contentHeight"  v-if="index=='2'"></page-chat>
+				<page-wode :winHeight="winHeight" :contentHeight="contentHeight" v-if="index=='3'"></page-wode>
+</view>
+
 </template>
+
 <script>
-// 	var scrollTop=0;//记录上次滚动的html标签与屏幕顶部的距离
-// 	var scrollTopPx=100;//滚动条滚动范围距离上次大于xx像素开始触发事件
-// 	var scrollTime=300;//滚动条定时器间隔触发时间毫秒 防止触发频率太高性能下降
-// 	var scrollTimeout=0;//记录懒加载定时触发器
-// 	var refreshTimeout=0;//上拉刷新定时器
-	import indexShopList from '../../components/template/product/shopList.vue';
-	import bottomNav from '../../components/template/nav/bottom.vue';
-	import bigAd from '../../components/template/swiper/big-ad.vue';
-	import uniLoadMore from '../../components/template/unit/uni-load-more.vue';
-	import Url from '../../common/utils/Url';
-	import yc from '../../request/index.js'
+	import pageHome  from "./home.vue"
+	import pageWode  from "../user/wode.vue"
+	import pageChat  from "../chat/list.vue"
+	import pageOrder  from "../order/list.vue"
+	// import pageOrder  from "../order/list.vue"
 	export default {
 		components: { 
-			bigAd,bottomNav,indexShopList,uniLoadMore
+			pageHome,pageWode,pageChat,pageOrder
+			// bigAd,bottomNav,indexShopList,uniLoadMore
 		},
-		name: "indexIndex",
+		name: "bottomNav",
 		data() {
 			return {
-				windowHeight:0,//手机屏幕高度
-				scrollTop:0,//记录上次滚动的html标签与屏幕顶部的距离
-				scrollTopPx:100,//滚动条滚动范围距离上次大于xx像素开始触发事件
-				scrollTime:300,//滚动条定时器间隔触发时间毫秒 防止触发频率太高性能下降
-				scrollTimeout:0,//记录懒加载定时触发器
-				refreshTimeout:0,//上拉刷新定时器
-				timeOut:0,
-				title:'首页',
-				bodyShow:false,
-				bigAdData:[],//大屏广告数据替换
-				bigAdAutoplay:true,//大屏广告自动滚动开关
-				loadingType: 1,//加载圈圈
-				contentText: {
-					contentdown: "上拉显示更多",
-					contentrefresh: "正在加载...",
-					contentnomore: "没有更多数据了"
-				},
-				productListData:[],//传给子组件商品列表信息
-				searchInput:'',
+				winHeight:0,
+				contentHeight:0,
 				index:0,
-				//loading:0,//下拉加载开启
-				number:2,//每页请求数量
-
-			}
-		},
-		methods: {
-			goTo(e){
-				// var host=this.$config.host;
-				console.log('gotoindex')
-				uni.navigateTo({
-				    url: '/pages/goods/detail?'+Url.urlEncode(e)
-				});
-			},
-			scrolltoupper(){
+				bottomNav:[
+					// 底部按钮数据
+					{
+						fn:this.tijiao,
+						msg:0,
+						name:'首页',
+						ico:'&#xe98e;',
+						url:'/pages/home/index'
+					},{
+						fn:this.tijiao,
+						msg:1,
+						name:'订单',
+						ico:'&#xe8cd;',
+						url:'/pages/order/list'
+					},
+					{
+						fn:this.tijiao,
+						msg:23,
+						name:'消息',
+						ico:'&#xe872;',
+						url:'/pages/chat/list'
+					},
+					{
+						fn:this.tijiao,
+						msg:0,
+						name:'我的',
+						ico:'&#xe8ea;',
+						url:'/pages/user/wode'
+					}
+				]
 				
-				// if(!this.bigAdAutoplay){
-					console.log(this.bigAdAutoplay+'滚动顶部触发-开启自动滚动和下拉刷新功能')
-					this.bigAdAutoplay=true;
-					this.switchPullRefresh(true);//开启下拉刷新
-				// }
-			},
-			scrolltolower(e){
-				console.log(this.loadingType);
-				// 如果下来触发状态未关闭 将会触发请求服务器
-				if(this.loadingType!=2){
-				console.log("滚动底部触发")
-					clearTimeout(this.timeOut)
-						this.timeOut=setTimeout(()=> {
-							this.loadData();
-						}, 100);
-
-				}
-				// 滚到底部或者右边触发
-			},
-			loadAdData(){
-// 			var host=this.$config.host+"ad/big";//主服务器地址
-// 			console.log(host)
-// 			request.get(host,{},(res)=>{
-// 				console.log("请求bigAd")
-// 				console.log(res)
-// 				if(res.data.data.length<this.number){
-// 					
-// 					// 如果服务器端数据少于20条关闭下拉触发
-// 					this.loadingType=0;
+			}
+		},mounted(){
+				let winHeight = uni.getSystemInfoSync().windowHeight;
+			//创建节点选择器 获取底部导航高度 
+				this.contentHeight=(winHeight-uni.upx2px(100));
+				this.winHeight = winHeight;
+			// console.log("template/nav/bottom/mounted")
+		
+		},methods:{
+			tijiao(index,item){
+				this.index=index
+				console.log('tijiao'+this.index)
+// 				if(item.name=="首页"){
+// 					uni.redirectTo({
+// 						url: item.url
+// 					});
 // 				}else{
-// 					var bigAd=(res.data.data).slice(0,5)
-// 						// console.log(bigAd)
-// 						for(let i=0;i<bigAd.length;i++){
-// 							// 判断图片地址是站内或站外，替换链接地址http
-// 							let src='';
-// 							if(bigAd[i].image.indexOf("http")<0){
-// 								src=this.$config.server.image;
-// 							}
-// 							bigAd[i].image= src+bigAd[i].image;
-// 						}
-// 						this.bigAdData=bigAd;
-// 
+// 				// console.log(item)
+// 					uni.navigateTo({
+// 						url: item.url
+// 					});
 // 				}
-// 			})
-
-			},
-			scroll(e){
-				var self=this;
-				// console.log(e.detail.scrollTop)
-				var Top=e.detail.scrollTop;
-				// 控制顶部大屏广告在屏幕中触发自动滚动生效的所在位置
-				if(Top>10 && this.bigAdAutoplay){
-					// console.log(this.bigAdAutoplay+'关闭自动滚动')
-				this.bigAdAutoplay=false;
-				this.switchPullRefresh(false);//关闭下拉刷新
-				}
-				// 控制商品列表 滚动条滚动达到距离 触发懒加载
-				if(Top>this.scrollTop+this.scrollTopPx){
-					this.scrollTop=Top;
-					clearTimeout(this.scrollTimeout);
-					this.scrollTime
-					this.scrollTimeout=setTimeout(()=>{
-						// console.log('触发懒加载扫描')
-						this.$refs.productList.load()
-					},self.scrollTime)
-				}
-			},
-			 loadData(action = 'add') {
-				// console.log(action)
-					if (action === 'refresh') {
-							this.productListData = [];
-						// var host=this.$config.host+"";//主服务器地址
-							yc.ajax("index",(res)=>{
-								console.log(res.data)
-										if(res.data.length<this.number){
-											// 如果服务器端数据少于20条关闭下拉触发
-											this.loadingType=0;
-										}else{
-											this.p=0;
-												var bigAd= res.data.data.adList;
-												for(let i=0;i<bigAd.length;i++){
-													// 判断图片地址是站内或站外，替换链接地址http
-													let src='';
-													if(bigAd[i].image.indexOf("http")<0){
-														src=this.$config.server.image;
-													}
-													bigAd[i].image= src+bigAd[i].image;
-												}
-												this.bigAdData=bigAd;
-												var shopList= res.data.data.shopList;
-												for(let i=0;i<shopList.length;i++){
-													// 判断图片地址是否来自站外
-													let src='';
-													if(shopList[i].image.indexOf("http")<0){
-														src=this.$config.server.image;
-													}
-													shopList[i].juli=parseInt(shopList[i].id*6+1)+325*3;//这里只是模拟距离运算。
-							
-												}
-												this.productListData=this.productListData.concat(shopList)
-												
-										}
-										this.bodyShow=true;
-										uni.hideLoading();
-							
-								})
-					}else{
-						console.log("ajax")
-					var host="shopList";//主服务器地址
-					var rdata={p:this.p};
-					yc.ajax(host,(res)=>{
-						var data= res.data.data;
-						console.log(res.data);
-								if(data.length<this.number){
-									// 如果服务器端数据少于20条关闭下拉触发
-									this.loadingType=2;
-								}else{
-									this.p=this.p+1;
-									for(let i=0;i<data.length;i++){
-										// 判断图片地址是否来自站外
-										let src='';
-										if(data[i].image.indexOf("http")<0){
-											src=this.$config.server.image;
-										}
-										data[i].juli=parseInt(data[i].id*6+1)+325*3;//这里只是模拟距离运算。
-				
-									}
-									this.productListData=this.productListData.concat(data)
-									this.bodyShow=true;
-								}
-								uni.hideLoading();
-					
-						},rdata)	
-					}
-
-			},
-			tijiao(item){
-				console.log(item)
-				uni.navigateTo({
-					url: item.url
-				});
-
-		},refresh(){
-			var that=this;
-			clearTimeout(that.timeOut);
-			var timeOut=setTimeout(function () {
-				uni.redirectTo({
-					url: 'index'
-				});
-				// 异步加载 防止组件未加载完成 数据先进去了
-				// console.log(that.$refs.productList.productList)	
-					// that.loadData('refresh');//加载列表数据
-					// that.$refs.productList.goTo=that.goTo;
-					// that.loadAdData();//加载广告数据
-			}, 100);
-		},
-
-			switchPullRefresh(status=true) {
-				// console.log('is support:' + status);
-				// #ifdef APP-PLUS
-				// 5+ 手机端的下拉刷新功能
-				const pages = getCurrentPages();
-				const page = pages[pages.length - 1];
-				const currentWebview = page.$getAppWebview();
-
-				currentWebview.setStyle({
-					pullToRefresh: {
-						support: status,
-						style: plus.os.name === 'Android' ? 'circle' : 'default'
-					}
-				});
-				// #endif
-
 			}
-		},
-		mounted: function (){
-			var that=this;
-			// el渲染完成触发
-			this.$nextTick(function () {
-				// this.refresh('refresh')
-				that.loadData('refresh');//加载列表数据
-				// that.$refs.productList.goTo=that.goTo;
-				// that.loadAdData();//加载广告数据
-		  })
-			
-		},
-    onLoad: function (options) {
-		this.windowHeight=uni.getSystemInfoSync().windowHeight;
-			uni.showLoading({
-				title: '加载中'
-			});
-			// 页面加载完毕触发
-//     uni.startPullDownRefresh();
-    },
-		// 下拉刷新效果关闭
-    onPullDownRefresh() {
-        // console.log('refresh');
-				var self=this;
-				clearTimeout(this.refreshTimeout)
-        this.refreshTimeout=setTimeout(function () {
-						self.refresh()
-            uni.stopPullDownRefresh();
-        }, 1000);
-    }
+		}
 	}
 </script>
 
 <style>
-
-	.load-more{
-		height: 3em;
-		
-	}
-	header{
-
-	}
-
-footer{
-	
-	background: #fff;
-	/* background: #007AFF; */
-	left: 0;
-	right: 0;
-	position:fixed;
-	bottom: 0;
-
-}
 
 </style>

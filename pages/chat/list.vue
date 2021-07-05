@@ -1,12 +1,12 @@
 <template>
 	<view class="tui">
-		<page-head :title="title"></page-head>
+
 		<view class="uni-list">
 			<view class="uni-list-cell" hover-class="uni-list-cell-hover" v-for="(value,key) in list" :key="key">
 				<view class=" uni-media-list tui-flex" @tap="goPage(value)">
 					<view class="uni-media-list-logo " style="position: relative;">
-						<view v-if="value.msg" class="tui-bagde" style=""> <text v-if="value.msg<10">{{value.msg}}</text><text v-else>…</text></view>
-						<image v-if="showImg" :src="value.img"></image>
+						<view v-if="value.msg" class="tui-bagde" style="z-index: 1;"> <text v-if="value.msg<10">{{value.msg}}</text><text v-else>…</text></view>
+						<image v-if="showImg" :src="value.img" style="z-index: 0;"></image>
 					</view>
 					<view class="uni-media-list-body tui-item" style="flex: 1;">
 						<view class="uni-media-list-text-top">
@@ -28,7 +28,7 @@
 	export default {
 		data() {
 			return {
-				title: 'media-list',
+				title: '消息',
 				showImg: false,
 				order:[],
 				list: [
@@ -66,12 +66,18 @@
 					}
 				]
 			}
-		},methods:{
+		},
+		mounted() {
+			uni.setNavigationBarTitle({
+				title: this.title
+			});
+		},
+		methods:{
 			goPage(value){
 				var type=value.type;
-				var  url ='chat';
+				var  url ='/pages/chat/chat';
 				if(type==='order'){
-					url ='order';
+					url ='/pages/chat/order';
 				}
 				console.log(value);
 				uni.navigateTo({
@@ -80,6 +86,7 @@
 			}
 		},
 		onLoad() {
+
 			setTimeout(() => {
 				this.showImg = true;
 			}, 400)

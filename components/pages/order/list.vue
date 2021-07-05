@@ -1,5 +1,5 @@
 <template>
-	<view class="page-body tui">
+	<!-- <view class="page-body tui"> -->
 		<scroll-view   style="padding: 0 15upx;box-sizing: border-box;" :style="'height:'+contentHeight+'px'" scroll-y >
 				<view class="uni-card" v-for="(orders,index) in orderList" :key="index">
 					<view class="orders-list" style="justify-content: space-between;">
@@ -38,16 +38,19 @@
 				</view>
 		</scroll-view>
 
-	</view>
+	<!-- </view> -->
 </template>
 
 <script>
 	import Storage from "../../common/utils/Storage.js";
 	import ajax from "../../request/ajax.js";
 	export default {
+		props:['contentHeight'],
 		data() {
+			
 			return {
-				contentHeight:0,
+				title:"订单",
+				// contentHeight:0,
 				winHeight:0,
 				orderList: [{
 						id: 1,
@@ -66,21 +69,12 @@
 			};
 		},
 		onLoad(e) {
-			let winHeight = uni.getSystemInfoSync().windowHeight;
-		//创建节点选择器 获取底部导航高度 
-			this.contentHeight=(winHeight-uni.upx2px(100));
-			this.winHeight = winHeight;
+// 			let winHeight = uni.getSystemInfoSync().windowHeight;
+// 		//创建节点选择器 获取底部导航高度 
+// 			this.contentHeight=(winHeight-uni.upx2px(100));
+// 			this.winHeight = winHeight;
 			console.log("onload")
 			console.log(e)
-			// var orderData =Storage.get('payOrder') //读取购物车缓存数据
-			// 请求服务器
-			var self = this;
-			ajax.get('orderList',(res)=>{
-				
-				var orderList=res.data.data ||{};
-				self.orderList=orderList;
-				console.log(res.data.data)
-			})
 			// this.orderData =orderData //读取订单数据
 
 			// this.orders = orderData; //读取模拟数据
@@ -88,6 +82,17 @@
 			// console.log(orderData)
 		},
 		methods: {
+			init(){
+			var orderData =Storage.get('payOrder') //读取购物车缓存数据
+				// 请求服务器
+				var self = this;
+				ajax.get('orderList',(res)=>{
+					
+					var orderList=res.data.data ||{};
+					self.orderList=orderList;
+					console.log(res.data.data)
+				})
+			},
 			cancelOrder(){
 				// 取消订单
 				uni.showModal({
@@ -121,17 +126,7 @@
 					url: url
 				});
 			},
-			ceshi() {
-				// 				worker.onMessage(function (res) {
-				// 				  console.log(res)
-				// 				})
-				// 				
-				// 				worker.postMessage({
-				// 				  msg: 'hello worker'
-				// 				})
-				// 				
-				// 				worker.terminate()
-			},
+
 			/**
 			 * 计算总价
 			 */
@@ -168,11 +163,17 @@
 			}
 		},
 		mounted: function() {
+				uni.setNavigationBarTitle({
+					title: this.title
+				});
+
+			console.log("装置orderlist")
 			this.getTotalPrice();
 			// el渲染完成触发
 			this.$nextTick(function() {
+				this.init();
 				// const self = this;
-				this.refreshAddress()
+				// this.refreshAddress()
 // 				uni.getStorage({
 // 					key: 'address',
 // 					success(res) {

@@ -29,6 +29,14 @@
 	@import "./common/uni.css";
 	@import "./common/css/iconfont.css"; 
 	@import "./common/css/tui.css";
+	@font-face {
+	font-family: 'iconfont';
+        src: url('https://at.alicdn.com/t/font_920574_ma6qmi3qok.ttf') format('truetype');
+    }
+    .iconfont  {
+		font-size: 1.4em;
+        font-family: iconfont;
+    }
 /* 	    @font-face {
         font-family: 'iconfont';
         src: url('https://at.alicdn.com/t/font_865816_17gjspmmrkti.ttf') format('truetype');
