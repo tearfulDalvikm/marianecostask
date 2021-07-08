@@ -7,15 +7,15 @@
 				<view class="uni-flex-item uni-flex tui-center" style="justify-content: space-around;padding: 0;">
 					<view class="tui-flex tui-column" style="font-size: 1.1em;line-height: 1.3em;" @tap="goPage('about')">
 						<text class="iconfont">&#xe8c7;</text>
-						<text style="font-size:0.3em ;">店家</text>
+						<text style="font-size:0.6em ;">店家</text>
 					</view>
 					<view class="tui-flex tui-column" style="font-size: 1.1em;line-height: 1.3em;"  @tap="goPage('chat')">
 						<text class="iconfont">&#xe8b4;</text>
-						<text style="font-size:0.3em ;">客服</text>
+						<text style="font-size:0.6em ;">客服</text>
 					</view>
-					<view class="tui-flex tui-column" style="font-size: 1.1em;line-height: 1.3em;" @tap="goPage('chatList')">
+					<view class="tui-flex tui-column" style="font-size: 1.1em;line-height: 1.3em;" @tap="goPage('chatIndex')">
 						<text class="iconfont">&#xe872;</text>
-						<text style="font-size:0.3em ;">消息</text>
+						<text style="font-size:0.6em ;">消息</text>
 					</view>
 <!-- 					<view class="tui-flex tui-column" style="font-size: 1.4em;line-height: 0.8em;" @tap="goPage('order')">
 						<text class="iconfont">&#xe8cd;</text>
@@ -23,15 +23,18 @@
 					</view> -->
 					<view class=" tui-flex tui-column" style="font-size: 1.1em;line-height: 1.3em;" @tap="goPage('wode')">
 						<text class="iconfont">&#xe8ea;</text>
-						<text style="font-size:0.3em ;">我的</text>
+						<text style="font-size:0.6em ;">我的</text>
 					</view>
-					<view class="" style="width: 300upx;position: relative;">
-						<text class="iconfont" style="right:0;position: absolute;top: 0;z-index: 1;">&#xe95a;</text>
-						<button class="" type="warn" size="mini" @tap="goPage('cart')" style="position: relative;font-size:0.7em ;padding: 0;right:20upx ;line-height:100upx;justify-content: center;">
-							<view style="text-align: center;">¥{{cartTotal}}</view>
+					<view class=" tui-flex tui-column"   style="font-size: 1.1em;line-height: 1.3em;padding: 0;" @tap="goPage('cart')">
+
+						<view class="iconfont" style="position: relative;" :style="cartItemCount?'color:red':''">
+							<view class="" style="font-size: 0.7em;position: absolute;right:30%;top:-10upx">
+								<text style="font-size:0.5em ;" class="uni-badge uni-badge-danger">{{cartItemCount}}</text>
+							</view>
+							<text class="iconfont" style="font-size:1em;">&#xe8d2;</text>
 							
-							<!-- <view style="text-align: center;width: 100upx;">下单</view> -->
-						</button><!-- <text class="iconfont" style="right: 0;">&#xe95a;</text> -->
+						</view>
+						<view style="font-size:0.6em;">¥{{cartTotal}}</view>
 					</view>
 					<!-- 导航微信 -->
 				</view>
@@ -107,13 +110,10 @@
 
 					winHeight: 0,
 					contentHeight:0,
-					
-
 					categoryActive:0,
 					categoryId:null,
 					index:0,
 					isShow:true,
-
 					goods:{
 					id: 1,
 					image: 'https://img-cdn-qiniu.dcloud.net.cn/uploads/example/product3.jpg',
@@ -151,6 +151,12 @@
 			};
 		},
 		computed:{
+			cartItemCount:{
+				get(){
+					console.log(this.$store.getters.cartItemCount)
+					return this.$store.getters.cartItemCount
+				}
+			},
 			cartTotal:{
 				get(){
 					return this.$store.getters.cartTotal
@@ -176,12 +182,11 @@
 			//创建节点选择器 获取底部导航高度 
 				this.contentHeight=(winHeight-uni.upx2px(100));
 				this.winHeight = winHeight;
-				this.$store.commit('shop',{shop_id:0,shop_name:"新店铺"})
+				// this.$store.commit('shop',{shop_id:1,shop_name:"新店铺"})
 				
-				this.$store.commit('init')
 
 		},onLoad(e) {
-			
+			this.$store.commit('init')
 			uni.showLoading({
 				title: '加载中'
 			});
@@ -192,9 +197,15 @@
 			// var host=this.$config.host+"shop/"+id;//主服务器地址
 
 			yc.ajax("goodsShop",(res)=>{
+				var data=res.data.data
+				var goodsList=data.goodsList;
+				var shop={}
+				shop.shop_id=data.shop_id;
+				shop.shop_name=data.shop_name;
+				self.$store.commit('shop',shop)
+				console.log(self.$store.getters.shop)
 				console.log(res.data.data)
 				// var shops=res.data.data ||{};
-				var goodsList=res.data.data.goodsList;
 				for(let i=0;i<goodsList.length;i++){
 				// 判断图片地址是站内或站外，替换链接地址http
 					let src='';
@@ -254,8 +265,8 @@
 							case "order":
 							url="/pages/order/list?id=2";
 							break;
-							case "chatList":
-							url="/pages/chat/list?id=2";
+							case "chatIndex":
+							url="/pages/chat/index";
 							break;
 						default:
 							url="/pages/goods/"+e+"?id=2";

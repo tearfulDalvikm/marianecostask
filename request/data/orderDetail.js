@@ -3,7 +3,7 @@ export default{
 	"time":"1566666666",
 	"sum":"645",
 	"pay":"635",
-	"status":"1",
+	"state":"1",
 	"shop_id":"1",
 	"shopName":"大龙烧烤店",
 	"payType":"微信支付",

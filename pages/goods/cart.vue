@@ -1,7 +1,7 @@
 <template>
 	<view class="page-body tui">
 		<drawer-bottom  ref="drawerBottom"   :goods="goods" v-on:change="goodsUpdate"></drawer-bottom>	
-	    <view v-if="hasList" >
+	    <view v-if="totalPrice" >
 	        <!-- <view class="cart-box"> -->
 					<scroll-view scroll-y class=" tui-flex tui-center tui-column" style="" :style="{height:contentHeight + 'px'}">
 
@@ -85,9 +85,6 @@
 				winHeight:0,
 				change:0,
 				totalNumber:0, //购物车总数量
-				// cartData:[],               // 购物车商品列表
-				hasList:false,          // 列表是否有数据
-				// totalPrice:0,           // 总价，初始为0
 				selectAllStatus:true,    // 全选状态，默认全选
 			};
 		},
@@ -109,10 +106,7 @@
 		//创建节点选择器 获取底部导航高度 
 			this.contentHeight=(winHeight-uni.upx2px(105));
 			this.winHeight = winHeight;
-// 			let winHeight = this.$store.;
-// 			//创建节点选择器 获取底部导航高度 
-// 				this.contentHeight=(winHeight-uni.upx2px(100));
-// 				this.winHeight = winHeight;
+
 				var cartData=this.cartData;
 					for(var k in cartData){
 						if(!cartData[k].number){
@@ -132,9 +126,6 @@
 						}
 					}
 					this.$store.commit('cart',cartData)
-			// var cartData =Storage.get('cart') //读取购物车缓存数据
-			// var cartData =cart_Data //读取模拟数据
-					this.hasList= true;
 
     },
 		mounted(){
@@ -162,13 +153,15 @@
 			},
 			goPage(pg,item){
 				var id="";
+				var shop=this.$store.getters.shop;
+				var id=shop.shop_id;
 				if(pg==='order'){
-					var orderData={};
+					var orderData=[];
 					var cartData=this.cartData;
+					var sum=0;
 					for(let key in cartData){
 						var good={};
-						if(cartData[key].selected){
-							// orderData[key]=cartData[key];
+						if(cartData[key].selected && id===cartData[key].shop_id){
 							id=cartData[key].shop_id;
 							good.id=cartData[key].id;
 							good.shop_id=cartData[key].shop_id;
@@ -178,22 +171,33 @@
 							good.price=cartData[key].price;
 							good.title=cartData[key].title;
 							good.versionName=cartData[key].versionName;
-							// good.versionIndex=cartData[key].versionIndex;
-							orderData[key]=good;
+							orderData.push(good);
+							sum+=good.price*good.number
+
 							
 						}
 					}
-					this.$store.commit('order',orderData)
-					// order[this.goods.id]=this.goods;
-					// Storage.set('order',orderData,100)
+					var shop=this.$store.getters.shop;
+					var orders={sn:new Date().getTime(),shop_id:id,shop_name:shop.shop_name,sum:sum,goods:orderData}
+					this.$store.commit('order',orders)
+
 				}else{
-					id=item.id;
+					id=item.shop_id;
 				}
+				var cur=getCurrentPages()
+				// console.log(cur);
+				console.log("goods/cart"+pg)
 				uni.navigateTo({
-					url: './'+pg+"?id="+id,
-					success: res => {},
-					fail: () => {},
-					complete: () => {}
+					url: '/pages/goods/'+pg+"?id="+id,
+					success: res => {
+						console.log('res1')
+					},
+					fail: () => {
+						console.log('res2')
+					},
+					complete: () => {
+						console.log('res3')
+					}
 				});
 			},
 			  // 购物数量增减 触发

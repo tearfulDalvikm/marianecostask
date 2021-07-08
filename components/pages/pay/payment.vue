@@ -1,17 +1,19 @@
 <template>
 	<view>
-		<page-head :title="title"></page-head>
 			<view class="uni-padding-wrap">
 				<view style="background:#FFF; padding:50upx 0;">
 					<view class="uni-hello-text uni-center">支付金额</text></view>
-					<view class="uni-h1 uni-center uni-common-mt"><text class="rmbLogo">￥</text>0.01</view>
-					<view class="uni-hello-text uni-center uni-common-mt">实际应用中可自定义金额</text></view>
+					<view class="uni-h1 uni-center uni-common-mt" style="color: red;"><text class="rmbLogo">￥</text>{{money}}</view>
+					<!-- <view class="uni-hello-text uni-center uni-common-mt">实际应用中可自定义金额</text></view> -->
 				</view>
 				<view class="uni-btn-v uni-common-mt">
 					<!-- #ifdef MP-WEIXIN -->
 					<button type="primary" @tap="weixinPay" :loading="loading">微信支付</button>
 					<!-- #endif -->
 					<!-- #ifdef APP-PLUS -->
+					<button v-for="(item,index) in providerList" :key="index" @tap="requestPayment(item,index)" :loading="item.loading">{{item.name}}支付</button>
+					<!-- #endif -->
+					<!-- #ifdef  H5  -->
 					<button v-for="(item,index) in providerList" :key="index" @tap="requestPayment(item,index)" :loading="item.loading">{{item.name}}支付</button>
 					<!-- #endif -->
 				</view>
@@ -23,13 +25,41 @@
 	export default {
 		data() {
 			return {
-				title: 'request-payment',
+				title: '支付',
 				loading: false,
-				providerList: []
+				money:0,
+				orderSn:0,
+				providerList: [{
+						id:'alipay',
+						name:"支付宝",
+					},
+					{
+						name:"微信",
+						id:'wxpay',
+					}]
 			}
 		},
-		onLoad: function() {
-			// #ifdef APP-PLUS
+		onLoad: function(order) {
+			// var order=this.$store.getters.order;
+			
+			if(!order.sum){
+
+				uni.showModal({
+					title: '提示',
+					content:'订单错误,系统将退回',
+					showCancel:false,
+					text: 'center',
+					complete() {
+						uni.navigateBack({
+							delta: 1
+						});
+					}
+				})
+
+			}
+			this.money=order.sum;
+			// ifdef APP-PLUS
+			// #ifdef APP-PLUS 
 			uni.getProvider({
 				service: "payment",
 				success: (e) => {
@@ -127,6 +157,9 @@
 				})
 			},
 			async requestPayment(e, index) {
+				uni.showLoading({
+					title: '处理中请耐心等待'
+				});
 				this.providerList[index].loading = true;
 				let orderInfo = await this.getOrderInfo(e.id);
 				console.log("得到订单信息", orderInfo);
@@ -138,6 +171,32 @@
 					})
 					return;
 				}
+
+				uni.hideLoading();
+// 				uni.showToast({
+// 					title: '支付成功',
+// 					icon:"success",
+// 					duration: 1500,
+// 					complete(){
+// 						setTimeout(function () {
+// 							uni.navigateBack({
+// 								delta: 1
+// 							});
+// 						}, 1500);
+// 					}
+// 				});
+
+				uni.showModal({
+					content: "支付失败,重新支付" ,
+					showCancel: false,
+					complete(e) {
+							if(!e.confirm){
+								uni.navigateBack({
+									delta: 2
+								});
+							}
+					}
+				})
 				uni.requestPayment({
 					provider: e.id,
 					orderInfo: orderInfo.data,

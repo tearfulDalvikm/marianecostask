@@ -1,11 +1,6 @@
 
 <template>
-	<!-- <view> -->
-		<!-- <page-head :title="title"></page-head> -->
-		<!-- <view class="page-body tui"> -->
-			<!-- <header></header> -->
-
-			<scroll-view v-if="bodyShow" class="main-content" :style="'height:'+windowHeight+'px'" @scrolltoupper="scrolltoupper" style="flex: 1;" :lower-threshold="100"  @scroll="scroll"  @scrolltolower="scrolltolower" scroll-y>
+			<scroll-view v-if="bodyShow" class="" :style="'height:'+windowHeight+'px'" @scrolltoupper="scrolltoupper" style="flex: 1;" :lower-threshold="100"  @scroll="scroll"  @scrolltolower="scrolltolower" scroll-y>
 				<view v-if="bigAdData.length>0" style="height: 300upx;width: 100vw;">
 					<big-ad  ref="bigAd"  :bigAd="bigAdData" :autoplay="bigAdAutoplay"></big-ad>
 				</view>
@@ -16,14 +11,8 @@
 				<view class="" @tap="loadData">
 					<uni-load-more :loadingType="loadingType" :contentText="contentText"></uni-load-more>
 				</view>
-				<view style="height: 90upx;"></view>
+				<!-- <view style="height: 90upx;"></view> -->
 			</scroll-view>
-<!-- 			<footer class="uni-flex tui-bottom-nav">
-				<bottom-nav></bottom-nav>
-			</footer>	 -->
-
-		<!-- </view> -->
-	<!-- </view> -->
 </template>
 <script>
 // 	var scrollTop=0;//记录上次滚动的html标签与屏幕顶部的距离
@@ -197,22 +186,7 @@
 					url: item.url
 				});
 
-		},refresh(){
-			var that=this;
-			clearTimeout(that.timeOut);
-			var timeOut=setTimeout(function () {
-				uni.redirectTo({
-					url: 'index'
-				});
-				// 异步加载 防止组件未加载完成 数据先进去了
-				// console.log(that.$refs.productList.productList)	
-					// that.loadData('refresh');//加载列表数据
-					// that.$refs.productList.goTo=that.goTo;
-					// that.loadAdData();//加载广告数据
-			}, 100);
-		},
-
-			switchPullRefresh(status=true) {
+		},switchPullRefresh(status=true) {
 				// console.log('is support:' + status);
 				// #ifdef APP-PLUS
 				// 5+ 手机端的下拉刷新功能
@@ -231,38 +205,16 @@
 			}
 		},
 		mounted: function (){
-				uni.setNavigationBarTitle({
-					title: this.title
-				});
-
+			uni.setNavigationBarTitle({
+				title: this.title
+			});
 			var that=this;
 			// el渲染完成触发
 			this.$nextTick(function () {
-				// this.refresh('refresh')
 				that.loadData('refresh');//加载列表数据
-				// that.$refs.productList.goTo=that.goTo;
-				// that.loadAdData();//加载广告数据
 		  })
 			
-		},
-    onLoad: function (options) {
-		// this.windowHeight=uni.getSystemInfoSync().windowHeight;
-			uni.showLoading({
-				title: '加载中'
-			});
-			// 页面加载完毕触发
-//     uni.startPullDownRefresh();
-    },
-		// 下拉刷新效果关闭
-    onPullDownRefresh() {
-        // console.log('refresh');
-				var self=this;
-				clearTimeout(this.refreshTimeout)
-        this.refreshTimeout=setTimeout(function () {
-						self.refresh()
-            uni.stopPullDownRefresh();
-        }, 1000);
-    }
+		}
 	}
 </script>
 
@@ -272,19 +224,4 @@
 		height: 3em;
 		
 	}
-	header{
-
-	}
-
-footer{
-	
-	background: #fff;
-	/* background: #007AFF; */
-	left: 0;
-	right: 0;
-	position:fixed;
-	bottom: 0;
-
-}
-
 </style>

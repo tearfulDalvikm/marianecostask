@@ -4,9 +4,7 @@ import Storage from '@/common/utils/Storage.js'
 	export default{
 	state: {
 
-// 		shop_id:1,
-// 		shop_name:"东方烧烤",
-		shop:{shop_id:1,shop_name:"东方烧烤"},
+		shop:{shop_id:0,shop_name:'未知'},
 		cartTotal:0,//购物车有效商品 总价
 		cartCount:0,//购物车有效商品 统计总数
 		cartItemCount:0,//购物车有效商品 种目数
@@ -21,36 +19,32 @@ import Storage from '@/common/utils/Storage.js'
 // 				"total":88,//总价
 // 				"selected":true,//选中状态
 // 				"number":1,//购买数量
-// 				"version":[{"name":"麻辣"}],
+// 				"version":[{"name":"麻辣",price:87,stock:4,image:""}],//更多版本
 // 				"versionIndex":1,
 // 				"versionName":"麻辣",//版本选项名
 // 			}}
 		order:{},
-// 		[{//订单
+// 				{sn:'fdsf22',shop_id:'',shop_name:'',sum:89.9
+//				goods:[{//订单
 // 						id: 1,
 // 						title: '新鲜芹菜 半斤',
 // 						image: 'https://img-cdn-qiniu.dcloud.net.cn/uploads/example/product3.jpg',
 // 						num: 4,
 // 						price: 0.01
-// 					},
-// 					{
-// 						id: 2,
-// 						title: '素米 500g',
-// 						image: 'https://img-cdn-qiniu.dcloud.net.cn/uploads/example/product3.jpg',
-// 						num: 1,
-// 						price: 0.03
-// 					}
-// 				],
+// 				}
+// 				]},
 		orderTotal:0,
 	},
 	getters:{
-		cart(state){
+		shop(state){
+			return state.shop;
+		},cart(state){
 			return state.cart;
 		},cartCount(state){
 			return state.cartCount
 		},cartTotal(state){
 			return state.cartTotal
-		},cartTtemCount(state){
+		},cartItemCount(state){
 			return state.cartItemCount
 		},order(state){
 			return state.order
@@ -63,6 +57,7 @@ import Storage from '@/common/utils/Storage.js'
 			var shop={};
 			shop.shop_id=Obj.shop_id || 0;
 			shop.shop_name=Obj.shop_name || "未知";
+			state.shop=shop;
 		},
 		init(state){
 			var that=this;
@@ -86,14 +81,14 @@ import Storage from '@/common/utils/Storage.js'
 						delete  cart[i];//删除为0的商品
 					}else{
 						count+=cart[i].number;
-						itemCount++;
+						itemCount+=1;
 						total+=(cart[i].number*cart[i].price);
 					}
 				}
 				
 			}
 			state.cartCount=count;
-			state.cartTotal=total.toFixed(2);
+			state.cartTotal=Math.floor(total*100)/100;
 			state.cartItemCount=itemCount;
 			Storage.set('cart'+state.shop.shop_id,cart,5000);	
 		},
@@ -109,7 +104,7 @@ import Storage from '@/common/utils/Storage.js'
 			goods.price=goods.version[index].price || goods.price;
 			goods.stock=goods.version[index].stock || goods.stock;
 			goods.number=goods.number || 1;
-			goods.total=(goods.price*goods.number).toFixed(2);
+			goods.total=goods.price*goods.number;
 			// goods.selected=true;//当前商品是否选中状态
 			// Cart[goods[key]]=goods
 			var cart=state.cart;
@@ -142,10 +137,18 @@ import Storage from '@/common/utils/Storage.js'
 							icon:"none",
 							duration: 2000
 						});
-						return console.log("操作无效"+goods.number+method)
+						return console.log("操作无效"+method)
 					}
-
-					Cart[goods[key]].number++
+					var item=Cart[goods[key]];
+					if(typeof item.version==='object' && typeof item.versionIndex =='number'){
+						var index=item.versionIndex;
+						item.versionName=item.version[index].name || '';
+						item.image=item.version[index].image|| item.image;
+						item.price=item.version[index].price || item.price;
+						item.stock=item.version[index].stock || item.stock;
+					}
+					item.number++;
+					Cart[goods[key]]=item;
 					// Cart[goods[key]].total=Cart[goods[key]].price*Cart[goods[key]].number;//单品总价
 				}else if(Cart[goods[key]].number>0){
 					Cart[goods[key]].number--

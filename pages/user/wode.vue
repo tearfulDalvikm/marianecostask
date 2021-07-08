@@ -19,10 +19,10 @@
 			</view>
 		</view>
 		<!-- <view class="list"   hover-class="hover"  hover-stay-time="50" > -->
-			<button class="" style="" size="default" v-if="hasLogin" @tap="toPage('logout')">
+			<button class="" style=""  v-if="hasLogin" @tap="toPage('logout')">
 				退出登陆
 			</button>
-			<button class="" size="default"  v-else  @tap="toPage('login')" >
+			<button class=""   v-else  @tap="toPage('login')" >
 				登陆
 			</button>
 		<!-- </view> -->
@@ -77,11 +77,6 @@
 			}
 		},
 		mounted() {
-			uni.setNavigationBarTitle({
-				title: this.title
-			});
-		},onLoad() {
-			console.log("我的")
 			var that=this;
 			// var isLogin=this.$store.dispatch('isLogin')
 			function st(){
@@ -94,29 +89,33 @@
 					console.log(data+"假的")
 				}
 					
-				});
-			
-// 			//加载
+			});		
+			//加载
 			this.init();
+			uni.setNavigationBarTitle({
+				title: this.title
+			});
+		},onLoad() {
+
 		},
 		methods: {
 			init(){
 
-				var self=this;
-				/**
-				 * 获取用户信息
-				 */
-				uni.getUserInfo({
-				  success: function(res){
-					  console.log(res.userInfo)
-					  var userinfo={
-					  	headimg:res.userInfo.avatarUrl,
-					  	nickName:res.userInfo.nickName,
-					  	integral:"1435"
-					  }
-					   self.$store.commit('userinfo',userinfo); 
-				  }
-				})
+// 				var self=this;
+// 				/**
+// 				 * 获取用户信息
+// 				 */
+// 				uni.getUserInfo({
+// 				  success: function(res){
+// 					  console.log(res.userInfo)
+// 					  var userinfo={
+// 					  	headimg:res.userInfo.avatarUrl,
+// 					  	nickName:res.userInfo.nickName,
+// 					  	integral:"1435"
+// 					  }
+// 					   self.$store.commit('userinfo',userinfo); 
+// 				  }
+// 				})
 	
 			},
 			//用户点击订单类型

@@ -1,9 +1,75 @@
 export default[{
+	"sn":"11200321320",
+	"shopName":"华发冷面",
+	"shop_id":"1",
+	"sum":"645",
+	"state":"-2",
+	"pay":"645",
+	"data":{
+		"2_1":{
+			"id":"2",
+			"title":"大虾",
+			"shop_id":"1",
+			"price":"108",
+			"number":3,
+			"versionName":"大盘",
+		},"3_1":{
+			"id":"3",
+			"title":"韩国寿司",
+			"shop_id":"1",
+			"price":"36",
+			"number":3,
+			"versionName":"鱼肉",
+			
+		},"4_1":{
+			"id":"4",
+			"title":"清淡菜品",
+			"shop_id":"1",
+			"price":"58",
+			"number":3,
+			"versionName":null,
+		},
+	},
+	
+	},{
+	"sn":"11200321321",
+	"shopName":"大典烧烤城",
+	"shop_id":"1",
+	"sum":"645",
+	"state":"3",
+	"pay":"645",
+	"data":{
+		"2_1":{
+			"id":"2",
+			"title":"大虾",
+			"shop_id":"1",
+			"price":"108",
+			"number":3,
+			"versionName":"大盘",
+		},"3_1":{
+			"id":"3",
+			"title":"韩国寿司",
+			"shop_id":"1",
+			"price":"36",
+			"number":3,
+			"versionName":"鱼肉",
+			
+		},"4_1":{
+			"id":"4",
+			"title":"清淡菜品",
+			"shop_id":"1",
+			"price":"58",
+			"number":3,
+			"versionName":null,
+		},
+	},
+	
+	},{
 	"sn":"11200321322",
 	"shopName":"华发烧烤城",
 	"shop_id":"1",
 	"sum":"645",
-	"status":"1",
+	"state":"2",
 	"pay":"645",
 	"data":{
 		"2_1":{
@@ -36,7 +102,7 @@ export default[{
 		"shopName":"弘扬餐饮",
 		"shop_id":"2",
 		"sum":"545",
-		"status":"0",
+		"state":"0",
 		"pay":"545",
 	"data":{
 		"1_1":{
@@ -66,7 +132,31 @@ export default[{
 	"shopName":"大汉海鲜",
 	"shop_id":"3",
 	"sum":"245",
-	"status":"1",
+	"state":"1",
+	"pay":"245",
+	"data":{
+		"2_1":{
+			"id":"2",
+			"title":"大虾",
+			"shop_id":"1",
+			"price":"108",
+			"number":3,
+			"versionName":"大盘",
+		},"4_1":{
+			"id":"4",
+			"title":"清淡菜品",
+			"shop_id":"1",
+			"price":"58",
+			"number":3,
+			"versionName":null,
+		}
+		}
+	},{
+	"sn":"11200321325",
+	"shopName":"海鲜面",
+	"shop_id":"1",
+	"sum":"245",
+	"state":"-1",
 	"pay":"245",
 	"data":{
 		"2_1":{

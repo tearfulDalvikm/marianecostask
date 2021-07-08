@@ -1,29 +1,29 @@
 <template>
-	<view class="uni-flex tui">
-<view class="" style="position: fixed;z-index: 9999;width: 100%;right: 0;left: 0;bottom: 0;display: flex;background: #fff; border-top:1px solid #F5F5F5" >
+	<view class="uni-flex tui" style="flex-direction: column;justify-content: space-between;position: relative;">
+		<view style="box-sizing: border-box;flex: 1;"  :style="'height:+'+contentHeight+'px'">
+			<page-home   :windowHeight="contentHeight" v-if="index=='0'"></page-home>	
+			<page-order :winHeight="winHeight"  :contentHeight="contentHeight" v-if="index=='1'"></page-order>
+			<page-chat :winHeight="winHeight" :contentHeight="contentHeight"  v-if="index=='2'"></page-chat>
+			<page-wode :winHeight="winHeight" :contentHeight="contentHeight" v-if="index=='3'"></page-wode>
+		</view>
+		<view class="uni-flex" style="height: 98upx; border-top:1px solid #F5F5F5;" >
 			<view  class="uni-flex-item uni-flex uni-column tui-center" v-for="(item,idx) in bottomNav" :key="idx" @tap="tijiao(idx,item)"  :class="index==idx?'uni-badge-primary uni-badge-inverted':''">
 	
-		<!-- <view class="uni-item uni-column"> -->
-			<view class="nav-icon uni-item">
-				<view class="tui-nav-badge" style="">
-					<view class="uni-badge uni-badge-danger" style="font-size: 0.7em;position: absolute;" v-if="item.msg">
-						<text v-if="item.msg>10">…</text>
-						<text v-else>{{item.msg}}</text>
+					<view class="nav-icon uni-item">
+						<view class="tui-nav-badge" style="">
+							<view class="uni-badge uni-badge-danger" style="font-size: 0.7em;position: absolute;" v-if="item.msg">
+								<text v-if="item.msg>10">…</text>
+								<text v-else>{{item.msg}}</text>
+							</view>
+						</view>
+						<text class="uni-item iconfont" style="font-size:1.6em;line-height: 1.3em;" v-html="item.ico"></text>
 					</view>
-				</view>
-				<text class="uni-item iconfont" style="font-size:1.6em;line-height: 1.3em;" v-html="item.ico"></text>
+					<view class="uni-item nav-title">
+							{{item.name}}
+					</view>
+			
 			</view>
-			<view class="uni-item nav-title">
-					{{item.name}}
-			</view>
-	
-	</view>
-</view>
-
-				<page-home   :windowHeight="contentHeight" v-if="index=='0'"></page-home>	
-				<page-order :winHeight="winHeight"  :contentHeight="contentHeight" v-if="index=='1'"></page-order>
-				<page-chat :winHeight="winHeight" :contentHeight="contentHeight"  v-if="index=='2'"></page-chat>
-				<page-wode :winHeight="winHeight" :contentHeight="contentHeight" v-if="index=='3'"></page-wode>
+		</view>
 </view>
 
 </template>
@@ -31,7 +31,7 @@
 <script>
 	import pageHome  from "./home.vue"
 	import pageWode  from "../user/wode.vue"
-	import pageChat  from "../chat/list.vue"
+	import pageChat  from "../../components/pages/chat/list.vue"
 	import pageOrder  from "../order/list.vue"
 	// import pageOrder  from "../order/list.vue"
 	export default {
@@ -42,6 +42,7 @@
 		name: "bottomNav",
 		data() {
 			return {
+				refreshTimeout:0,
 				winHeight:0,
 				contentHeight:0,
 				index:0,
@@ -77,7 +78,7 @@
 				]
 				
 			}
-		},mounted(){
+		},onLoad(){
 				let winHeight = uni.getSystemInfoSync().windowHeight;
 			//创建节点选择器 获取底部导航高度 
 				this.contentHeight=(winHeight-uni.upx2px(100));
@@ -85,6 +86,15 @@
 			// console.log("template/nav/bottom/mounted")
 		
 		},methods:{
+			refresh(){
+// 				var that=this;
+// 				clearTimeout(that.timeOut);
+// 				var timeOut=setTimeout(function () {
+// 					uni.redirectTo({
+// 						url: 'index'
+// 					});
+// 				}, 100);
+			},
 			tijiao(index,item){
 				this.index=index
 				console.log('tijiao'+this.index)
@@ -99,6 +109,8 @@
 // 					});
 // 				}
 			}
+		},mounted() {
+			uni.hideLoading();
 		}
 	}
 </script>

@@ -81,7 +81,7 @@ export default{
 								url:'../login/login'
 							})	
 						}else{
-							context.commit('login',"退出")
+							context.commit('logout',"退出")
 							console.log(context.state)
 							console.log("放弃登陆")
 						}

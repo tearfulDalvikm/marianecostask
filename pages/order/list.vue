@@ -1,12 +1,14 @@
 <template>
-	<view class="page-body tui">
+	<!-- <view class="page-body tui"> -->
 		<scroll-view   style="padding: 0 15upx;box-sizing: border-box;" :style="'height:'+contentHeight+'px'" scroll-y >
 				<view class="uni-card" v-for="(orders,index) in orderList" :key="index">
 					<view class="orders-list" style="justify-content: space-between;">
 						<view class="tui-title" @tap="goPage('shop',orders.shop_id)" style="">{{orders.shopName}} ></view>
 						<view  style="color: red;">
-							<text v-if="orders.status!='0'">已付款</text>
-							<text v-else class="">未付款</text>
+							<text v-if="orders.state=='4'" class="">订单完成</text>
+							<text v-else-if="orders.state=='-4'">订单已删除</text>
+							<text v-else-if="orders.state<2 " class="">未付款</text>
+							<text v-else-if="orders.state>1" class="">已付款</text>
 						</view>
 					</view>
 					<view style="background: #F9F9F9;"  @tap="goPage('orderDetail',orders)">
@@ -24,30 +26,43 @@
 					<view class="orders-list tui-flex" style="justify-content:flex-end;text-align:left">
 						<text  style="">实付：￥{{orders.pay}}</text>
 					</view>
+					<!-- <order-state :sn="orders.sn" :state="orders.state" :click="commit"></order-state> -->
 					<view class="orders-list tui-flex" style="justify-content:flex-end;align-self: flex-end;">
-						<view v-if="orders.status!='0'" >
-							<text  class="tui-button tui-border" style="margin-left:10upx;" @tap="deleteOrder(orders)" >删除订单</text>
-							<text  class="tui-button tui-border" style="margin-left:10upx;" @tap="refund(orders)" >申请退款</text>
-						</view>
-						<view v-else >
-							<text  class="tui-button tui-border" style="margin: 0 10upx;" @tap="cancelOrder(orders)" >取消订单</text>
-							<text  class="tui-button" style="background: #FF3030;color: #fff;" @tap="toPay(orders)" >去支付</text>
-						</view>
+						<!-- <view v-if="orders.state!='0'" > -->
+							<text v-if="orders.state!='-4'" class="tui-button tui-border" style="margin-left:10upx;" @tap="deleteOrder(orders)" >删除订单</text>
+							<text v-if="orders.state=='-4'" class="tui-button tui-border" style="margin-left:10upx;"  >订单已删除</text>
+							<text v-if="orders.state>'1'" class="tui-button tui-border" style="margin-left:10upx;" @tap="refund(orders)" >申请退款</text>
+							<text v-else-if="orders.state=='-2'" class="tui-button tui-border" style="margin-left:10upx;" >退款成功</text>
+							<text v-else-if="orders.state=='-1'" class="tui-button tui-border" style="margin-left:10upx;" >退款处理中</text>
+						<!-- </view>
+						<view v-else > -->
+							<!-- <text v-if="orders.state=='1'"  class="tui-button tui-border" style="margin: 0 10upx;" @tap="cancelOrder(orders)" >取消订单</text> -->
+							<!-- <text v-else-if="orders.state=='0'" class="tui-button" style="margin-left:10upx;" >订单已取消</text> -->
+							<text v-if="orders.state=='1'" class="tui-button" style="background: #FF3030;color: #fff;margin-left:10upx;" @tap="toPay(orders)" >去支付</text>
+							<text v-if="orders.state=='2'" class="tui-button" style="background: #FF3030;color: #fff;margin-left:10upx;"  >已支付</text>
+						<!-- </view> -->
 					</view>
 
 				</view>
 		</scroll-view>
 
-	</view>
+	<!-- </view> -->
 </template>
 
 <script>
 	import Storage from "../../common/utils/Storage.js";
 	import ajax from "../../request/ajax.js";
+	// import orderState from "../../components/pages/order/state.vue"
 	export default {
+		components:{
+			// orderState
+		},
+		props:['contentHeight'],
 		data() {
+			
 			return {
-				contentHeight:0,
+				title:"订单",
+				// contentHeight:0,
 				winHeight:0,
 				orderList: [{
 						id: 1,
@@ -66,46 +81,86 @@
 			};
 		},
 		onLoad(e) {
-			let winHeight = uni.getSystemInfoSync().windowHeight;
-		//创建节点选择器 获取底部导航高度 
-			this.contentHeight=(winHeight-uni.upx2px(100));
-			this.winHeight = winHeight;
-			console.log("onload")
-			console.log(e)
-			// var orderData =Storage.get('payOrder') //读取购物车缓存数据
-			// 请求服务器
-			var self = this;
-			ajax.get('orderList',(res)=>{
-				
-				var orderList=res.data.data ||{};
-				self.orderList=orderList;
-				console.log(res.data.data)
-			})
-			// this.orderData =orderData //读取订单数据
 
-			// this.orders = orderData; //读取模拟数据
-			// console.log(this.total)
-			// console.log(orderData)
 		},
 		methods: {
-			cancelOrder(){
+			commit(e){
+				console.log(e)
+			},
+			init(){
+			// var orderData =Storage.get('payOrder') //读取购物车缓存数据
+				// 请求服务器
+				var self = this;
+				ajax.get('orderList',(res)=>{
+					
+					var orderList=res.data.data ||{};
+					self.orderList=orderList;
+					console.log(res.data.data)
+				})
+			},
+			cancelOrder(order){
+				var orderList= this.orderList;
+				var that=this;
 				// 取消订单
 				uni.showModal({
 					title:"确认取消订单？",
-					content:"订单一旦取消,获得的相关优惠将会全部取消。"
+					content:"订单一旦取消,获得的相关优惠将会全部取消。",
+					complete(e) {
+					if(e.confirm){
+						var neworder=[];
+						for(var i=0;i<orderList.length;i++){
+							if(orderList[i].sn==order.sn){
+								orderList[i].state=-4;
+								break;
+							}
+						}
+
+						that.orderList=orderList;
+					}}
 				})
 			},
-			refund(e){
+			refund(order){
+				var that=this;
+				var orderList= this.orderList;
 				// 申请退款
 				uni.showModal({
-					title:"申请退款"
+					title:"确认要退款吗？",
+					text:"",
+					complete(e) {
+						if(e.confirm){
+							var neworder=[];
+							for(var i=0;i<orderList.length;i++){
+								if(orderList[i].sn==order.sn){
+									orderList[i].state=-1;
+									break;
+								}
+							}
+
+							that.orderList=orderList;
+						}
+				}
 				})
 			},
-			deleteOrder(e){
+			deleteOrder(order){
+				var orderList= this.orderList;
+				var that=this;
 				// 删除订单
 				uni.showModal({
 					title:"确认删除订单？",
-					content:"删除之后订单无法恢复,无法处理您的售后问题,请您慎重考虑。"
+					content:"删除之后订单无法恢复,无法处理您的售后问题,请您慎重考虑。",
+					complete(e) {
+						if(e.confirm){
+							var neworder=[];
+							for(var i=0;i<orderList.length;i++){
+								if(orderList[i].sn==order.sn){
+									orderList[i].state=-4;
+									break;
+								}
+							}
+
+							that.orderList=orderList;
+						}
+				}
 				})
 			},
 			goPage(e,data){
@@ -121,65 +176,32 @@
 					url: url
 				});
 			},
-			ceshi() {
-				// 				worker.onMessage(function (res) {
-				// 				  console.log(res)
-				// 				})
-				// 				
-				// 				worker.postMessage({
-				// 				  msg: 'hello worker'
-				// 				})
-				// 				
-				// 				worker.terminate()
-			},
-			/**
-			 * 计算总价
-			 */
-			getTotalPrice() {
-				let orders = this.orders;
-				let total = 0;
-				for (let i in orders) {
-					total += orders[i].number * orders[i].price;
-				}
-				this.total = total;
-			},
 			toPay(order) {
+				// var order= this.orderList[key];
+				// var that=this;
 				uni.showModal({
 					title: '提示',
 					content: '本系统只做演示，支付系统已屏蔽',
 					text: 'center',
-					complete() {
-						uni.switchTab({
-							url: '/page/pay/payment?'+order
-						})
+					complete(e) {
+						if(e.confirm){
+						uni.navigateTo({
+							url: '/components/pages/pay/payment?sn='+order.sn+'&sum='+order.sum
+						})}
 					}
 				})
-			},refreshAddress(){
-				var address=Storage.get('address');
-				// console.log(address)
-				if(address && typeof address==='object'){
-					for(let i=0;i<address.length;i++){
-						if(address[i].selected){
-							this.address=address[i];
-							console.log(this.address)
-						}
-					}
-				}
 			}
 		},
 		mounted: function() {
-			this.getTotalPrice();
+				uni.setNavigationBarTitle({
+					title: this.title
+				});
+
+			console.log("装置orderlist")
+			// this.getTotalPrice();
 			// el渲染完成触发
 			this.$nextTick(function() {
-				// const self = this;
-				this.refreshAddress()
-// 				uni.getStorage({
-// 					key: 'address',
-// 					success(res) {
-// 						self.address = res.data;
-// 						self.hasAddress = true
-// 					}
-// 				})
+				this.init();
 			})
 		}
 	}

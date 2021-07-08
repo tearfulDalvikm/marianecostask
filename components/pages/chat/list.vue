@@ -1,7 +1,5 @@
 <template>
-	<view class="tui">
-
-		<view class="uni-list">
+		<scroll-view class="uni-list" :style="'height:'+contentHeight+'px'">
 			<view class="uni-list-cell" hover-class="uni-list-cell-hover" v-for="(value,key) in list" :key="key">
 				<view class=" uni-media-list tui-flex" @tap="goPage(value)">
 					<view class="uni-media-list-logo " style="position: relative;">
@@ -20,12 +18,13 @@
 					</view>
 				</view>
 			</view>
-		</view>
-	</view>
+		</scroll-view>
+
 </template>
 
 <script>
 	export default {
+		props:['contentHeight'],
 		data() {
 			return {
 				title: '消息',
@@ -68,6 +67,10 @@
 			}
 		},
 		mounted() {
+			setTimeout(() => {
+				this.showImg = true;
+			}, 400)
+
 			uni.setNavigationBarTitle({
 				title: this.title
 			});
@@ -84,12 +87,6 @@
 					url: url
 				});
 			}
-		},
-		onLoad() {
-
-			setTimeout(() => {
-				this.showImg = true;
-			}, 400)
 		}
 	}
 </script>
@@ -104,5 +101,8 @@
 }
 .title {
 	padding: 20upx;
+}
+.uni-list-cell:last-child{
+	border-bottom:1px solid #e5e5e5;
 }
 </style>

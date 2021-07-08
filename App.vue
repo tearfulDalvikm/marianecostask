@@ -1,4 +1,5 @@
 <script>
+
 	export default {
 		mounted() {
 			 var that=this;

@@ -1,6 +1,5 @@
 <template>
-	<!-- <view class="" style="position: absolute;z-index: 9999;background: #000000;height: 100vh;width: 100%;"  > -->
-	<!-- :style="drawerBottomShow?'top:0':'top:100vh'" -->
+
 			<view   :style="drawerBottomShow?'top:0':'top:100vh'" class="tui-flex  tui-fixed tui-column tui-bottom-nav tui-center tui-drawer" style="height: 100vh;width: 100%;padding-bottom: 100upx;">
 				<view  v-if="drawerBottomShow" class="toubu">
 					<view class="toubu-list tui-flex">
@@ -17,7 +16,7 @@
 								已选：<text class="uni-badge tui-button tui-tag"   style="line-height: 1.6;height: 1.6em;" >{{goods.versionName}}</text>
 							</view>
 							<view class="tui-item number-box" style="font-size:1.5em ;" >
-								<number-box :min="1" :max="goods.stock"  :value="number"   v-on:change="numberUpdate" ></number-box>
+								<number-box :min="1" :max="parseInt(goods.stock)"  :value="number"   v-on:change="numberUpdate" ></number-box>
 							</view>
 						</view>
 					</view>
@@ -25,13 +24,10 @@
 				<view v-if="drawerBottomShow && goods.version"  class="tui-list tui-flex " style="flex-wrap: wrap;justify-content: space-between;" >
 
 					<text   style="line-height: 1.6;height: 1.6em;" class="tui-button tui-tag"  :style="key==botIdx?'opacity:0.5;':'opacity:1;'" v-for="(item,key) in goods.version "  :key="key" @tap="selection(key,item)">{{item.name}}</text>
-
-
 				</view>
-				<button class="" @tap="commit()" type="primary" style="width:100%">确认</button>
+				<button  @tap="commit()" type="primary" style="width:100%">确认</button>
 	
 			</view>	
-	<!-- </view> -->
 </template>
 
 <script>
@@ -49,7 +45,7 @@
 					price: 0.01,
 					stock: 12,
 					number:0,
-					versionName:'未选择',
+					versionName:'',
 					versionIdx:'',
 					synopsis:"简介，这里是梨花带雨详情",
 					version:[{name:'大份',price:18,stock:6,image:''}]
@@ -105,38 +101,27 @@
 				
 			},
 			selection(idx,item){
-				// console.log(item)
-				// this.drawerBottomShow=true;
-
 				this.botIdx=idx;
 				// var goods = Object.assign({}, this.goods);//深度拷贝源数据防止联动改变值
 				var goods=this.goods;
 					goods.number=1;
 					goods.price=item.price ||goods.price;
-					goods.versionName=item.name || '未选择';
+					goods.versionName=item.name || '';
 					this.image=item.image || goods.image;
 					goods.stock=item.stock || goods.stock;
 					goods.stock=parseInt(goods.stock)
 					this.goods=goods;
 			},
 			onShow(){
-				
 				this.drawerBottomShow=true;
-				// console.log(this.show)
+
 			},
 			onClose(){
 				this.drawerBottomShow=false;
 			},
 			numberUpdate(item){
 				this.goods.number=item.value;
-				// this.number=value
 				console.log(item.value)
-// 				var goods=this.goods;
-// 				item.number=value;
-// 				if(goods.number && goods.price){
-// 					this.totalPrice=goods.number*goods.price;
-// 					this.goods=item;
-// 				}
 			}
 		},mounted() {
 		}

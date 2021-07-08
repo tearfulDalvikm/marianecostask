@@ -1,0 +1,116 @@
+<template>
+	<view class="orders-list tui-flex" style="justify-content:flex-end;align-self: flex-end;">
+		<view v-if="state!='0'" >
+			<text  class="tui-button tui-border" style="margin-left:10upx;" @tap="deleteOrder(sn,4)" >删除订单</text>
+			<text  class="tui-button tui-border" style="margin-left:10upx;" @tap="refund(sn,2)" >申请退款</text>
+		</view>
+		<view v-else >
+			<text  class="tui-button tui-border" style="margin: 0 10upx;" @tap="cancelOrder(sn,0)" >取消订单</text>
+			<text  class="tui-button" style="background: #FF3030;color: #fff;" @tap="toPay(sn,1)" >去支付</text>
+		</view>
+	</view>
+</template>
+
+<script>
+	export default{
+		props:['sn','state','sum','click'],
+		data(){
+			return {
+				
+			}	
+		},methods:{
+			cancelOrder(order){
+				// this.click({sn:order,state:true})
+				var orderList= this.orderList;
+				var that=this;
+				// 取消订单
+				uni.showModal({
+					title:"确认取消订单？",
+					content:"订单一旦取消,获得的相关优惠将会全部取消。",
+					complete(e) {
+							if(e.confirm){
+								var neworder=[];
+								for(var i=0;i<orderList.length;i++){
+									if(orderList[i]!=order){
+										neworder.push(orderList[i])
+									}
+								}
+								that.orderList=neworder;
+							}
+					}
+				})
+			},
+			refund(order){
+				var that=this;
+				var orderList= this.orderList;
+				// 申请退款
+				uni.showModal({
+					title:"确认要退款吗？",
+					text:"",
+					complete(e) {
+						if(e.confirm){
+							var neworder=[];
+							for(var i=0;i<orderList.length;i++){
+								if(orderList[i]!=order){
+									neworder.push(orderList[i])
+								}
+							}
+							that.orderList=neworder;
+						}
+				}
+				})
+			},
+			deleteOrder(order){
+				var orderList= this.orderList;
+				var that=this;
+				// 删除订单
+				uni.showModal({
+					title:"确认删除订单？",
+					content:"删除之后订单无法恢复,无法处理您的售后问题,请您慎重考虑。",
+					complete(e) {
+						if(e.confirm){
+							var neworder=[];
+							for(var i=0;i<orderList.length;i++){
+								if(orderList[i]!=order){
+									neworder.push(orderList[i])
+								}
+							}
+							that.orderList=neworder;
+						}
+				}
+				})
+			},
+			goPage(e,data){
+				var  url ='../order/detail';
+				switch (e){
+					case "shop":
+					url='../goods/shop?id='+data;
+						break;
+					default:
+						break;
+				}
+				uni.navigateTo({
+					url: url
+				});
+			},
+			toPay(order) {
+				// var order= this.orderList[key];
+				// var that=this;
+				uni.showModal({
+					title: '提示',
+					content: '本系统只做演示，支付系统已屏蔽',
+					text: 'center',
+					complete(e) {
+						if(e.confirm){
+						uni.navigateTo({
+							url: '/components/pages/pay/payment?sn='+order.sn+'&sum='+order.sum
+						})}
+					}
+				})
+			}
+		}
+	}
+</script>
+
+<style>
+</style>
