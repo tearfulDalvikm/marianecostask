@@ -11,7 +11,7 @@ var Storage={
 		var type= typeof val;
 		var expires=expires || 300;
 		return uni.setStorage({key:k,data:{data:val,expires:expires+(Date.parse(new Date())/1000),type:type},success: function () {
-			console.log('保存成功')
+			// console.log('保存成功')
 		}})
 	},get(k,Func=function(){}){
 		try{
@@ -33,7 +33,7 @@ var Storage={
 			}})
 			
 		}catch(e){
-			console.log(e)
+			// console.log(e)
 			return false;
 			//TODO handle the exception
 		}
@@ -45,9 +45,9 @@ var Storage={
 		// 获取本地说有缓存信息 删除过期的，超长的，净化系统
 		uni.getStorageInfo({	
 			    success: function (res) {
-			        console.log(res.keys);
-			        console.log(res.currentSize);
-			        console.log(res.limitSize);
+// 			        console.log(res.keys);
+// 			        console.log(res.currentSize);
+// 			        console.log(res.limitSize);
 			    }
 			});	
 	}
@@ -80,7 +80,7 @@ var Sync={
 					}
 			}
 		}catch(e){
-			console.log(e)
+			// console.log(e)
 			return false;
 			//TODO handle the exception
 		}
@@ -91,9 +91,9 @@ var Sync={
 		// 获取本地说有缓存信息 删除过期的，超长的，净化系统
 		try {
 			const res = uni.getStorageInfoSync();
-			console.log(res.keys);
-			console.log(res.currentSize);
-			console.log(res.limitSize);
+// 			console.log(res.keys);
+// 			console.log(res.currentSize);
+// 			console.log(res.limitSize);
 		} catch (e) {
 			// error
 		}

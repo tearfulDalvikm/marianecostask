@@ -1,16 +1,20 @@
 // 模拟数据请求部分 ————————————————————————————————————————————————————————————————————
 import ceshiData from './data/index.js';//测试数据代替远程服务器的请求返回数据
-var configure={
-	auth:{
+var access_token= function(){
+	var token={
+        token:'xfdsgsdafgatoken',
 		userId:'1234',
-		sesionId:'12315465213',
-		},
+		time:Date.now()
+		}
+        return token.token+'.'+token.userId+'.'+token.time;
 	
 }
 //实际项目使用中请删除这个函数
 var ceshifun=(Obj)=>{
 	console.log(Obj)
 	if(ceshiData[Obj.url]){
+        console.log('模拟数据请求成功')
+            // console.log(ceshiData[Obj.url])
 		if(Obj.success && typeof Obj.success=='function'){
 		Obj.success({header:'',data:{code:200,message:'ok',data:ceshiData[Obj.url]}});	
 		}else{
@@ -75,7 +79,9 @@ function request(Obj){
 	uni.hideLoading();//关闭等等框
 		console.log(e)
 	}
-
+    if(data.access_token){
+        data.access_token=access_token;
+    }
 	uni.request({
 		method:method,
 		url: url, //仅为示例，并非真实接口地址。

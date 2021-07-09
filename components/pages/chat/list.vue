@@ -3,7 +3,10 @@
 			<view class="uni-list-cell" hover-class="uni-list-cell-hover" v-for="(value,key) in list" :key="key">
 				<view class=" uni-media-list tui-flex" @tap="goPage(value)">
 					<view class="uni-media-list-logo " style="position: relative;">
-						<view v-if="value.msg" class="tui-bagde" style="z-index: 1;"> <text v-if="value.msg<10">{{value.msg}}</text><text v-else>…</text></view>
+						<view v-if="value.msg" class="tui-bagde" style="z-index: 1;"> 
+                        <text v-if="value.msg<10">{{value.msg}}</text>
+                        <text v-else>…</text>
+                        </view>
 						<image v-if="showImg" :src="value.img" style="z-index: 0;"></image>
 					</view>
 					<view class="uni-media-list-body tui-item" style="flex: 1;">

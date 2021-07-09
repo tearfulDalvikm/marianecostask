@@ -148,8 +148,8 @@
 		onLoad(e) {
 			this.tableNumbers=Storage.getSync('tableNumbers') || 1;
 			this.peopleNumber=Storage.getSync('peopleNumber') || 1;
-			console.log("onload")
-			console.log(e)
+// 			console.log("onload")
+// 			console.log(e)
 			var order=this.$store.getters.order;
 			if(!order.sum){
 
@@ -167,7 +167,7 @@
 
 			}
 			this.order=order;
-			console.log(order)
+			// console.log(order)
 			
 			let winHeight = uni.getSystemInfoSync().windowHeight;
 			//创建节点选择器 获取底部导航高度 

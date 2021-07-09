@@ -15,11 +15,7 @@
 			</scroll-view>
 </template>
 <script>
-// 	var scrollTop=0;//记录上次滚动的html标签与屏幕顶部的距离
-// 	var scrollTopPx=100;//滚动条滚动范围距离上次大于xx像素开始触发事件
-// 	var scrollTime=300;//滚动条定时器间隔触发时间毫秒 防止触发频率太高性能下降
-// 	var scrollTimeout=0;//记录懒加载定时触发器
-// 	var refreshTimeout=0;//上拉刷新定时器
+
 	import indexShopList from '../../components/template/product/shopList.vue';
 	import bottomNav from '../../components/template/nav/bottom.vue';
 	import bigAd from '../../components/template/swiper/big-ad.vue';
@@ -116,7 +112,7 @@
 							this.productListData = [];
 						// var host=this.$config.host+"";//主服务器地址
 							yc.ajax("index",(res)=>{
-								console.log(res.data)
+								// console.log(res.data)
 										if(res.data.length<this.number){
 											// 如果服务器端数据少于20条关闭下拉触发
 											this.loadingType=0;

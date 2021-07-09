@@ -1,6 +1,9 @@
 <script>
 
 	export default {
+            computed:{
+              // this.$store.getters.user;    
+            },
 		mounted() {
 			 var that=this;
 			// 监听窗口宽高变化
@@ -38,13 +41,6 @@
 		font-size: 1.4em;
         font-family: iconfont;
     }
-/* 	    @font-face {
-        font-family: 'iconfont';
-        src: url('https://at.alicdn.com/t/font_865816_17gjspmmrkti.ttf') format('truetype');
-    }
-    .iconfont{
-        font-family: iconfont;
-    } */
 	/* 以下样式用于 hello uni-app 演示所需 */
 	page {
 		color: #666;

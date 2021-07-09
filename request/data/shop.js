@@ -76,21 +76,21 @@ var goods =[{
 		"id":"2",
 		"shop_id":"1",
 		"title":"面包牛肉",
-		"image":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544204280787&di=64dadf9649f7b6f0f135159cabbe2ae7&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F32fa828ba61ea8d3dd7dc6399c0a304e251f58ab.jpg",
-		"stock":"6",
-		"price":"111.22",
-		"oldprice":"89",
+		"image":"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3598394811,2510299009&fm=27&gp=0.jpg",
+		"stock":6,
+		"price":111.20,
+		"oldprice":89,
 		"categoryId":"1",
 		"version":[
 			{
 				"name":"鱼肉面包",
-				"price":"38.22"
+				"price":38.22
 			},{
 				"name":"猪肉面包",
-				"price":"28.2"
+				"price":28.2
 			},{
 				"name":"牛肉面包",
-				"price":"58.18"
+				"price":58.18
 			}
 		] ,
 		"tip":"自营"
@@ -100,7 +100,7 @@ var goods =[{
 		"shop_id":"1",
 		"categoryId":"2",
 		"title":"鸡排面",
-		"image":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544204280787&di=cfd84df82c675e88976d5cb83049e30d&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Fe824b899a9014c08cbe37399017b02087bf4f436.jpg",
+		"image":"https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1554891209&di=7f3924b8f49b388467d0ac8ba44a788e&src=http://img.article.pchome.net/00/23/22/32/pic_lib/s960x639/31s960x639.jpg",
 		"stock":"3",
 		"price":"93.8",
 		"oldprice":"69",
@@ -276,7 +276,7 @@ var goods =[{
 		"shop_id":"1",
 		"categoryId":"4",
 		"title":"七彩拌面",
-		"image":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544204280696&di=08cc7bcba6c722cf8f63846a472f93c7&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Ffd039245d688d43f1c278dc8761ed21b0ef43b79.jpg",
+		"image":"https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1554891209&di=7f3924b8f49b388467d0ac8ba44a788e&src=http://img.article.pchome.net/00/23/22/32/pic_lib/s960x639/31s960x639.jpg",
 		"stock":"8",
 		"price":"96",
 		"oldprice":"78",
@@ -298,7 +298,7 @@ var goods =[{
 		"shop_id":"1",
 		"categoryId":"2",
 		"title":"南极鲜虾",
-		"image":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1544204280691&di=655e46080cb185c45ab6f3d97b972b6a&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Fbf096b63f6246b60e3d2c94ee0f81a4c510fa228.jpg",
+		"image":"https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1554891209&di=7f3924b8f49b388467d0ac8ba44a788e&src=http://img.article.pchome.net/00/23/22/32/pic_lib/s960x639/31s960x639.jpg",
 		"stock":"10",
 		"price":"128",
 		"oldprice":"99",

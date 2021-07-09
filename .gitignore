@@ -2,3 +2,5 @@
 /.gitee/*
 /git-tmp/*
 /platforms/*
+*.zip
+*.bak

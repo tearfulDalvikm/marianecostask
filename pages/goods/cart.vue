@@ -172,13 +172,14 @@
 							good.title=cartData[key].title;
 							good.versionName=cartData[key].versionName;
 							orderData.push(good);
-							sum+=good.price*good.number
+							sum+=(good.price*good.number)
 
 							
 						}
 					}
 					var shop=this.$store.getters.shop;
-					var orders={sn:new Date().getTime(),shop_id:id,shop_name:shop.shop_name,sum:sum,goods:orderData}
+					var orders={sn:new Date().getTime(),shop_id:id,shop_name:shop.shop_name,sum:Math.floor(sum*100)/100,goods:orderData};
+                    console.log(orders)
 					this.$store.commit('order',orders)
 
 				}else{
