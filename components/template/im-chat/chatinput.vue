@@ -54,11 +54,12 @@
 
 <style>
 	.footer {
+        box-sizing: border-box;
 		display: flex;
 		flex-direction: row;
 		width: 100%;
-		height: 80upx;
-		min-height: 80upx;
+		height: 90upx;
+		min-height: 90upx;
 		border-top: solid 1px #bbb;
 		overflow: hidden;
 		padding: 5upx;
@@ -66,7 +67,7 @@
 	}
 	.footer-left {
 
-		width: 80upx;
+		width: 100upx;
 		height: 80upx;
 
 		display: flex;
@@ -89,6 +90,8 @@
 		align-items: center;
 	}
 	.footer-center .input-text {
+        
+        width: 100%;
 		flex: 1;
 		background: #fff;
 		border: solid 1upx #ddd;

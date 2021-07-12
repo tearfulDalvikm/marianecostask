@@ -16,7 +16,7 @@
 								已选：<text class="uni-badge tui-button tui-tag"   style="line-height: 1.6;height: 1.6em;" >{{goods.versionName}}</text>
 							</view>
 							<view class="tui-item number-box" style="font-size:1.5em ;" >
-								<number-box :min="1" :max="parseInt(goods.stock)"  :value="number"   v-on:change="numberUpdate" ></number-box>
+								<!-- <number-box :min="1" :max="parseInt(goods.stock)"  :value="number"   v-on:change="numberUpdate" ></number-box> -->
 							</view>
 						</view>
 					</view>
@@ -31,11 +31,11 @@
 </template>
 
 <script>
-	import numberBox from '../box/number.vue';
+	// import numberBox from '../box/number.vue';
 	var timeOut=0;
 	export default {
 		components: {
-			numberBox
+			// numberBox
 		},
 		props:{
 			goods:{
@@ -129,9 +129,7 @@
 </script>
 
 <style>
-/* 	.number-box icon{
-		color: #09BB07;
-	} */
+
 
 	.tui .line-height6{
 		line-height: 1.6;
@@ -147,7 +145,7 @@
 		flex-direction: column;
 		justify-content: flex-end;
 		height: 180upx;
-		/* background: #0062CC; */
+
 	}
 	.tui .toubu >.toubu-list{
 		height: 180upx;
@@ -159,7 +157,7 @@
 		width:280upx ;
 	}
 	.tui .toubu .toubu-list .left >.img{
-		/* background: #808080; */
+
 		bottom: 0;
 		height: 240upx;
 		width: 240upx;
@@ -174,7 +172,6 @@
 		padding: 20upx;
 		justify-content: center;
 		text-align: left;
-		/* padding: 10upx; */
 		box-sizing: border-box;
 	}
   
@@ -182,10 +179,9 @@
 	.tui .tui-tag{
 		font-size: 1.2em;
 		text-align: center;
-		/* color:#333; */
+
 		line-height: 40upx;
-		/* background:#007AFF; */
-		/* border-radius: 3upx; */
+
 		border:#f9f9f9 solid 1upx;
 	}
 	.tui .tui-button:hover{
@@ -196,9 +192,7 @@
 	}
 	.tui .tui-drawer{
 		height: 100%;
-		/* padding-bottom: 100upx; */
 		top:0;
-		/* height: 100%; */
 		bottom: 0;
 		background: rgba(0,0,0,0.5);
 		transition:top 1s;
@@ -208,7 +202,7 @@
 	}
 	.tui-drawer .tui-list{
 		border:#f9f9f9 solid 1upx;
-		/* justify-content:; */
+
 		box-sizing: border-box;
 		height: 200upx;
 		overflow-y:auto;
@@ -216,13 +210,7 @@
 	.tui .tui-list::-webkit-scrollbar {
 		 display: none;
 	}
-/* 	.tui .tui-drawer > .item{
-		margin: 10upx;
-		height: 40upx;
-		width: 100%;
-		line-height: 40upx;
 
-	} */
 
 
 </style>

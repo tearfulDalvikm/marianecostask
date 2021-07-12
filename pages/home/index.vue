@@ -58,7 +58,7 @@
 						fn:this.tijiao,
 						msg:1,
 						name:'订单',
-						ico:'&#xe8cd;',
+						ico:'&#xe8e8;',
 						url:'/pages/order/list'
 					},
 					{
