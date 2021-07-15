@@ -105,7 +105,7 @@
 </template>
 
 <script>
-	import Storage from "../../common/utils/Storage.js";
+	import {Storage} from '@/common/yc_js/';
 	// import ajax from "../../request/ajax.js";
 	// import uniIcon from "../../components/template/icon/icon.vue";
 	export default {

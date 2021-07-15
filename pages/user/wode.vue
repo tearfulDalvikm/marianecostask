@@ -48,7 +48,7 @@
     </view>
 </template>
 <script>
-    import Storage from "../../common/utils/Storage.js";
+    import {Storage} from '@/common/yc_js/';
     export default {
         props: ['contentHeight'],
         data() {
@@ -88,7 +88,7 @@
                         // 						{name:'抽奖',icon:'choujiang.png'},
                         {
                             name: '收货地址',
-                            icon: '&#xe920;',
+                            icon: '&#xe8dd;',
                             url: '../user/address'
                         },
                         // {name:'银行卡',icon:'bank.png'},

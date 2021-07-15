@@ -1,7 +1,7 @@
 <template>
 
 		<view class="tui tui-flex uni-numbox" style="align-items: center;">
-			<text class="iconfont  color-ju" :class="{'uni-numbox-disabled': disableSubtract}"  @click="_calcValue('subtract')">&#xe931;</text>
+			<text class="iconfont  color-ju" :class="{'uni-numbox-disabled': disableSubtract}"  @click="_calcValue('subtract')">&#xe756;</text>
 			<view class="tui-center" style="width: 50upx;">{{inputValue}}</view>
 			<text class="iconfont  color-ju"    :class="{'uni-numbox-disabled': disableAdd}" @click="_calcValue('add')">&#xe600;</text>
 		</view>

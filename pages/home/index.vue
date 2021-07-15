@@ -6,7 +6,7 @@
 			<page-chat :winHeight="winHeight" :contentHeight="contentHeight"  v-if="index=='2'"></page-chat>
 			<page-wode :winHeight="winHeight" :contentHeight="contentHeight" v-if="index=='3'"></page-wode>
 		</view>
-		<view class="uni-flex" style="height: 98upx; border-top:1px solid #F5F5F5;" >
+		<view class="uni-flex" style="height: 98upx; border-top:1px solid #DDDDDD;" >
 			<view  class="uni-flex-item uni-flex uni-column tui-center" v-for="(item,idx) in bottomNav" :key="idx" @tap="tijiao(idx,item)"  :class="index==idx?'uni-badge-primary uni-badge-inverted':''">
 	
 					<view class="nav-icon uni-item">
@@ -16,7 +16,7 @@
 								<text v-else>{{item.msg}}</text>
 							</view>
 						</view>
-						<text class="uni-item iconfont" style="font-size:1.6em;line-height: 1.3em;" v-html="item.ico"></text>
+						<view class="uni-item iconfont" style="font-size:1.6em;line-height: 1.3em;" v-html="item.ico"></view>
 					</view>
 					<view class="uni-item nav-title">
 							{{item.name}}
@@ -58,21 +58,21 @@
 						fn:this.tijiao,
 						msg:1,
 						name:'订单',
-						ico:'&#xe8e8;',
+						ico:'&#xe8cd;',
 						url:'/pages/order/list'
 					},
 					{
 						fn:this.tijiao,
 						msg:23,
 						name:'消息',
-						ico:'&#xe872;',
+						ico:'&#xe632;',
 						url:'/pages/chat/list'
 					},
 					{
 						fn:this.tijiao,
 						msg:0,
 						name:'我的',
-						ico:'&#xe8ea;',
+						ico:'&#xe604;',
 						url:'/pages/user/wode'
 					}
 				]
@@ -82,6 +82,7 @@
 				let winHeight = uni.getSystemInfoSync().windowHeight;
 			//创建节点选择器 获取底部导航高度 
 				this.contentHeight=(winHeight-uni.upx2px(100));
+                console.log(this.contentHeight)
 				this.winHeight = winHeight;
 			// console.log("template/nav/bottom/mounted")
 		

@@ -35,9 +35,9 @@
 
 <script>
 	// import Time from "../../common/utils/Time.js";
-	import Storage from "../../common/utils/Storage.js";
-	import Url from '../../common/utils/Url.js';
-	import ajax from "../../request/ajax.js";
+
+	import {Url,ajax,Storage} from '@/common/yc_js/';
+
 	// import crop from '../../pages/tool/crop.vue';
 	// import mpvuePicker from '../../components/mpvue-picker/mpvuePicker.vue';
 	import mpvueCityPicker from '../../components/mpvue-citypicker/mpvueCityPicker.vue'

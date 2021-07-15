@@ -4,34 +4,34 @@
 
         <nav class="uni-flex tui-bottom-nav" style="">
 
-            <view class="uni-flex-item uni-flex tui-center" style="justify-content: space-around;padding: 0;">
-                <view class="tui-flex tui-column" style="font-size: 1.1em;line-height: 1.3em;" @tap="goPage('about')">
-                    <text class="iconfont">&#xe8c7;</text>
+            <view class="uni-flex-item uni-flex tui-center" style="justify-content: space-around;padding: 0;font-size:1.5em;">
+                <view class="tui-flex tui-column" style="line-height: 1.3em;" @tap="goPage('about')">
+                    <text class="iconfont" style="font-size:1.5em;">&#xe8c7;</text>
                     <text style="font-size:0.6em ;">店家</text>
                 </view>
-                <view class="tui-flex tui-column" style="font-size: 1.1em;line-height: 1.3em;" @tap="goPage('chat')">
-                    <text class="iconfont">&#xe8b4;</text>
+                <view class="tui-flex tui-column" style="line-height: 1.3em;" @tap="goPage('chat')">
+                    <text class="iconfont" style="font-size:1.5em;">&#xe8b4;</text>
                     <text style="font-size:0.6em ;">客服</text>
                 </view>
-                <view class="tui-flex tui-column" style="font-size: 1.1em;line-height: 1.3em;" @tap="goPage('chatIndex')">
-                    <text class="iconfont">&#xe872;</text>
+                <view class="tui-flex tui-column" style="line-height: 1.3em;" @tap="goPage('chatIndex')">
+                    <text class="iconfont" style="font-size:1.5em;">&#xe632;</text>
                     <text style="font-size:0.6em ;">消息</text>
                 </view>
                 <!-- 					<view class="tui-flex tui-column" style="font-size: 1.4em;line-height: 0.8em;" @tap="goPage('order')">
 						<text class="iconfont">&#xe8cd;</text>
 						<text style="font-size:0.4em ;">订单</text>
 					</view> -->
-                <view class=" tui-flex tui-column" style="font-size: 1.1em;line-height: 1.3em;" @tap="goPage('wode')">
-                    <text class="iconfont">&#xe8ea;</text>
+                <view class=" tui-flex tui-column" style="line-height: 1.3em;" @tap="goPage('wode')">
+                    <text class="iconfont" style="font-size:1.5em;">&#xe604;</text>
                     <text style="font-size:0.6em ;">我的</text>
                 </view>
-                <view class=" tui-flex tui-column" style="font-size: 1.1em;line-height: 1.3em;padding: 0;" @tap="goPage('cart')">
+                <view class=" tui-flex tui-column" style="line-height: 1.3em;padding: 0;" @tap="goPage('cart')">
 
                     <view class="iconfont" style="position: relative;" :style="cartItemCount?'color:red':''">
-                        <view class="" style="font-size: 0.7em;position: absolute;right:30%;top:-10upx">
+                        <view class="" style="font-size: 0.7em;position: absolute;right:30%;top:-10upx;right: 15px;">
                             <text style="font-size:0.5em ;" class="uni-badge uni-badge-danger">{{cartItemCount}}</text>
                         </view>
-                        <text class="iconfont" style="font-size:1em;">&#xe8d2;</text>
+                        <text class="iconfont" style="font-size:1.5em;">&#xe8d2;</text>
 
                     </view>
                     <view style="font-size:0.6em;">¥{{cartTotal}}</view>
@@ -73,13 +73,13 @@
                             </view>
                             <view class="tui-center" style="display: flex;">
                                 <text class="iconfont" :class="cart[item.id] && cart[item.id].number && cart[item.id].number>0 ?'color-ju':''"
-                                    @tap="selectList(item,key,'-')" style="width: 50upx;">&#xe931;</text>
+                                    @tap="selectList(item,key,'-')" style="width: 50upx;font-size: 1.3em;">&#xe756;</text>
                                 <view class="" style="width: 50upx;">
                                     <text v-if=" cart[item.id]">{{cart[item.id].number}}</text>
                                     <text v-else>0</text>
                                 </view>
                                 <text class="iconfont" :class="cart[item.id] && cart[item.id].number && cart[item.id].number<cart[item.id].stock ?'color-ju':''"
-                                    style="width: 50upx;" @tap="selectList(item,key,'+')">&#xe600;</text>
+                                    style="width: 50upx;font-size: 1.3em;" @tap="selectList(item,key,'+')">&#xe600;</text>
                             </view>
                         </view>
                         <view v-if="item.version[0]" class="" style="white-space:nowrap;overflow-y:hidden;width:350upx;">
@@ -101,7 +101,7 @@
 
 <script>
     // import numberBox from '../../components/template/box/number.vue'
-    import Storage from "../../common/utils/Storage.js";
+    import {Storage} from '@/common/yc_js/';
     // import uniDrawer from '../../components/template/drawer/drawer.vue';
     import Request from "../../request/index.js"
     var timeOut = '';
@@ -164,7 +164,7 @@
         computed: {
             cartItemCount: {
                 get() {
-                    console.log(this.$store.getters.cartItemCount)
+                    // console.log(this.$store.getters.cartItemCount)
                     return this.$store.getters.cartItemCount
                 }
             },

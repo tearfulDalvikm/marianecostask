@@ -3,7 +3,13 @@
         {
             "path": "pages/home/index",
             "style": {
-                "navigationBarTitleText": "首页"
+                "navigationBarTitleText": "首页",
+                "navigationStyle":"custom"
+            }
+        }, {
+            "path": "pages/home/list",
+            "style": {
+                "navigationBarTitleText": "商铺列表"
             }
         },
         {

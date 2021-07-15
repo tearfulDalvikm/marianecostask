@@ -165,15 +165,17 @@ function ajax(apiNameStr, requeObj) {
             if (runLocal) {
                 // apiObj = ceshiData
                 // var Obj = ceshiData[apiNameStr]
-                console.log(requeObj)
+                // console.log(requeObj)
                 // requeObj.code=200;
 
                 requeObj.data.code = 200;
                 requeObj.data.data = ceshiData[apiNameStr]
                 resolve(requeObj)
+            }else{
+                uni.request(requeObj)
             }
             // console.log(requeObj)
-            uni.request(requeObj)
+            
             // 			// 合并 用户请求参数+系统预置请求参数	
         } else {
             resolve(false)

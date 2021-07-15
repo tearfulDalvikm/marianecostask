@@ -6,7 +6,7 @@
                 <view class="image-view" @tap="goTo(product)">
                     <text class="tui-button tui-tip" style="right: 0;position: absolute;z-index: 1;">{{product.tip}}</text>
 
-                    <view v-if="!product.show && index>showImageNum" :data-index="index" class="uni-product-image  lazy"
+                    <view v-if="product.show && index>showImageNum" :data-index="index" class="uni-product-image  lazy"
                         style="display: flex;justify-content:center ;flex-direction:column">
                         图片加载中...
                     </view>
@@ -87,18 +87,22 @@
             },
             load(e) {
                 var that = this;
-                console.log('触发懒加载扫描')
-                uni.createSelectorQuery().selectAll('.lazy').boundingClientRect((images) => {
-                    console.log(images)
+                console.log({text:'触发懒加载扫描',windowHeight:this.windowHeight})
+                var query=uni.createSelectorQuery();
+                // console.log(query.in(this))
+                query.in(this).selectAll('.lazy').boundingClientRect((images) => {
+                    // console.log(images)
                     // setTimeout(() => {
                     // if (images.forEach) {
                     images.forEach((image, index) => {
+                        // console.log(JSON.stringify(image))
                         // console.log(image.dataset.index+'top:'+image.top)
                         // console.log(image.dataset.index+'bottom:'+image.bottom)
 
                         if (image.bottom < this.windowHeight) {
+                            console.log({bot:image.bottom,height:this.windowHeight,img:JSON.stringify(image)})
                             that.imageShow(image.dataset.index)
-                            console.log(image)
+                            // console.log(image)
                         }
                     })
                     // }
@@ -106,15 +110,17 @@
                 }).exec()
             },
             imageShow(index) {
+                console.log(index)
                 var data = this.productList[index];
                 if (data.show != true) {
                     clearTimeout(timeOut)
                     data.show = true;
                     timeOut = setTimeout(() => {
-                        console.log(data)
+                        // console.log(data)
                         // 异步处理 防止数据未显示出来
                         this.$set(this.productList, index, data)
-                    }, 50)
+                        console.log(this.productList)
+                    }, 100)
                 }
             },
 

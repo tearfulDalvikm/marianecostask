@@ -37,8 +37,8 @@
 </template>
 <script>
     import Request from '@/request/index.js'
-    import uniMediaList from '@/components/uni-media-list/uni-media-list-2.vue';
-    import uniLoadMore from '@/components/uni-load-more/uni-load-more.vue';
+    import uniMediaList from '@/components/template/uni-media-list/uni-media-list-2.vue';
+    import uniLoadMore from '@/components/template/uni-load-more/uni-load-more.vue';
     import {
         Time
     } from '@/common/yc_js/index.js';

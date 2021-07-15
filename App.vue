@@ -36,7 +36,18 @@
     @import "./common/css/tui.css";
     @import "./common/yc.css";
 
+    .color-font {
+        color: #F7F7F7;
+    }
 
+    .color-background {
+        color: #333333;
+        background: #F7F7F7;
+    }
+    .color-nav{
+        background: #0A98D5;
+        color: #ffffff;
+    }
     /* 以下样式用于 hello uni-app 演示所需 */
     page {
         color: #666;

@@ -46,7 +46,7 @@
                         </view>
                     </view>
                     <view class="li-box iconfont" @tap="tapOption(idx)">
-                        &#xe7a5;
+                        &#xe8fa;
                     </view>
                 </view>
 
@@ -75,8 +75,8 @@
 </template>
 <script>
     import Request from '@/request/index.js'
-    import uniMediaList from '@/components/uni-media-list/uni-media-list-2.vue';
-    import uniLoadMore from '@/components/uni-load-more/uni-load-more.vue';
+    import uniMediaList from '@/components/template/uni-media-list/uni-media-list-2.vue';
+    import uniLoadMore from '@/components/template/uni-load-more/uni-load-more.vue';
     import {
         Time
     } from '@/common/yc_js/index.js';
@@ -124,19 +124,23 @@
                     classify_id: 123
                 }],
                 List: [{
+                    ranking: 1,
                     id: 123,
                     name: '西点',
                     count: 100
                 }, {
                     id: 124,
+                    ranking: 1,
                     name: '中餐',
                     count: 3
                 }, {
                     id: 125,
+                    ranking: 1,
                     name: '冷饮',
                     count: 4
                 }, {
                     id: 'no',
+                    ranking: 1,
                     name: '未分类',
                     count: 51
                 }],
@@ -146,37 +150,42 @@
             }
         },
         computed: {
+            // listObj() {
+            //     var List = this.List;
+            //     var ls = {};
+            //     for (var i = 0; i < List.length; i++) {
+            //         ls[List[i].id] = List[i];
+            //     }
+
+            //     return ls;
+            // },
             listData() {
                 var goods = this.goods;
-                // var orderGoods=this.goods;
-                
+
                 var list = this.List.filter(e => {
-                    var gs = goods;
-                    e.goods = goods.filter((item, i) => {
-                        // console.log({item,i})
-                        if (item.classify_id == e.id) {
-                            // goods =goods.slice(i, 1)
-                            console.log({goods})
-                            // i=i-1;
-                            return item
+                    var gs = e.goods || [];
+
+                    for (var i = 0; i < goods.length; i++) {
+                        if (goods[i].classify_id == e.id) {
+                            goods[i].classIs=true;
+                            gs.push(goods[i]);
+                            // goods = goods.slice(i, 1);
+                            // i = i - 1;
+                            console.log(goods[i]);
                         }
-                    })
-                    // for (var i = 0; i < goods.length; i++) {
-                    //     if (goods[i].classify_id == e.id) {
-                    //         e.goods.push(goods[i]);
-                    //         gs = goods.slice(i, 1)
-                    //         // i=i-1;
-                    //     }
-                    // }
-                    console.log( {gs,goods})
-                    // goods = gs;
+                    }
+
                     return e
                 })
-                console.log({
-                    goods,
-                    list
-                })
-                list[list.length - 1].goods = goods
+                var noClass=[];
+                for (var i = 0; i < goods.length; i++) {
+                    if(!goods[i].classIs){
+                        noClass.push(goods[i])
+                    }
+                }
+                list.push({goods:noClass,id:'no',name:'未分类'})
+
+
                 return list
             },
             scrollViewHeight() {
@@ -203,6 +212,7 @@
         },
         methods: {
             open(idx) {
+                console.log(idx)
                 this.index = idx;
             },
             tapOption(idx) {
@@ -540,79 +550,6 @@
                 })
             },
 
-            //             async changeTab(event) {
-            //                 let index = event.detail.current;
-            //                 if (this.isClickChange) {
-            //                     this.tabIndex = index;
-            //                     this.isClickChange = false;
-            //                     return;
-            //                 }
-            //                 let tabBar = await this.getElSize('tab-bar');
-            //                 let tabBarScrollLeft = tabBar.scrollLeft;
-            //                 let width = 0;
-            // 
-            //                 for (let i = 0; i < index; i++) {
-            //                     let result = await this.getElSize(this.tabBars[i].ref);
-            //                     width += result.width;
-            //                 }
-            //                 let winWidth = uni.getSystemInfoSync().windowWidth,
-            //                     nowElement = await this.getElSize(this.tabBars[index].ref),
-            //                     nowWidth = nowElement.width;
-            //                 if (width + nowWidth - tabBarScrollLeft > winWidth) {
-            //                     this.scrollLeft = width + nowWidth - winWidth;
-            //                 }
-            //                 if (width < tabBarScrollLeft) {
-            //                     this.scrollLeft = width;
-            //                 }
-            //                 this.isClickChange = false;
-            //                 this.tabIndex = index;
-            // 
-            //                 // 首次切换后加载数据
-            //                 const activeTab = this.newsList[this.tabIndex];
-            //                 if (activeTab.data.length === 0) {
-            //                     this.getList();
-            //                 }
-            //             },
-            // getNodeSize(node) {
-            //     return new Promise((resolve, reject) => {
-            //         dom.getComponentRect(node, (result) => {
-            //             resolve(result.size);
-            //         });
-            //     });
-            // },
-
-            // getElSize(id) { //得到元素的size
-            //     return new Promise((res, rej) => {
-            //         uni.createSelectorQuery().select('#' + id).fields({
-            //             size: true,
-            //             scrollOffset: true
-            //         }, (data) => {
-            //             res(data);
-            //         }).exec();
-            //     });
-            // },
-            //             async tapTab(index, tab) {
-            //                 //点击tab-bar
-            //                 if (tab && tab.ref == 'publish') {
-            //                     // console.log(tab)
-            //                     uni.navigateTo({
-            //                         url: '/pages/news/my/' + tab.ref,
-            //                         // url: '/pages/news/detail?query=' + encodeURIComponent(JSON.stringify(detail))
-            //                     });
-            //                 } else {
-            //                     if (this.tabIndex === index) {
-            //                         return false;
-            //                     } else {
-            //                         this.tabIndex = index;
-            //                         // 首次切换后加载数据
-            //                         const activeTab = this.tabBars[this.tabIndex];
-            //                         if (activeTab.data.length === 0) {
-            // 
-            //                             this.getList();
-            //                         }
-            //                     }
-            //                 }
-            //             }
         }
     }
 </script>

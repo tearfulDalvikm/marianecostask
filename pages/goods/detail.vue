@@ -69,8 +69,7 @@
 
 <script>
 
-	import ajax from "../../request/ajax.js"
-	import Storage from "../../common/utils/Storage.js"
+	import {ajax,Storage} from '@/common/yc_js/';
 	import drawerBottom from '../../components/template/drawer/bottom.vue'
 	// import icon from '../../components/template/icon/icon.vue'
 	export default {

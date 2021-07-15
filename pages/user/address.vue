@@ -16,7 +16,7 @@
 						<label class="">地址</label>
 						<view class="tui-item">{{item.address}}</view>
 							
-						<text class="iconfont" style="font-size:0.9em" @tap="delet(index)"  >&#xe964;</text>
+						<text class="iconfont" style="font-size:0.9em" @tap="delet(index)"  >✕</text>
 					</view>
 					
 				</view>	
@@ -28,7 +28,7 @@
 					</view>
 					<view style="opacity: 1;position: absolute;z-index: 2; width: 100%;height:;background: #FFFFFF;margin-top: 20%;"  class="tui-flex tui-column">
 							<view class="tui-center tui-padding">输入新地址 
-								<text class="iconfont " style="position: absolute;right: 10upx;" @tap="hasAddress=!hasAddress" >&#xe964;</text>
+								<text class="iconfont " style="position: absolute;right: 10upx;" @tap="hasAddress=!hasAddress" >✕</text>
 							</view>
 							<view class="tui-flex tui-column uni-card">
 								<view class="tui-flex tui-padding ">
@@ -65,8 +65,8 @@
 </template>
 
 <script>
-	import Validate from "../../common/utils/Validate.js";
-	import Storage from "@/common/utils/Storage.js";
+
+	import {Storage,Validate} from '@/common/yc_js/';
 	export default {
 		data(){
 			return {

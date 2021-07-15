@@ -47,7 +47,7 @@
 <script>
 	import captchaInput from '../../components/template/verify/captchaInput.vue';
 	import graceChecker from '../../common/graceChecker.js';
-	import Md5  from '../../common/utils/Md5.js'; 
+	import {Md5}  from '@/common/yc_js/';
     export default {
         data() {
             return {

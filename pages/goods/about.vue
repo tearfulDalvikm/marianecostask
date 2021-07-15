@@ -49,10 +49,8 @@
 </template>
 
 <script>
-	// import mpvuePicker from '../../components/template/picker/mpvuePicker.vue';
-	// import numberBox from '../../components/template/box/number.vue'
-	import ajax from "../../request/ajax.js"
-	import Storage from "../../common/utils/Storage.js"
+
+	import {Storage,ajax} from '@/common/yc_js/';
 	// import drawerBottom from '../../components/template/drawer/bottom.vue'
 	export default {
 		components: {

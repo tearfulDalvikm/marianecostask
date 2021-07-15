@@ -1,5 +1,5 @@
 
-import Storage from '@/common/utils/Storage.js'
+import {Storage} from '@/common/yc_js/';
 
 	export default{
 	state: {

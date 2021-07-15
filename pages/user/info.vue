@@ -46,9 +46,8 @@
 </template>
 
 <script>
-	import Url from '../../common/utils/Url.js';
-	// import Time from "../../common/utils/Time.js";
-	import Storage from "../../common/utils/Storage.js";
+	import {Url,Storage} from '@/common/yc_js/';
+
 	export default {
 
 		data(){

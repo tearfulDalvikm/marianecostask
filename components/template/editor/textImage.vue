@@ -1,15 +1,12 @@
 <template>
     <view class="uni-row uni-flex">
-        <view class="uni-flex uni-row" style="justify-content: center;align-items: center;background: #00B26A;color: #fff;padding: 5px 5px;writing-mode:tb-rl">
-            内容
-        </view>
         <view class="uni-flex uni-column uni-flex-item" style="">
             <view v-for="(item,idx) in formData" :key="idx" class=" uni-column uni-flex" :class="item.text?'':'red'"
                 style="width: 100%;box-sizing: border-box;width: 100%;position: relative;padding:2px 0px;">
                 <view class="" style="background: #fff;">
                     <view class="iconfont" style="position: absolute;top: 5px;right: 5px;z-index: 5;font-weight: 600;"
                         @tap="tapContent(item.type,idx)">
-                        &#xe7a5;
+                        &#xe8fa;
                     </view>
                     <view v-if="item.type=='image'" @tap="tapContentImg(idx)" class="uni-flex uni-row" style="padding: 20upx;width: 100%;box-sizing: border-box; background: #FFFFFF;justify-content: center;">
 
@@ -57,7 +54,8 @@
                         var formData = this.formData;
                         formData[idx].text = res.tempFilePaths[0]
                         this.$emit('changes', {
-                            tap: 'image',
+                            // type:'add',
+                            tap: 'addImage',
                             data: formData,
                             index: idx
                         })

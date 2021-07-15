@@ -121,8 +121,7 @@
 <script>
 
 	// import orderData from "../../request/data/orderDetail.js";
-	import ajax from "../../request/ajax.js"
-	import Storage from "../../common/utils/Storage.js"
+	import {ajax,Storage} from '@/common/yc_js/';
 	import drawerBottom from '../../components/template/drawer/bottom.vue'
 	export default {
 		components: {

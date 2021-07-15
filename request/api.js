@@ -8,6 +8,9 @@ export default {
     shopList:{
         
     },
+    orderList:{
+        
+    },
     goodsShop: {
         url: API + "/goodsShop",
         // header:{signature:configure.signature},
