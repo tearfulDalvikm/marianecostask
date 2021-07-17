@@ -61,15 +61,16 @@ import {Storage} from '@/common/yc_js/';
 		},
 		init(state){
 			var that=this;
-			Storage.get('cart'+state.shop.shop_id,function(data){
+			Storage.Sync.get('cart'+state.shop.shop_id,function(data){
 				if(data){
 					that.commit('cart',data)
 				}
 			})
 		},
 		cartCount(state){
-			Storage.reset();
-			Storage.resetSync();
+   //          console.log(Storage)
+			// Storage.Sync.reset();
+			// Storage.Sync.resetSync();
 			// 统计购物车
 			var cart=state.cart;
 			var total=0;//订单总价
@@ -90,7 +91,7 @@ import {Storage} from '@/common/yc_js/';
 			state.cartCount=count;
 			state.cartTotal=Math.floor(total*100)/100;
 			state.cartItemCount=itemCount;
-			Storage.set('cart'+state.shop.shop_id,cart,5000);	
+			Storage.Sync.set('cart'+state.shop.shop_id,cart,5000);	
 		},
 		cart(state,Cart){
 			state.cart=Cart;

@@ -140,14 +140,14 @@
 		},
 		watch:{
 			tableNumbers(val){
-				Storage.setSync('tableNumbers',val,72000)
+				Storage.Sync.set('tableNumbers',val,72000)
 			},peopleNumber(val){
-				Storage.setSync('peopleNumber',val,72000)
+				Storage.Sync.set('peopleNumber',val,72000)
 			}
 		},
 		onLoad(e) {
-			this.tableNumbers=Storage.getSync('tableNumbers') || 1;
-			this.peopleNumber=Storage.getSync('peopleNumber') || 1;
+			this.tableNumbers=Storage.Sync.get('tableNumbers') || 1;
+			this.peopleNumber=Storage.Sync.get('peopleNumber') || 1;
 // 			console.log("onload")
 // 			console.log(e)
 			var order=this.$store.getters.order;

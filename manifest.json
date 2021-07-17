@@ -115,11 +115,20 @@
         "title" : "一指香飞",
         "template" : "h5",
         "router" : {
-            "base" : "/h5/"
+            "base" : ""
         },
         "devServer" : {
-            "port" : 80
+            "port" : 80,
+            "https" : false
         },
-        "domain" : "http://cs.01film.net/h5"
+        "domain" : "http://xl.01film.cn",
+        "sdkConfigs" : {
+            "maps" : {}
+        },
+        "optimization" : {
+            "treeShaking" : {
+                "enable" : false
+            }
+        }
     }
 }

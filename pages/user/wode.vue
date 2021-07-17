@@ -11,7 +11,7 @@
                         <view class="integral">积分:{{userinfo.integral}}</view>
                     </view>
                 </view>
-                <view class="setting iconfont" style="color: #fff;" @tap="toPage('info')">&#xe8c0;</view>
+                <view class="setting iconfont" style="color: #fff;" @tap="toPage('info')">&#xe62a;</view>
             </view>
             <view class="uni-flex uni-row" style="padding: 5upx 0; box-sizing: border-box;justify-content: space-between;">
                 <view class="uni-row uni-flex" style="justify-content: center;align-items: center;background: #0FAEFF;padding: 5px;color: #fff;">

@@ -80,7 +80,7 @@
                                         placeholder="请输入属性内容" style="background: #f3f3f3;padding: 5px;flex: 1;" />
                                 </view>
                                 <view class="uni-flex iconfont" style="align-self: center;" @tap="delTable('attribute',i)">
-                                    &#xe993;
+                                    ✕
                                 </view>
                             </view>
                         </view>
@@ -178,7 +178,7 @@
                                                     </view>
 
                                                     <view class="uni-flex iconfont" style="align-self: center;" @tap="delTable('compose',i,idx)">
-                                                        &#xe993;
+                                                       ✕
                                                     </view>
                                                 </view>
                                             </view>
@@ -199,7 +199,7 @@
                             </view>
 
                             <view class="uni-flex iconfont" style="align-self: center;" @tap="delTable('version',i)">
-                                &#xe993;
+                                ✕
                             </view>
                         </view>
                     </view>
