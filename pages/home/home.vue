@@ -184,16 +184,17 @@
             <!--        <view @tap="goTop" class="uni-link uni-center uni-common-mt">
             点击这里返回顶部
         </view> -->
-            <mpvue-city-picker :themeColor="themeColor" ref="mpvueCityPicker" :pickerValueDefault="cityPickerValueDefault"
+            <mpvue-city-picker :themeColor="themeColor" ref="mpvueCityPicker" :dataList="cityPickerData" :pickerValueDefault="cityPickerValueDefault"
                 @onConfirm="cityConfirm"></mpvue-city-picker>
         </scroll-view>
     </view>
 </template>
 
 <script>
-    import mpvueCityPicker from '@/components/mpvue-citypicker/mpvueCityPicker.vue';
+    import mpvueCityPicker from '@/components/picker/cityPicker.vue';
     import provinceData from '@/components/picker/city-data/province.js';
     import cityData from '@/components/picker/city-data/city.js';
+    import areaData from '@/components/picker/city-data/area.js';
     import {
         Url
     } from '@/common/yc_js/';
@@ -456,12 +457,13 @@
                 duration: 500,
                 shops:shops,
                 classAll,
-                cityPickerData: [],
+                cityPickerData: [provinceData,cityData,areaData],
                 provinceData: provinceData,
                 cityData: cityData,
 
                 themeColor: '#007AFF',
                 value: '请选择',
+                
                 cityPickerValueDefault: [5, 7, 4],
                 areaObj: {}, //三联地址内容
                 form: {
@@ -598,7 +600,7 @@
             tapCity(e) {
                 console.log(e)
                 // 三级联动选择
-                this.$refs.mpvueCityPicker.show()
+                this.$refs.mpvueCityPicker.show(true)
             },
             cityConfirm(e) {
                 console.log(e)

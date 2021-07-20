@@ -110,10 +110,14 @@
 │	│	└─tui.css			项目自定义的全局css样式
 │	│─icon.css			uni-app官方默认icon
 │	│─uni.css			uni-app官方默认css
-│	└─utils				公共js工具插件目录
-│		│─Arr.js			数组对象处理插件
+│	└─yc-js				公共js工具插件目录
 │		│─Base64.js		base64编码转换工具
+│		│─Id.js		    id生成
+│		│─Img.js		图片处理
+│		│─index.js		入口
+│		│─Json.js		json处理转换
 │		│─Md5.js			Md5编码转换工具
+│		│─Obj.js			数组对象处理
 │		│─Storage.js		Storage缓存工具
 │		│─Time.js			时间格式转换处理工具
 │		│─Url.js			Url地址处理工具
@@ -123,7 +127,8 @@
 │	├─data				模拟请求所需的数据目录，实际开发中，请删除。
 │	│	│─xxx.js			模拟数据
 │	│	└─xxx.js			…………
-│	└─AJAX.js			AJAX请求封装
+│	│─api.js			api接口配置
+│	└─index.js			AJAX请求封装
 │     
 ├─hybrid                存放本地网页的目录，解决小程序只支持网络目录,[详见](https://uniapp.dcloud.io/component/web-view)
 │	└─html
@@ -177,6 +182,12 @@
 │	 	└─payment.vue		    付款
 │     
 ├─static                存放应用引用静态资源（如图片、视频等）的地方，注意：静态资源只能存放于此
+│	├─ad				广告图片目录
+│	│	└─xxx.jpg			图片
+│	├─icon				图标图片目录
+│	│	└─xxx.jpg			图片
+│	├─nav				导航图片目录
+│	│	└─xxx.jpg			图片
 │	├─image				图片目录
 │	│	└─xxx.jpg			图片
 │	└─audio				媒体目录
